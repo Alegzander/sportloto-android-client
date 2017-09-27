@@ -1,5 +1,6 @@
 package com.vovasoft.sportloto.ui.fragments
 
+import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.view.GravityCompat
 import android.support.v4.view.ViewPager
@@ -8,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.vovasoft.sportloto.R
 import com.vovasoft.sportloto.ui.adapters.MainPagerAdapter
+import com.vovasoft.sportloto.view_models.GamesVM
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_main_pager.*
 
@@ -20,14 +22,18 @@ import kotlinx.android.synthetic.main.fragment_main_pager.*
  ****************************************************************************/
 class MainPagerFragment : BaseFragment() {
 
+    private val gamesVM: GamesVM
+        get() = ViewModelProviders.of(activity).get(GamesVM::class.java)
+
+
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater!!.inflate(R.layout.fragment_main_pager, container, false)
     }
 
+
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         drawerBtn.setOnClickListener { activity.drawerLayout.openDrawer(GravityCompat.START) }
-
         setupPager()
     }
 

@@ -16,6 +16,12 @@ class GamesVM : ViewModel() {
 
     private var gamesLiveData = MutableLiveData<List<Game>>()
 
+    private var dailyGameLiveData = MutableLiveData<Game>()
+
+    private var weeklyGameLiveData = MutableLiveData<Game>()
+
+    private var monthlyGameLiveData = MutableLiveData<Game>()
+
     private var isUpdating = false
 
 
@@ -32,11 +38,53 @@ class GamesVM : ViewModel() {
             isUpdating = true
             appRepo.getRemoteGames(object : RepositoryCallback<List<Game>?> {
                 override fun dataUpdated(data: List<Game>?) {
-                    gamesLiveData.value = data ?: listOf()
+
+                    try {
+                        dailyGameLiveData.value = data?.first { game ->
+                            Game.Status.from(game.status) == Game.Status.PUBLISHED && Game.Type.from(game.type) == Game.Type.DAILY
+                        }
+                    }
+                    catch (e: NoSuchElementException) {
+                        e.printStackTrace()
+                    }
+
+                    try {
+                        weeklyGameLiveData.value = data?.first { game ->
+                            Game.Status.from(game.status) == Game.Status.PUBLISHED && Game.Type.from(game.type) == Game.Type.WEEKLY
+                        }
+                    }
+                    catch (e: NoSuchElementException) {
+                        e.printStackTrace()
+                    }
+
+                    try {
+                        monthlyGameLiveData.value = data?.first { game ->
+                            Game.Status.from(game.status) == Game.Status.PUBLISHED && Game.Type.from(game.type) == Game.Type.MONTHLY
+                        }
+                    }
+                    catch (e: NoSuchElementException) {
+                        e.printStackTrace()
+                    }
+
                     isUpdating = false
                 }
             })
         }
+    }
+
+
+    fun getDailyGame() : LiveData<Game> {
+        return dailyGameLiveData
+    }
+
+
+    fun getWeeklyGame() : LiveData<Game> {
+        return weeklyGameLiveData
+    }
+
+
+    fun getMonthlyGame() : LiveData<Game> {
+        return monthlyGameLiveData
     }
 
 }

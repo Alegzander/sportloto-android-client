@@ -45,4 +45,61 @@ data class Game(@Expose @SerializedName("id")
                 @Expose @SerializedName("ending_at")
                 @ColumnInfo(name = "ending_at")
                 var endingAt: String? = null
-)
+) {
+    enum class Type {
+        DAILY,
+        WEEKLY,
+        MONTHLY,
+        UNKNOWN;
+
+        companion object {
+            fun from(findValue: Int?) : Type {
+                return when(findValue) {
+                    10 -> return DAILY
+                    30 -> return WEEKLY
+                    50 -> return MONTHLY
+                    else -> UNKNOWN
+                }
+            }
+        }
+
+        val value: Int
+            get() {
+                return when(this) {
+                    DAILY -> 10
+                    WEEKLY -> 30
+                    MONTHLY -> 50
+                    else -> -1
+                }
+            }
+    }
+
+    enum class Status {
+        PUBLISHED,
+        CANCELLED,
+        FINISHED,
+        UNKNOWN;
+
+        companion object {
+            fun from(findValue: Int?) : Status {
+                return when(findValue) {
+                    10 -> return PUBLISHED
+                    20 -> return CANCELLED
+                    30 -> return FINISHED
+                    else -> UNKNOWN
+                }
+            }
+        }
+
+        val value: Int
+            get() {
+                return when(this) {
+                    PUBLISHED -> 10
+                    CANCELLED -> 20
+                    FINISHED -> 30
+                    else -> -1
+                }
+            }
+    }
+
+}
