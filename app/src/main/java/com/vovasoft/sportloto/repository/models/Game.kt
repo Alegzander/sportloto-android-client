@@ -22,6 +22,18 @@ data class Game(@Expose @SerializedName("id")
                 @ColumnInfo(name = "type")
                 var type: Int? = null,
 
+                @Expose @SerializedName("prize_amount")
+                @ColumnInfo(name = "prize_amount")
+                var prizeAmount: Float? = null,
+
+                @Expose @SerializedName("prize_amount_fiat")
+                @ColumnInfo(name = "prize_amount_fiat")
+                var prizeAmountFiat: Float? = null,
+
+                @Expose @SerializedName("num_players")
+                @ColumnInfo(name = "num_players")
+                var playersNum: Int? = null,
+
                 @Expose @SerializedName("smart_contract_id")
                 @ColumnInfo(name = "smart_contract_id")
                 var smartContractId: String? = null,

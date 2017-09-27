@@ -10,13 +10,15 @@ import android.util.Log
 import android.view.MenuItem
 import android.widget.TextView
 import com.google.firebase.iid.FirebaseInstanceId
+import com.vovasoft.sportloto.App
 import com.vovasoft.sportloto.Preferences
 import com.vovasoft.sportloto.R
 import com.vovasoft.sportloto.ui.fragments.MainPagerFragment
 import com.vovasoft.sportloto.view_models.GamesVM
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.navigation_drawer_layout.*
 
-class MainActivity : LifecycleActivity(), NavigationView.OnNavigationItemSelectedListener {
+class MainActivity : LifecycleActivity() {
 
     private val gamesVM: GamesVM
         get() = ViewModelProviders.of(this).get(GamesVM::class.java)
@@ -31,6 +33,7 @@ class MainActivity : LifecycleActivity(), NavigationView.OnNavigationItemSelecte
         setupDrawer()
 
         Log.w("FirebaseToken", FirebaseInstanceId.getInstance().token ?: "No token")
+        App.updateNotificationToken()
 
         gamesVM.getGamesList().observe(this, Observer { games ->
             games?.let {
@@ -45,21 +48,29 @@ class MainActivity : LifecycleActivity(), NavigationView.OnNavigationItemSelecte
 
     @SuppressLint("SetTextI18n")
     private fun setupDrawer() {
-        navigationView?.setNavigationItemSelectedListener(this)
         navigationView?.refreshDrawableState()
-//        onNavigationItemSelected(navigationView.menu.findItem(R.id.nav_my_orders))
-    }
 
-    override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        val id = item.itemId
-
-        when (id) {
-
+        historyBtn.setOnClickListener {
+            drawerLayout.closeDrawers()
         }
 
-        drawerLayout.closeDrawers()
+        statisticBtn.setOnClickListener {
+            drawerLayout.closeDrawers()
+        }
 
-        return false
+        infoBtn.setOnClickListener {
+            drawerLayout.closeDrawers()
+        }
+
+        whitepaperBtn.setOnClickListener {
+            drawerLayout.closeDrawers()
+        }
+
+        settingsBtn.setOnClickListener {
+            drawerLayout.closeDrawers()
+        }
+
+
     }
 
 }

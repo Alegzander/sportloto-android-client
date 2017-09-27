@@ -9,4 +9,11 @@
     <string name="profile">Профиль</string>
     <string name="daily_lottery">Дневная лотерея</string>
     <string name="prize_fund">Призовой фонд</string>
+    <string name="till_the_end_of_registration">До конца регистрации</string>
+    <string name="weekly_lottery">Недельная лотерея</string>
+    <string name="days">Дни</string>
+    <string name="hours">Часы</string>
+    <string name="hour">Часа</string>
+    <string name="minute">Минут</string>
+    <string name="sec">Сек</string>
 </resources>

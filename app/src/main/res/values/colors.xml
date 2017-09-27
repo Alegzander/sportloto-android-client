@@ -11,5 +11,6 @@
     <color name="colorOrange">#FFCEAB</color>
     <color name="colorPink">#FF988C</color>
     <color name="colorGray">#8E86A2</color>
+    <color name="colorDarkGray">#403d51</color>
 
 </resources>

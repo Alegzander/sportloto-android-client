@@ -35,15 +35,17 @@
 
     </android.support.constraint.ConstraintLayout>
 
+
     <android.support.design.widget.NavigationView
         android:id="@+id/navigationView"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:fitsSystemWindows="true"
-        app:headerLayout="@layout/nav_header_main"
-        app:itemIconTint="@color/colorSemiWhite"
-        app:itemTextColor="@color/colorWhite"
-        app:menu="@menu/drawer_menu" />
+        android:fitsSystemWindows="true">
+
+        <include layout="@layout/navigation_drawer_layout" />
+
+    </android.support.design.widget.NavigationView>
+
 
 </android.support.v4.widget.DrawerLayout>
