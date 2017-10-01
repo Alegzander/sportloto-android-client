@@ -5,6 +5,8 @@ import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import java.text.SimpleDateFormat
+import java.util.*
 
 /***************************************************************************
  * Created by arseniy on 15/09/2017.
@@ -46,6 +48,7 @@ data class Game(@Expose @SerializedName("id")
                 @ColumnInfo(name = "ending_at")
                 var endingAt: String? = null
 ) {
+
     enum class Type {
         DAILY,
         WEEKLY,
@@ -74,6 +77,7 @@ data class Game(@Expose @SerializedName("id")
             }
     }
 
+
     enum class Status {
         PUBLISHED,
         CANCELLED,
@@ -100,6 +104,26 @@ data class Game(@Expose @SerializedName("id")
                     else -> -1
                 }
             }
+    }
+
+    fun startTime() : Long {
+        startedAt?.let {
+            val calendar = Calendar.getInstance().clone() as Calendar
+            val formatter = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault())
+            calendar.time = formatter.parse(it)
+            return calendar.timeInMillis
+        }
+        return Calendar.getInstance().timeInMillis
+    }
+
+    fun endTime() : Long {
+        endingAt?.let {
+            val calendar = Calendar.getInstance().clone() as Calendar
+            val formatter = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault())
+            calendar.time = formatter.parse(it)
+            return calendar.timeInMillis
+        }
+        return Calendar.getInstance().timeInMillis
     }
 
 }

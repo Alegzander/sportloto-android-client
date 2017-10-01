@@ -12,6 +12,8 @@ abstract class BaseFragment : LifecycleFragment() {
 
     open fun onBackPressed() { }
 
+    open fun showLoading(show: Boolean) { }
+
     open fun onNetworkStateChanged(isOnline: Boolean) { }
 
     fun lockDrawerMode(lock: Boolean) {
