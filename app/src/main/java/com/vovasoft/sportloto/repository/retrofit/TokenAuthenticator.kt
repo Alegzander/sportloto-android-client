@@ -1,6 +1,6 @@
 package com.vovasoft.sportloto.repository.retrofit
 
-import android.content.Context
+import com.vovasoft.sportloto.App
 import com.vovasoft.sportloto.BuildConfig
 import com.vovasoft.sportloto.Preferences
 import com.vovasoft.sportloto.R
@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit
 /***************************************************************************
  * Created by arseniy on 15/09/2017.
  ****************************************************************************/
-class TokenAuthenticator(private val context: Context) : Authenticator {
+class TokenAuthenticator : Authenticator {
     /**
      * Returns a request that includes a credential to satisfy an authentication challenge in `response`. Returns null if the challenge cannot be satisfied.
      */
@@ -33,7 +33,6 @@ class TokenAuthenticator(private val context: Context) : Authenticator {
 
         val httpClient = OkHttpClient.Builder()
                 .addInterceptor(logging)
-                .connectionSpecs(Collections.singletonList(spec))
                 .readTimeout(60, TimeUnit.SECONDS)
                 .connectTimeout(60, TimeUnit.SECONDS)
                 .build()
@@ -46,9 +45,9 @@ class TokenAuthenticator(private val context: Context) : Authenticator {
 
         val webservice = retrofit.create(WebService::class.java)
         val authorizationModel = webservice.authorize(AuthorizationRequest(
-                context.getString(R.string.client_id),
-                context.getString(R.string.client_secret),
-                context.getString(R.string.grant_type))).execute().body()
+                App.instance.getString(R.string.client_id),
+                App.instance.getString(R.string.client_secret),
+                App.instance.getString(R.string.grant_type))).execute().body()
 
         authorizationModel?.let {
             Preferences.instance.token = it.token

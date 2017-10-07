@@ -5,6 +5,10 @@ import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import com.vovasoft.sportloto.App
+import com.vovasoft.sportloto.repository.RepositoryCallback
+import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.uiThread
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -106,6 +110,7 @@ data class Game(@Expose @SerializedName("id")
             }
     }
 
+
     fun startTime() : Long {
         startedAt?.let {
             val calendar = Calendar.getInstance().clone() as Calendar
@@ -116,6 +121,7 @@ data class Game(@Expose @SerializedName("id")
         return Calendar.getInstance().timeInMillis
     }
 
+
     fun endTime() : Long {
         endingAt?.let {
             val calendar = Calendar.getInstance().clone() as Calendar
@@ -124,6 +130,21 @@ data class Game(@Expose @SerializedName("id")
             return calendar.timeInMillis
         }
         return Calendar.getInstance().timeInMillis
+    }
+
+
+    fun save() {
+        App.database.gamesDao().insert(this@Game)
+    }
+
+
+    fun saveAsync(callback: RepositoryCallback<Unit>) {
+        doAsync {
+            App.database.gamesDao().insert(this@Game)
+            uiThread {
+                callback.done()
+            }
+        }
     }
 
 }

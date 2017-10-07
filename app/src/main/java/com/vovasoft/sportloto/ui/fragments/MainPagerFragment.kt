@@ -1,7 +1,10 @@
 package com.vovasoft.sportloto.ui.fragments
 
+import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.graphics.PorterDuff
 import android.os.Bundle
+import android.support.v4.content.ContextCompat
 import android.support.v4.view.GravityCompat
 import android.support.v4.view.ViewPager
 import android.view.LayoutInflater
@@ -9,12 +12,9 @@ import android.view.View
 import android.view.ViewGroup
 import com.vovasoft.sportloto.R
 import com.vovasoft.sportloto.ui.adapters.MainPagerAdapter
-import com.vovasoft.sportloto.view_models.GamesVM
+import com.vovasoft.sportloto.view_models.AppVM
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_main_pager.*
-
-
-
 
 
 /***************************************************************************
@@ -22,8 +22,8 @@ import kotlinx.android.synthetic.main.fragment_main_pager.*
  ****************************************************************************/
 class MainPagerFragment : BaseFragment() {
 
-    private val gamesVM: GamesVM
-        get() = ViewModelProviders.of(activity).get(GamesVM::class.java)
+    private val appVM: AppVM
+        get() = ViewModelProviders.of(activity).get(AppVM::class.java)
 
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -35,6 +35,19 @@ class MainPagerFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         drawerBtn.setOnClickListener { activity.drawerLayout.openDrawer(GravityCompat.START) }
         setupPager()
+        observeData()
+    }
+
+    private fun observeData() {
+        appVM.selectedPage.observe(this, Observer {
+            for (i in 0..tabs.tabCount) {
+                val tab = tabs.getTabAt(i)
+                tab?.icon?.setColorFilter(ContextCompat.getColor(context, R.color.colorGray), PorterDuff.Mode.SRC_IN)
+                if (i == it) {
+                    tab?.icon?.setColorFilter(ContextCompat.getColor(context, R.color.colorOrange), PorterDuff.Mode.SRC_IN)
+                }
+            }
+        })
     }
 
 
@@ -55,7 +68,7 @@ class MainPagerFragment : BaseFragment() {
             }
 
             override fun onPageSelected(position: Int) {
-
+                appVM.selectedPage.value = position
             }
 
             override fun onPageScrollStateChanged(state: Int) {

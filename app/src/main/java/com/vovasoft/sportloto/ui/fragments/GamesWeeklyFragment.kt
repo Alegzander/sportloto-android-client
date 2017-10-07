@@ -55,7 +55,7 @@ class GamesWeeklyFragment : BaseFragment() {
 
 
     private fun setupViews(game: Game) {
-        prizeCryptoTv.text = String.format("%.2f", game.prizeAmount)
+        prizeBoard.setValue("%.2f".format(game.prizeAmount))
         prizeFiatTv.text = String.format("$ %.2f", game.prizeAmountFiat)
         peopleTv.text = game.playersNum.toString()
 

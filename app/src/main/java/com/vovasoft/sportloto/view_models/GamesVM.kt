@@ -37,33 +37,18 @@ class GamesVM : ViewModel() {
         if (!isUpdating) {
             isUpdating = true
             appRepo.getRemoteGames(object : RepositoryCallback<List<Game>?> {
-                override fun dataUpdated(data: List<Game>?) {
+                override fun done(data: List<Game>?) {
 
-                    try {
-                        dailyGameLiveData.value = data?.first { game ->
-                            Game.Status.from(game.status) == Game.Status.PUBLISHED && Game.Type.from(game.type) == Game.Type.DAILY
-                        }
-                    }
-                    catch (e: NoSuchElementException) {
-                        e.printStackTrace()
+                    dailyGameLiveData.value = data?.firstOrNull { game ->
+                        Game.Status.from(game.status) == Game.Status.PUBLISHED && Game.Type.from(game.type) == Game.Type.DAILY
                     }
 
-                    try {
-                        weeklyGameLiveData.value = data?.first { game ->
-                            Game.Status.from(game.status) == Game.Status.PUBLISHED && Game.Type.from(game.type) == Game.Type.WEEKLY
-                        }
-                    }
-                    catch (e: NoSuchElementException) {
-                        e.printStackTrace()
+                    weeklyGameLiveData.value = data?.firstOrNull { game ->
+                        Game.Status.from(game.status) == Game.Status.PUBLISHED && Game.Type.from(game.type) == Game.Type.WEEKLY
                     }
 
-                    try {
-                        monthlyGameLiveData.value = data?.first { game ->
-                            Game.Status.from(game.status) == Game.Status.PUBLISHED && Game.Type.from(game.type) == Game.Type.MONTHLY
-                        }
-                    }
-                    catch (e: NoSuchElementException) {
-                        e.printStackTrace()
+                    monthlyGameLiveData.value = data?.firstOrNull { game ->
+                        Game.Status.from(game.status) == Game.Status.PUBLISHED && Game.Type.from(game.type) == Game.Type.MONTHLY
                     }
 
                     isUpdating = false

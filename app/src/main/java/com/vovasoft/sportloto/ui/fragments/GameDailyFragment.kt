@@ -12,6 +12,14 @@ import com.vovasoft.sportloto.R
 import com.vovasoft.sportloto.repository.models.Game
 import com.vovasoft.sportloto.view_models.GamesVM
 import kotlinx.android.synthetic.main.fragment_game_daily.*
+import android.opengl.ETC1.getHeight
+import android.opengl.ETC1.getWidth
+import android.view.Display
+import com.vovasoft.sportloto.App
+import android.util.DisplayMetrics
+
+
+
 
 /***************************************************************************
  * Created by arseniy on 16/09/2017.
@@ -55,7 +63,7 @@ class GameDailyFragment : BaseFragment() {
 
 
     private fun setupViews(game: Game) {
-        prizeCryptoTv.text = String.format("%.2f", game.prizeAmount)
+        prizeBoard.setValue("%.2f".format(game.prizeAmount))
         prizeFiatTv.text = String.format("$ %.2f", game.prizeAmountFiat)
         peopleTv.text = game.playersNum.toString()
 

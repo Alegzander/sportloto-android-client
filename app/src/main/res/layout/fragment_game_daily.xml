@@ -14,7 +14,7 @@
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="0dp">
 
-        <TextView
+        <android.support.v7.widget.AppCompatTextView
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -31,7 +31,7 @@
         android:id="@+id/contentFrame"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="invisible">
+        android:visibility="visible">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -71,61 +71,46 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="8dp">
+                android:layout_marginTop="8dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
-                <android.support.v7.widget.AppCompatImageView
-                    android:id="@+id/ethereumImg"
-                    android:layout_width="wrap_content"
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="52dp"
                     android:layout_height="wrap_content"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/ic_ethereum" />
-
-                <android.support.v7.widget.AppCompatTextView
-                    android:id="@+id/eth"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginRight="8dp"
-                    android:layout_marginTop="6dp"
-                    android:includeFontPadding="false"
-                    android:text="Eth"
-                    android:textColor="@color/colorWhite"
-                    android:textSize="15sp"
-                    app:fontFamily="@font/roboto"
-                    app:layout_constraintEnd_toStartOf="@+id/linearLayout"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <LinearLayout
-                    android:id="@+id/linearLayout"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="24dp"
-                    android:layout_marginStart="24dp"
-                    android:background="@drawable/view_rounded_background_semi_black"
-                    android:orientation="horizontal"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/ethereumImg"
                     app:layout_constraintTop_toTopOf="parent">
 
+                    <android.support.v7.widget.AppCompatImageView
+                        android:id="@+id/ethereumImg"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ic_ethereum" />
 
                     <android.support.v7.widget.AppCompatTextView
-                        android:id="@+id/prizeCryptoTv"
-                        android:layout_width="match_parent"
+                        android:id="@+id/eth"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="end"
                         android:includeFontPadding="false"
-                        android:paddingEnd="8dp"
-                        android:paddingLeft="8dp"
-                        android:paddingRight="8dp"
-                        android:paddingStart="8dp"
-                        android:text="9,431"
-                        android:textColor="@color/colorOrange"
-                        android:textSize="76sp"
-                        app:fontFamily="@font/roboto_light" />
+                        android:text="Eth"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="15sp"
+                        app:fontFamily="@font/roboto"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </android.support.constraint.ConstraintLayout>
 
-                </LinearLayout>
+                <com.vovasoft.sportloto.ui.widgets.PrizeBoardView.PrizeBoardView
+                    android:id="@+id/prizeBoard"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
             </android.support.constraint.ConstraintLayout>
 
@@ -274,7 +259,7 @@
                             android:layout_weight="1"
                             android:gravity="center"
                             android:includeFontPadding="false"
-                            android:text="@string/hour"
+                            android:text="@string/hours"
                             android:textColor="@color/colorGray"
                             android:textSize="12sp"
                             app:fontFamily="@font/roboto_light" />
@@ -286,7 +271,7 @@
                             android:layout_weight="2"
                             android:gravity="center"
                             android:includeFontPadding="false"
-                            android:text="@string/minute"
+                            android:text="@string/minutes"
                             android:textColor="@color/colorGray"
                             android:textSize="12sp"
                             app:fontFamily="@font/roboto_light" />

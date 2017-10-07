@@ -18,7 +18,10 @@ interface GamesDao {
     fun getGameById(id: Int): Game
 
     @Insert(onConflict= OnConflictStrategy.REPLACE)
-    fun insert(order: Game)
+    fun insert(game: Game)
+
+    @Insert(onConflict= OnConflictStrategy.REPLACE)
+    fun insertAll(games: List<Game>)
 
     @Query("DELETE FROM games")
     fun deleteAll()

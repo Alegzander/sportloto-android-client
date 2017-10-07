@@ -14,7 +14,7 @@ class Preferences private constructor() {
         val instance: Preferences by lazy { Holder.INSTANCE }
     }
 
-    private val sharedPreferences: SharedPreferences = App.instance!!.getSharedPreferences(Preferences::class.java.name, Context.MODE_PRIVATE)
+    private val sharedPreferences: SharedPreferences = App.instance.getSharedPreferences(Preferences::class.java.name, Context.MODE_PRIVATE)
 
     var token: String?
         set(value) = sharedPreferences.edit().putString("token", value).apply()

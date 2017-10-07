@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/view_drawer_menu_background">
+    android:background="@drawable/view_dark_background">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -20,7 +20,7 @@
             tools:layout_editor_absoluteX="24dp"
             tools:layout_editor_absoluteY="36dp">
 
-            <TextView
+            <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -43,11 +43,11 @@
 
         </android.support.constraint.ConstraintLayout>
 
-        <TextView
+        <android.support.v7.widget.AppCompatTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto_light"
-            android:text="Blockchain based lottery"
+            android:text="@string/blockchain_based_lottery"
             android:textColor="@color/colorGray"
             android:textSize="12sp" />
 
@@ -71,14 +71,14 @@
                 android:layout_height="24dp"
                 app:srcCompat="@drawable/ic_history" />
 
-            <TextView
+            <android.support.v7.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="18dp"
                 android:layout_marginStart="18dp"
                 android:fontFamily="@font/roboto_light"
-                android:text="История розыгрышей"
+                android:text="@string/game_history"
                 android:textColor="@color/colorWhite"
                 android:textSize="18sp" />
         </LinearLayout>
@@ -97,14 +97,14 @@
                 android:layout_height="24dp"
                 app:srcCompat="@drawable/ic_statistic" />
 
-            <TextView
+            <android.support.v7.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="18dp"
                 android:layout_marginStart="18dp"
                 android:fontFamily="@font/roboto_light"
-                android:text="Статистика "
+                android:text="@string/statistic"
                 android:textColor="@color/colorWhite"
                 android:textSize="18sp" />
         </LinearLayout>
@@ -123,14 +123,14 @@
                 android:layout_height="24dp"
                 app:srcCompat="@drawable/ic_info" />
 
-            <TextView
+            <android.support.v7.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="18dp"
                 android:layout_marginStart="18dp"
                 android:fontFamily="@font/roboto_light"
-                android:text="Как это работает"
+                android:text="@string/how_it_works"
                 android:textColor="@color/colorWhite"
                 android:textSize="18sp" />
         </LinearLayout>
@@ -149,14 +149,14 @@
                 android:layout_height="24dp"
                 app:srcCompat="@drawable/ic_whitepaper" />
 
-            <TextView
+            <android.support.v7.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="18dp"
                 android:layout_marginStart="18dp"
                 android:fontFamily="@font/roboto_light"
-                android:text="White paper"
+                android:text="@string/white_paper"
                 android:textColor="@color/colorWhite"
                 android:textSize="18sp" />
         </LinearLayout>
@@ -181,14 +181,14 @@
                 android:layout_height="24dp"
                 app:srcCompat="@drawable/ic_settings" />
 
-            <TextView
+            <android.support.v7.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="18dp"
                 android:layout_marginStart="18dp"
                 android:fontFamily="@font/roboto_light"
-                android:text="Настройки"
+                android:text="@string/settings"
                 android:textColor="@color/colorWhite"
                 android:textSize="18sp" />
         </LinearLayout>
@@ -200,12 +200,12 @@
             android:layout_marginTop="18dp"
             android:background="@color/colorDarkGray" />
 
-        <TextView
+        <android.support.v7.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:fontFamily="@font/roboto_light"
-            android:text="Оставайтесь в курсе"
+            android:text="@string/be_aware"
             android:textColor="@color/colorWhite"
             android:textSize="18sp" />
 

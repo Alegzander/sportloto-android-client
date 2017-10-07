@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <com.vovasoft.sportloto.ui.widgets.PrizeBoardView.BlackTabView
+        android:id="@+id/integer10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <com.vovasoft.sportloto.ui.widgets.PrizeBoardView.BlackTabView
+        android:id="@+id/integer1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="4dp" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_light"
+        android:includeFontPadding="false"
+        android:text=","
+        android:textColor="@color/colorOrange"
+        android:textSize="80sp" />
+
+    <com.vovasoft.sportloto.ui.widgets.PrizeBoardView.BlackTabView
+        android:id="@+id/fraction1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <com.vovasoft.sportloto.ui.widgets.PrizeBoardView.BlackTabView
+        android:id="@+id/fraction10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="4dp" />
+
+    <com.vovasoft.sportloto.ui.widgets.PrizeBoardView.BlackTabView
+        android:id="@+id/fraction100"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="4dp" />
+
+</LinearLayout>

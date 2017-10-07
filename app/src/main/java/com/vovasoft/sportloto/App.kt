@@ -17,8 +17,11 @@ import retrofit2.Response
 class App : Application() {
 
     companion object {
-        var instance: App? = null
-        var database: AppDatabase? = null
+        lateinit var instance: App
+            private set
+
+        lateinit var database: AppDatabase
+            private set
 
         fun updateNotificationToken() {
             val webClient = WebClient()
@@ -34,6 +37,5 @@ class App : Application() {
         super.onCreate()
         instance = this
         App.database =  Room.databaseBuilder(this, AppDatabase::class.java, "local_storage").build()
-        Log.e("App", "onCreate")
     }
 }

@@ -8,7 +8,9 @@ import android.util.Log
 import com.google.firebase.iid.FirebaseInstanceId
 import com.vovasoft.sportloto.App
 import com.vovasoft.sportloto.R
+import com.vovasoft.sportloto.ui.fragments.BaseFragment
 import com.vovasoft.sportloto.ui.fragments.MainPagerFragment
+import com.vovasoft.sportloto.ui.fragments.SettingsFragment
 import com.vovasoft.sportloto.view_models.GamesVM
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.navigation_drawer_layout.*
@@ -59,9 +61,19 @@ class MainActivity : LifecycleActivity() {
 
         settingsBtn.setOnClickListener {
             drawerLayout.closeDrawers()
+            AppFragmentManager.instance.openFragment(SettingsFragment(), true)
         }
 
+    }
 
+
+    override fun onBackPressed() {
+        if (AppFragmentManager.instance.backStackSize() == 0) {
+            super.onBackPressed()
+        } else {
+            val fragment = AppFragmentManager.instance.currentFragment as BaseFragment
+            fragment.onBackPressed()
+        }
     }
 
 }

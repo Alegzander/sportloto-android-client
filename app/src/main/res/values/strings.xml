@@ -14,7 +14,15 @@
     <string name="days">Дни</string>
     <string name="hours">Часы</string>
     <string name="minutes">Минуты</string>
-    <string name="hour">Часа</string>
-    <string name="minute">Минут</string>
     <string name="sec">Сек</string>
+    <string name="game_history">История розыгрышей</string>
+    <string name="statistic">Статистика</string>
+    <string name="how_it_works">Как это работает</string>
+    <string name="white_paper">White paper</string>
+    <string name="settings">Настройки</string>
+    <string name="be_aware">Оставайтесь в курсе</string>
+    <string name="blockchain_based_lottery">Blockchain based lottery</string>
+    <string name="english">English</string>
+    <string name="russian">Русский</string>
+    <string name="deutsche">Deutsche</string>
 </resources>
