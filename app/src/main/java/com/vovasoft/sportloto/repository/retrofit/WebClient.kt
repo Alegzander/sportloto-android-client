@@ -1,17 +1,13 @@
 package com.vovasoft.sportloto.repository.retrofit
 
-import com.vovasoft.sportloto.App
 import com.vovasoft.sportloto.BuildConfig
-import com.vovasoft.sportloto.Preferences
+import com.vovasoft.sportloto.components.Preferences
 import okhttp3.CipherSuite
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
-import okhttp3.CipherSuite.TLS_DHE_RSA_WITH_AES_128_GCM_SHA256
-import okhttp3.CipherSuite.TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
-import okhttp3.CipherSuite.TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256
 import okhttp3.ConnectionSpec
 import okhttp3.TlsVersion
 import java.util.*

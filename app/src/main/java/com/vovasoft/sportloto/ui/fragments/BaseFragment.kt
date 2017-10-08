@@ -1,6 +1,6 @@
 package com.vovasoft.sportloto.ui.fragments
 
-import android.arch.lifecycle.LifecycleFragment
+import android.support.v4.app.Fragment
 import android.support.v4.widget.DrawerLayout
 import com.vovasoft.sportloto.ui.MainActivity
 import kotlinx.android.synthetic.main.activity_main.*
@@ -8,7 +8,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 /***************************************************************************
  * Created by arseniy on 15/09/2017.
  ****************************************************************************/
-abstract class BaseFragment : LifecycleFragment() {
+abstract class BaseFragment : Fragment() {
 
     open fun onBackPressed() { }
 

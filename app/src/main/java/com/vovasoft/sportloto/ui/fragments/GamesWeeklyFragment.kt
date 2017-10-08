@@ -65,12 +65,12 @@ class GamesWeeklyFragment : BaseFragment() {
                 val hours = (millisUntilFinished / (1000 * 60 * 60)) % 24
                 val days = (millisUntilFinished / (1000 * 60 * 60 * 24))
 
-                daysValueTv.text = String.format("%02d", days)
-                hourValueTv.text = String.format("%02d", hours)
-                minuteValueTv.text = String.format("%02d", minutes)
+                daysValueTv?.text = String.format("%02d", days)
+                hourValueTv?.text = String.format("%02d", hours)
+                minuteValueTv?.text = String.format("%02d", minutes)
 
                 val progress = ((millisUntilFinished * 100) / (game.endTime() - game.startTime())).toInt()
-                timeProgress.setProgress(progress)
+                timeProgress?.setProgress(progress)
             }
 
             override fun onFinish() {

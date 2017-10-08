@@ -1,4 +1,4 @@
-package com.vovasoft.sportloto
+package com.vovasoft.sportloto.components
 
 /***************************************************************************
  * Created by arseniy on 01/10/2017.

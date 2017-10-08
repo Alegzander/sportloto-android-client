@@ -56,7 +56,7 @@ class GameMonthlyFragment : BaseFragment() {
         peopleTv.text = game.playersNum.toString()
 
         val days = (game.endTime() - System.currentTimeMillis()) / (1000 * 60 * 60 * 24)
-        daysValueTv.text = days.toString()
+        daysBoard.setValue(days.toString())
     }
 
 

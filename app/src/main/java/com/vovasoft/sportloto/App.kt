@@ -2,7 +2,6 @@ package com.vovasoft.sportloto
 
 import android.app.Application
 import android.arch.persistence.room.Room
-import android.util.Log
 import com.google.firebase.iid.FirebaseInstanceId
 import com.vovasoft.sportloto.repository.retrofit.WebClient
 import com.vovasoft.sportloto.repository.retrofit.requests.TokenRegistrationRequest
@@ -32,6 +31,7 @@ class App : Application() {
             })
         }
     }
+
 
     override fun onCreate() {
         super.onCreate()

@@ -2,7 +2,7 @@ package com.vovasoft.sportloto.repository.retrofit
 
 import com.vovasoft.sportloto.App
 import com.vovasoft.sportloto.BuildConfig
-import com.vovasoft.sportloto.Preferences
+import com.vovasoft.sportloto.components.Preferences
 import com.vovasoft.sportloto.R
 import com.vovasoft.sportloto.repository.retrofit.requests.AuthorizationRequest
 import okhttp3.*

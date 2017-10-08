@@ -11,6 +11,7 @@
     <string name="prize_fund">Призовой фонд</string>
     <string name="till_the_end_of_registration">До конца регистрации</string>
     <string name="weekly_lottery">Недельная лотерея</string>
+    <string name="bonus_draw">Бонусный розыгрыш</string>
     <string name="days">Дни</string>
     <string name="hours">Часы</string>
     <string name="minutes">Минуты</string>
@@ -24,5 +25,20 @@
     <string name="blockchain_based_lottery">Blockchain based lottery</string>
     <string name="english">English</string>
     <string name="russian">Русский</string>
-    <string name="deutsche">Deutsche</string>
+    <string name="deutsch">Deutsch</string>
+    <string name="no_games_for_today">На сегодня игр нет</string>
+    <string name="no_weekly_games">На этой неделе игр нет</string>
+    <string name="no_bonus_games">Бонусных игр нет</string>
+    <string name="eth">Eth</string>
+    <string name="participate">Принять участие</string>
+    <string name="participate_price">0,005 Eth</string>
+    <string name="top_places">Призовые места</string>
+    <string name="winner_announcement">До объявления победителя:</string>
+    <string name="you_are_not_in_participants_list">Вас пока нет в списке участников</string>
+    <string name="how_to_participate">Как попасть в розыгрыш?</string>
+    <string name="notify_about">Получать уведомлять о</string>
+    <string name="about_daily_lottery">Дневной лотерее</string>
+    <string name="about_weekly_lottery">Недельной лотерее</string>
+    <string name="about_bonus_draw">Бонусном розыгрыше</string>
+    <string name="language_selection">Вбор языка</string>
 </resources>

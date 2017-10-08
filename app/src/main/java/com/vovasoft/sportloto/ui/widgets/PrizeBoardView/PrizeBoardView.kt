@@ -2,7 +2,6 @@ package com.vovasoft.sportloto.ui.widgets.PrizeBoardView
 
 import android.content.Context
 import android.util.AttributeSet
-import android.util.Log
 import android.widget.FrameLayout
 import com.vovasoft.sportloto.R
 import kotlinx.android.synthetic.main.view_prize_board.view.*

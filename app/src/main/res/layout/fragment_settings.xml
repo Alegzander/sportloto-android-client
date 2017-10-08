@@ -57,7 +57,7 @@
                 android:paddingRight="16dp"
                 android:paddingStart="16dp"
                 android:paddingTop="16dp"
-                android:text="Получать уведомлять о"
+                android:text="@string/notify_about"
                 android:textColor="@color/colorOrange"
                 android:textSize="22sp" />
 
@@ -91,7 +91,7 @@
                     android:layout_marginStart="16dp"
                     android:checked="true"
                     android:fontFamily="@font/roboto_light"
-                    android:text="Дневной лотерее"
+                    android:text="@string/about_daily_lottery"
                     android:textColor="@color/colorWhite"
                     android:textSize="18sp"
                     app:thumbTint="@color/colorWhite"
@@ -128,7 +128,7 @@
                     android:layout_marginStart="16dp"
                     android:checked="true"
                     android:fontFamily="@font/roboto_light"
-                    android:text="Недельной лотерее"
+                    android:text="@string/about_weekly_lottery"
                     android:textColor="@color/colorWhite"
                     android:textSize="18sp"
                     app:thumbTint="@color/colorWhite"
@@ -165,7 +165,7 @@
                     android:layout_marginStart="16dp"
                     android:checked="true"
                     android:fontFamily="@font/roboto_light"
-                    android:text="Бонусном розыгрыше"
+                    android:text="@string/about_bonus_draw"
                     android:textColor="@color/colorWhite"
                     android:textSize="18sp"
                     app:thumbTint="@color/colorWhite"
@@ -187,7 +187,7 @@
                 android:paddingRight="16dp"
                 android:paddingStart="16dp"
                 android:paddingTop="16dp"
-                android:text="Получать уведомлять о"
+                android:text="@string/language_selection"
                 android:textColor="@color/colorOrange"
                 android:textSize="22sp" />
 
@@ -196,56 +196,36 @@
                 android:layout_height="0.5dp"
                 android:background="@color/colorDarkGray" />
 
-            <android.support.v7.widget.AppCompatCheckBox
+            <com.vovasoft.sportloto.ui.widgets.CheckButton
                 android:id="@+id/enSwitch"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:button="@null"
-                android:checked="false"
-                android:drawableRight="@drawable/check_mark_selector"
-                android:fontFamily="@font/roboto_light"
-                android:padding="16dp"
-                android:text="@string/english"
-                android:textColor="@color/colorWhite"
-                android:textSize="18sp" />
+                app:btnText="@string/english"
+                android:padding="16dp" />
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
                 android:background="@color/colorDarkGray" />
 
-            <android.support.v7.widget.AppCompatCheckBox
+            <com.vovasoft.sportloto.ui.widgets.CheckButton
                 android:id="@+id/ruSwitch"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:button="@null"
-                android:checked="true"
-                android:drawableRight="@drawable/check_mark_selector"
-                android:fontFamily="@font/roboto_light"
-                android:padding="16dp"
-                android:text="@string/russian"
-                android:textColor="@color/colorWhite"
-                android:textSize="18sp" />
+                app:btnText="@string/russian"
+                android:padding="16dp" />
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
                 android:background="@color/colorDarkGray" />
 
-            <android.support.v7.widget.AppCompatCheckBox
+            <com.vovasoft.sportloto.ui.widgets.CheckButton
                 android:id="@+id/deSwitch"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:button="@null"
-                android:drawableRight="@drawable/check_mark_selector"
-                android:fontFamily="@font/roboto_light"
-                android:padding="16dp"
-                android:text="@string/deutsche"
-                android:textColor="@color/colorWhite"
-                android:textSize="18sp" />
+                app:btnText="@string/deutsch"
+                android:padding="16dp" />
 
             <View
                 android:layout_width="match_parent"

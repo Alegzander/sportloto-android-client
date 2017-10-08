@@ -8,8 +8,10 @@ import android.arch.lifecycle.ViewModel
  ****************************************************************************/
 class AppVM : ViewModel() {
     var selectedPage = MutableLiveData<Int>()
+    var languageChanged = MutableLiveData<Boolean>()
 
     init {
         selectedPage.value = 0
+        languageChanged.value = false
     }
 }

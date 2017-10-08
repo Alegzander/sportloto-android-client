@@ -12,14 +12,6 @@ import com.vovasoft.sportloto.R
 import com.vovasoft.sportloto.repository.models.Game
 import com.vovasoft.sportloto.view_models.GamesVM
 import kotlinx.android.synthetic.main.fragment_game_daily.*
-import android.opengl.ETC1.getHeight
-import android.opengl.ETC1.getWidth
-import android.view.Display
-import com.vovasoft.sportloto.App
-import android.util.DisplayMetrics
-
-
-
 
 /***************************************************************************
  * Created by arseniy on 16/09/2017.
@@ -73,11 +65,11 @@ class GameDailyFragment : BaseFragment() {
                 val minutes = (millisUntilFinished / (1000 * 60)) % 60
                 val hours = (millisUntilFinished / (1000 * 60 * 60)) % 24
 
-                hourValueTv.text = String.format("%02d", hours)
-                minuteValueTv.text = String.format("%02d", minutes)
-                secondValueTv.text = String.format("%02d", seconds)
+                hourValueTv?.text = String.format("%02d", hours)
+                minuteValueTv?.text = String.format("%02d", minutes)
+                secondValueTv?.text = String.format("%02d", seconds)
                 val progress = ((millisUntilFinished * 100) / (game.endTime() - game.startTime())).toInt()
-                timeProgress.setProgress(progress)
+                timeProgress?.setProgress(progress)
             }
 
             override fun onFinish() {
