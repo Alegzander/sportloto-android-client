@@ -33,6 +33,7 @@ class TokenAuthenticator : Authenticator {
 
         val httpClient = OkHttpClient.Builder()
                 .addInterceptor(logging)
+                .connectionSpecs(Collections.singletonList(spec))
                 .readTimeout(60, TimeUnit.SECONDS)
                 .connectTimeout(60, TimeUnit.SECONDS)
                 .build()

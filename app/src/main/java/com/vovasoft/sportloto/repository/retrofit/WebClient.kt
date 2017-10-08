@@ -53,6 +53,7 @@ class WebClient(api: API = WebClient.API.BASE) {
                     chain.proceed(request)
                 }
                 .authenticator(TokenAuthenticator())
+                .connectionSpecs(Collections.singletonList(spec))
                 .readTimeout(60, TimeUnit.SECONDS)
                 .connectTimeout(60, TimeUnit.SECONDS)
                 .build()
