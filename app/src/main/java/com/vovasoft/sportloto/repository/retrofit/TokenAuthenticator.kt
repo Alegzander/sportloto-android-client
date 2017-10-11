@@ -1,5 +1,6 @@
 package com.vovasoft.sportloto.repository.retrofit
 
+import com.google.android.gms.security.ProviderInstaller
 import com.vovasoft.sportloto.App
 import com.vovasoft.sportloto.BuildConfig
 import com.vovasoft.sportloto.components.Preferences
@@ -23,17 +24,8 @@ class TokenAuthenticator : Authenticator {
         val logging = HttpLoggingInterceptor()
         logging.level = HttpLoggingInterceptor.Level.BODY
 
-        val spec = ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
-                .tlsVersions(TlsVersion.TLS_1_2)
-                .cipherSuites(
-                        CipherSuite.TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,
-                        CipherSuite.TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,
-                        CipherSuite.TLS_DHE_RSA_WITH_AES_128_GCM_SHA256)
-                .build()
-
         val httpClient = OkHttpClient.Builder()
                 .addInterceptor(logging)
-                .connectionSpecs(Collections.singletonList(spec))
                 .readTimeout(60, TimeUnit.SECONDS)
                 .connectTimeout(60, TimeUnit.SECONDS)
                 .build()

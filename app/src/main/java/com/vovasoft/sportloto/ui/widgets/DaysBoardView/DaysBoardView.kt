@@ -27,7 +27,13 @@ class DaysBoardView : FrameLayout {
 
 
     fun setValue(value: String) {
-        integer10.setDigit(value[0])
-        integer1.setDigit(value[1])
+        if (value.length == 2) {
+            integer10.setDigit(value[0])
+            integer1.setDigit(value[1])
+        }
+        else {
+            integer10.setDigit('0')
+            integer1.setDigit(value[0])
+        }
     }
 }

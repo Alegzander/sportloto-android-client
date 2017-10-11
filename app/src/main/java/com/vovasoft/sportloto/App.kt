@@ -2,6 +2,7 @@ package com.vovasoft.sportloto
 
 import android.app.Application
 import android.arch.persistence.room.Room
+import com.google.android.gms.security.ProviderInstaller
 import com.google.firebase.iid.FirebaseInstanceId
 import com.vovasoft.sportloto.repository.retrofit.WebClient
 import com.vovasoft.sportloto.repository.retrofit.requests.TokenRegistrationRequest
@@ -35,6 +36,7 @@ class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        ProviderInstaller.installIfNeeded(this)
         instance = this
         App.database =  Room.databaseBuilder(this, AppDatabase::class.java, "local_storage").build()
     }

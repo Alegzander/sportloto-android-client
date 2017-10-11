@@ -28,14 +28,14 @@
 
     <android.support.v7.widget.AppCompatTextView
         android:id="@+id/digit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_gravity="center"
         android:gravity="center"
         android:includeFontPadding="false"
         android:text="0"
         android:textColor="@color/colorPrimaryDark"
-        android:textSize="90sp"
+        app:autoSizeTextType="uniform"
         app:fontFamily="@font/roboto_light" />
 
 </FrameLayout>
