@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.vovasoft.sportloto.R
 import com.vovasoft.sportloto.repository.models.Game
+import com.vovasoft.sportloto.ui.dialogs.TopPlacesDialog
 import com.vovasoft.sportloto.view_models.GamesVM
 import kotlinx.android.synthetic.main.fragment_game_monthly.*
 
@@ -57,6 +58,12 @@ class GameMonthlyFragment : BaseFragment() {
 
         val days = (game.endTime() - System.currentTimeMillis()) / (1000 * 60 * 60 * 24)
         daysBoard.setValue(days.toString())
+
+        topPlacesBtn.setOnClickListener {
+            val dialog = TopPlacesDialog(context)
+            dialog.show()
+        }
+
     }
 
 

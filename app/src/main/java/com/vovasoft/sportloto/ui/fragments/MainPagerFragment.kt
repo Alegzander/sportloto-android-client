@@ -11,7 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.vovasoft.sportloto.R
-import com.vovasoft.sportloto.ui.adapters.MainPagerAdapter
+import com.vovasoft.sportloto.ui.pager_adapters.MainPagerAdapter
 import com.vovasoft.sportloto.view_models.AppVM
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_main_pager.*
@@ -42,7 +42,7 @@ class MainPagerFragment : BaseFragment() {
         appVM.selectedPage.observe(this, Observer {
             for (i in 0..tabs.tabCount) {
                 val tab = tabs.getTabAt(i)
-                tab?.icon?.setColorFilter(ContextCompat.getColor(context, R.color.colorGray), PorterDuff.Mode.SRC_IN)
+                tab?.icon?.setColorFilter(ContextCompat.getColor(context, R.color.colorLightGray), PorterDuff.Mode.SRC_IN)
                 if (i == it) {
                     tab?.icon?.setColorFilter(ContextCompat.getColor(context, R.color.colorOrange), PorterDuff.Mode.SRC_IN)
                 }

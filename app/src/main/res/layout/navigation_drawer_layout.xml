@@ -25,7 +25,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
-                android:fontFamily="monospace"
+                app:fontFamily="monospace"
                 android:text="@string/app_name"
                 android:textColor="@color/colorYellow"
                 android:textSize="20sp"
@@ -46,9 +46,9 @@
         <android.support.v7.widget.AppCompatTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/roboto_light"
+            app:fontFamily="@font/roboto_light"
             android:text="@string/blockchain_based_lottery"
-            android:textColor="@color/colorGray"
+            android:textColor="@color/colorLightGray"
             android:textSize="12sp" />
 
         <View
@@ -77,7 +77,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="18dp"
                 android:layout_marginStart="18dp"
-                android:fontFamily="@font/roboto_light"
+                app:fontFamily="@font/roboto_light"
                 android:text="@string/game_history"
                 android:textColor="@color/colorWhite"
                 android:textSize="18sp" />
@@ -103,7 +103,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="18dp"
                 android:layout_marginStart="18dp"
-                android:fontFamily="@font/roboto_light"
+                app:fontFamily="@font/roboto_light"
                 android:text="@string/statistic"
                 android:textColor="@color/colorWhite"
                 android:textSize="18sp" />
@@ -129,7 +129,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="18dp"
                 android:layout_marginStart="18dp"
-                android:fontFamily="@font/roboto_light"
+                app:fontFamily="@font/roboto_light"
                 android:text="@string/how_it_works"
                 android:textColor="@color/colorWhite"
                 android:textSize="18sp" />
@@ -155,7 +155,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="18dp"
                 android:layout_marginStart="18dp"
-                android:fontFamily="@font/roboto_light"
+                app:fontFamily="@font/roboto_light"
                 android:text="@string/white_paper"
                 android:textColor="@color/colorWhite"
                 android:textSize="18sp" />
@@ -187,7 +187,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="18dp"
                 android:layout_marginStart="18dp"
-                android:fontFamily="@font/roboto_light"
+                app:fontFamily="@font/roboto_light"
                 android:text="@string/settings"
                 android:textColor="@color/colorWhite"
                 android:textSize="18sp" />
@@ -204,7 +204,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:fontFamily="@font/roboto_light"
+            app:fontFamily="@font/roboto_light"
             android:text="@string/be_aware"
             android:textColor="@color/colorWhite"
             android:textSize="18sp" />

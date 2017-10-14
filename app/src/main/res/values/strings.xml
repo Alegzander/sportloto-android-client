@@ -41,4 +41,17 @@
     <string name="about_weekly_lottery">Weekly lottery</string>
     <string name="about_bonus_draw">Bonus draw</string>
     <string name="language_selection">Language selection</string>
+    <string name="submit">Submit</string>
+    <string name="cancel">Cancel</string>
+    <string name="wallet_number">Wallet number</string>
+    <string name="scan_qr_code">Scan QR-code</string>
+    <string name="add_your_wallet_number">Add your wallet number</string>
+    <string name="close">Close</string>
+    <string name="total_prize_fund">Total prize fund</string>
+    <string name="daily_lottery_unilot">Daily lottery Unilot</string>
+    <string name="weekly_lottery_unilot">Weekly lottery Unilot</string>
+    <string name="participation_rules">To participate in daily lottery you should transfer 0,05 Eth to wallet, that you receive by clicking on the button below</string>
+    <string name="lottery_ends_in">Lottery finishes in</string>
+    <string name="copy_wallet_number">Copy wallet number</string>
+    <string name="wallet_number_has_been_copied">Wallet number has been copied</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.vovasoft.sportloto.ui.adapters
+package com.vovasoft.sportloto.ui.pager_adapters
 
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter

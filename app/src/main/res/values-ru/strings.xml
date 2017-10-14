@@ -41,4 +41,17 @@
     <string name="about_weekly_lottery">Недельной лотерее</string>
     <string name="about_bonus_draw">Бонусном розыгрыше</string>
     <string name="language_selection">Вбор языка</string>
+    <string name="submit">Подтвердить</string>
+    <string name="cancel">Отменить</string>
+    <string name="wallet_number">Номер кошелька</string>
+    <string name="scan_qr_code">Сканировать QR-код</string>
+    <string name="add_your_wallet_number">Добавить кошелек</string>
+    <string name="close">Закрыть</string>
+    <string name="total_prize_fund">Общий призовой фонд</string>
+    <string name="daily_lottery_unilot">Ежедневная лотерея Unilot</string>
+    <string name="weekly_lottery_unilot">Еженедельная лотерея Unilot</string>
+    <string name="participation_rules">Чтобы принять участие в ежедневной лотерее вам необходимо перечислить 0,05 Eth на кошелек, который вы получите нажав на кнопку ниже</string>
+    <string name="lottery_ends_in">Лоттерея заканчивается через</string>
+    <string name="copy_wallet_number">Скопировать номер кошелька</string>
+    <string name="wallet_number_has_been_copied">Номер кошелька был скопирован</string>
 </resources>

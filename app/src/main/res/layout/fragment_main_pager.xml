@@ -54,7 +54,7 @@
                 android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="monospace"
+                app:fontFamily="monospace"
                 android:text="@string/app_name"
                 android:textColor="@color/colorYellow"
                 android:textSize="20sp"
@@ -87,7 +87,7 @@
             app:tabIndicatorHeight="0dp"
             app:tabSelectedTextColor="@color/colorWhite"
             app:tabTextAppearance="@style/PagerTabsStyle"
-            app:tabTextColor="@color/colorGray">
+            app:tabTextColor="@color/colorLightGray">
 
             <android.support.design.widget.TabItem
                 android:layout_width="wrap_content"

@@ -193,69 +193,16 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/timeTv"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <android.support.v7.widget.AppCompatTextView
-                        android:id="@+id/hourValueTv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:includeFontPadding="false"
-                        android:text="00"
-                        android:textColor="@color/colorWhite"
-                        android:textSize="56sp"
-                        app:fontFamily="@font/roboto_thin" />
-
-                    <android.support.v7.widget.AppCompatTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="8dp"
-                        android:layout_marginLeft="8dp"
-                        android:layout_marginRight="8dp"
-                        android:layout_marginStart="8dp"
-                        android:includeFontPadding="false"
-                        android:text=":"
-                        android:textColor="@color/colorWhite"
-                        android:textSize="56sp"
-                        app:fontFamily="@font/roboto_thin" />
-
-                    <android.support.v7.widget.AppCompatTextView
-                        android:id="@+id/minuteValueTv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:includeFontPadding="false"
-                        android:text="00"
-                        android:textColor="@color/colorWhite"
-                        android:textSize="56sp"
-                        app:fontFamily="@font/roboto_thin" />
-
-                    <android.support.v7.widget.AppCompatTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="8dp"
-                        android:layout_marginLeft="8dp"
-                        android:layout_marginRight="8dp"
-                        android:layout_marginStart="8dp"
-                        android:includeFontPadding="false"
-                        android:text=":"
-                        android:textColor="@color/colorWhite"
-                        android:textSize="56sp"
-                        app:fontFamily="@font/roboto_thin" />
-
-                    <android.support.v7.widget.AppCompatTextView
-                        android:id="@+id/secondValueTv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:includeFontPadding="false"
-                        android:text="00"
-                        android:textColor="@color/colorWhite"
-                        android:textSize="56sp"
-                        app:fontFamily="@font/roboto_thin" />
-
-                </LinearLayout>
-
+                    android:gravity="center"
+                    android:includeFontPadding="false"
+                    android:text="00 : 00 : 00"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="56sp"
+                    app:fontFamily="@font/roboto_thin" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -266,11 +213,11 @@
                         android:id="@+id/hourTv"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2"
+                        android:layout_weight="1"
                         android:gravity="center"
                         android:includeFontPadding="false"
                         android:text="@string/hours"
-                        android:textColor="@color/colorGray"
+                        android:textColor="@color/colorLightGray"
                         android:textSize="12sp"
                         app:fontFamily="@font/roboto_light" />
 
@@ -278,11 +225,11 @@
                         android:id="@+id/minuteTv"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="3"
+                        android:layout_weight="2"
                         android:gravity="center"
                         android:includeFontPadding="false"
                         android:text="@string/minutes"
-                        android:textColor="@color/colorGray"
+                        android:textColor="@color/colorLightGray"
                         android:textSize="12sp"
                         app:fontFamily="@font/roboto_light" />
 
@@ -290,11 +237,11 @@
                         android:id="@+id/secondTv"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2"
+                        android:layout_weight="1"
                         android:gravity="center"
                         android:includeFontPadding="false"
                         android:text="@string/sec"
-                        android:textColor="@color/colorGray"
+                        android:textColor="@color/colorLightGray"
                         android:textSize="12sp"
                         app:fontFamily="@font/roboto_light" />
 
@@ -375,7 +322,7 @@
         </LinearLayout>
 
         <android.support.constraint.ConstraintLayout
-            android:id="@+id/winnersBtn"
+            android:id="@+id/topPlacesBtn"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginBottom="8dp"
@@ -410,6 +357,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </android.support.constraint.ConstraintLayout>
+
     </LinearLayout>
 
     <ProgressBar

@@ -23,7 +23,7 @@
         android:layout_width="wrap_content"
         android:layout_height="56sp"
         android:layout_gravity="bottom"
-        android:fontFamily="@font/roboto_light"
+        app:fontFamily="@font/roboto_light"
         android:gravity="bottom"
         android:includeFontPadding="false"
         android:text=","

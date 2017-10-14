@@ -10,6 +10,8 @@ import android.view.View
 import android.view.ViewGroup
 import com.vovasoft.sportloto.R
 import com.vovasoft.sportloto.repository.models.Game
+import com.vovasoft.sportloto.ui.dialogs.ParticipateDialog
+import com.vovasoft.sportloto.ui.dialogs.TopPlacesDialog
 import com.vovasoft.sportloto.view_models.GamesVM
 import kotlinx.android.synthetic.main.fragment_game_weekly.*
 
@@ -65,9 +67,7 @@ class GamesWeeklyFragment : BaseFragment() {
                 val hours = (millisUntilFinished / (1000 * 60 * 60)) % 24
                 val days = (millisUntilFinished / (1000 * 60 * 60 * 24))
 
-                daysValueTv?.text = String.format("%02d", days)
-                hourValueTv?.text = String.format("%02d", hours)
-                minuteValueTv?.text = String.format("%02d", minutes)
+                timeTv.text = String.format("%02d : %02d : %02d", days, hours, minutes)
 
                 val progress = ((millisUntilFinished * 100) / (game.endTime() - game.startTime())).toInt()
                 timeProgress?.setProgress(progress)
@@ -77,8 +77,17 @@ class GamesWeeklyFragment : BaseFragment() {
 
             }
         }
-
         countDown?.start()
+
+        topPlacesBtn.setOnClickListener {
+            val dialog = TopPlacesDialog(context)
+            dialog.show()
+        }
+
+        participateBtn.setOnClickListener {
+            val dialog = ParticipateDialog(context, game)
+            dialog.show()
+        }
     }
 
 
