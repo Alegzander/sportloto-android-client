@@ -79,6 +79,8 @@
                 android:id="@+id/constraintLayout2"
                 android:layout_width="52dp"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -105,12 +107,18 @@
                     app:layout_constraintTop_toTopOf="parent" />
             </android.support.constraint.ConstraintLayout>
 
-            <com.vovasoft.sportloto.ui.widgets.PrizeBoardView.PrizeBoardView
+            <com.robinhood.ticker.TickerView
                 android:id="@+id/prizeBoard"
                 android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginStart="8dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginStart="16dp"
+                android:background="@drawable/view_rounded_background_semi_black"
+                android:gravity="center"
+                android:paddingEnd="8dp"
+                android:paddingStart="8dp"
+                android:textColor="@color/colorOrange"
+                android:textSize="60sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/constraintLayout2"
@@ -130,6 +138,8 @@
                 android:id="@+id/peopleImg"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -149,17 +159,19 @@
                 app:layout_constraintStart_toEndOf="@+id/peopleImg"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <android.support.v7.widget.AppCompatTextView
+            <com.robinhood.ticker.TickerView
                 android:id="@+id/prizeFiatTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:includeFontPadding="false"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:gravity="center"
                 android:textColor="@color/colorOrange"
                 android:textSize="22sp"
-                app:fontFamily="@font/roboto_light"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
         </android.support.constraint.ConstraintLayout>
 
         <LinearLayout

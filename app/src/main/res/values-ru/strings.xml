@@ -33,7 +33,7 @@
     <string name="participate">Принять участие</string>
     <string name="participate_price">0,005 Eth</string>
     <string name="top_places">Призовые места</string>
-    <string name="winner_announcement">До объявления победителя:</string>
+    <string name="winner_announcement">До объявления\nпобедителя:</string>
     <string name="you_are_not_in_participants_list">Вас пока нет в списке участников</string>
     <string name="how_to_participate">Как попасть в розыгрыш?</string>
     <string name="notify_about">Получать уведомлять о</string>

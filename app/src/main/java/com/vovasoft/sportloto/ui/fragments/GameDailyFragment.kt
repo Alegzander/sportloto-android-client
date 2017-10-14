@@ -2,12 +2,14 @@ package com.vovasoft.sportloto.ui.fragments
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.graphics.Typeface
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.robinhood.ticker.TickerUtils
 import com.vovasoft.sportloto.R
 import com.vovasoft.sportloto.repository.models.Game
 import com.vovasoft.sportloto.ui.dialogs.ParticipateDialog
@@ -57,8 +59,14 @@ class GameDailyFragment : BaseFragment() {
 
 
     private fun setupViews(game: Game) {
-        prizeBoard.setValue("%.2f".format(game.prizeAmount))
-        prizeFiatTv.text = String.format("$ %.2f", game.prizeAmountFiat)
+        prizeBoard.setCharacterList(TickerUtils.getDefaultListForUSCurrency())
+        prizeBoard.typeface = Typeface.create("sans-serif-light", Typeface.NORMAL)
+        prizeBoard.setText("%.2f".format(game.prizeAmount), true)
+
+        prizeFiatTv.setCharacterList(TickerUtils.getDefaultListForUSCurrency())
+        prizeFiatTv.typeface = Typeface.create("sans-serif-light", Typeface.NORMAL)
+        prizeFiatTv.setText("$ %.2f".format(game.prizeAmountFiat), true)
+
         peopleTv.text = game.playersNum.toString()
 
         countDown = object : CountDownTimer(game.endTime() - System.currentTimeMillis(), 1000) {
