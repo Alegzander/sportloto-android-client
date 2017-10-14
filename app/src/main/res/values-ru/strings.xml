@@ -45,7 +45,7 @@
     <string name="cancel">Отменить</string>
     <string name="wallet_number">Номер кошелька</string>
     <string name="scan_qr_code">Сканировать QR-код</string>
-    <string name="add_your_wallet_number">Добавить кошелек</string>
+    <string name="add_wallet">Добавить кошелек</string>
     <string name="close">Закрыть</string>
     <string name="total_prize_fund">Общий призовой фонд</string>
     <string name="daily_lottery_unilot">Ежедневная лотерея Unilot</string>
@@ -54,4 +54,6 @@
     <string name="lottery_ends_in">Лоттерея заканчивается через</string>
     <string name="copy_wallet_number">Скопировать номер кошелька</string>
     <string name="wallet_number_has_been_copied">Номер кошелька был скопирован</string>
+    <string name="your_wallets">Ваши кошельки</string>
+    <string name="add">Добавить</string>
 </resources>

@@ -8,18 +8,18 @@ import com.google.gson.annotations.SerializedName
 /***************************************************************************
  * Created by arseniy on 14/10/2017.
  ****************************************************************************/
-data class TopPlace(@Expose @SerializedName("id")
+data class TopPlace(@SerializedName("id")
                     @PrimaryKey @ColumnInfo(name = "id")
                     var id: Int? = null,
 
-                    @Expose @SerializedName("place")
+                    @SerializedName("place")
                     @ColumnInfo(name = "place")
                     var place: String? = null,
 
-                    @Expose @SerializedName("prize")
+                    @SerializedName("prize")
                     @ColumnInfo(name = "prize")
                     var prize: Float? = null,
 
-                    @Expose @SerializedName("prize_fiat")
+                    @SerializedName("prize_fiat")
                     @ColumnInfo(name = "prize_fiat")
                     var prizeFiat: Float? = null)

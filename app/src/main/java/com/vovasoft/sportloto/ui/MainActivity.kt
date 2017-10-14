@@ -2,10 +2,12 @@ package com.vovasoft.sportloto.ui
 
 import android.annotation.SuppressLint
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
+import android.view.inputmethod.InputMethodManager
 import com.google.firebase.iid.FirebaseInstanceId
 import com.vovasoft.sportloto.App
 import com.vovasoft.sportloto.R
@@ -86,6 +88,15 @@ class MainActivity : AppCompatActivity() {
             AppFragmentManager.instance.openFragment(SettingsFragment(), true)
         }
 
+    }
+
+
+    fun hideKeyboard() {
+        val view = currentFocus
+        if (view != null) {
+            val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(view.windowToken, 0)
+        }
     }
 
 

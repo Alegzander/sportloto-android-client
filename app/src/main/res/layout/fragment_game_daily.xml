@@ -15,7 +15,6 @@
         tools:layout_editor_absoluteY="0dp">
 
         <android.support.v7.widget.AppCompatTextView
-            android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/no_games_for_today"
@@ -41,7 +40,6 @@
 
 
         <android.support.v7.widget.AppCompatTextView
-            android:id="@+id/titleTv"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_gravity="center_horizontal"
@@ -54,7 +52,6 @@
             app:fontFamily="@font/roboto_medium" />
 
         <android.support.v7.widget.AppCompatTextView
-            android:id="@+id/prizeTv"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_gravity="center_horizontal"
@@ -222,7 +219,6 @@
                     android:orientation="horizontal">
 
                     <android.support.v7.widget.AppCompatTextView
-                        android:id="@+id/hourTv"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -234,7 +230,6 @@
                         app:fontFamily="@font/roboto_light" />
 
                     <android.support.v7.widget.AppCompatTextView
-                        android:id="@+id/minuteTv"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="2"
@@ -246,7 +241,6 @@
                         app:fontFamily="@font/roboto_light" />
 
                     <android.support.v7.widget.AppCompatTextView
-                        android:id="@+id/secondTv"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -345,7 +339,7 @@
             android:background="@drawable/view_rounded_gray_stroke">
 
             <android.support.v7.widget.AppCompatImageView
-                android:id="@+id/imageView3"
+                android:id="@+id/trophyImg"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_marginLeft="16dp"
@@ -356,7 +350,6 @@
                 app:srcCompat="@drawable/ic_trophy" />
 
             <android.support.v7.widget.AppCompatTextView
-                android:id="@+id/textView11"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:includeFontPadding="false"
@@ -366,7 +359,7 @@
                 app:fontFamily="@font/roboto_light"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/trophyImg"
                 app:layout_constraintTop_toTopOf="parent" />
         </android.support.constraint.ConstraintLayout>
 

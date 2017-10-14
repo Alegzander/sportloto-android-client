@@ -16,39 +16,39 @@ import java.util.*
  * Created by arseniy on 15/09/2017.
  ****************************************************************************/
 @Entity(tableName = "games")
-data class Game(@Expose @SerializedName("id")
+data class Game(@SerializedName("id")
                 @PrimaryKey @ColumnInfo(name = "id")
                 var id: Int? = null,
 
-                @Expose @SerializedName("status")
+                @SerializedName("status")
                 @ColumnInfo(name = "status")
                 var status: Int? = null,
 
-                @Expose @SerializedName("type")
+                @SerializedName("type")
                 @ColumnInfo(name = "type")
                 var type: Int? = null,
 
-                @Expose @SerializedName("prize_amount")
+                @SerializedName("prize_amount")
                 @ColumnInfo(name = "prize_amount")
                 var prizeAmount: Float? = null,
 
-                @Expose @SerializedName("prize_amount_fiat")
+                @SerializedName("prize_amount_fiat")
                 @ColumnInfo(name = "prize_amount_fiat")
                 var prizeAmountFiat: Float? = null,
 
-                @Expose @SerializedName("num_players")
+                @SerializedName("num_players")
                 @ColumnInfo(name = "num_players")
                 var playersNum: Int? = null,
 
-                @Expose @SerializedName("smart_contract_id")
+                @SerializedName("smart_contract_id")
                 @ColumnInfo(name = "smart_contract_id")
                 var smartContractId: String? = null,
 
-                @Expose @SerializedName("started_at")
+                @SerializedName("started_at")
                 @ColumnInfo(name = "started_at")
                 var startedAt: String? = null,
 
-                @Expose @SerializedName("ending_at")
+                @SerializedName("ending_at")
                 @ColumnInfo(name = "ending_at")
                 var endingAt: String? = null
 ) {

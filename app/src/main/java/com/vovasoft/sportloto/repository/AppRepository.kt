@@ -2,8 +2,10 @@ package com.vovasoft.sportloto.repository
 
 import com.vovasoft.sportloto.App
 import com.vovasoft.sportloto.repository.models.Game
+import com.vovasoft.sportloto.repository.models.Wallet
 import com.vovasoft.sportloto.repository.retrofit.WebClient
 import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.uiThread
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -30,5 +32,15 @@ class AppRepository {
                 callback.done(null)
             }
         })
+    }
+
+
+    fun getWallets(callback: RepositoryCallback<List<Wallet>?>) {
+        doAsync {
+            val wallets = App.database.walletsDao().getWallets()
+            uiThread {
+                callback.done(wallets)
+            }
+        }
     }
 }

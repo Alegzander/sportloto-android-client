@@ -6,6 +6,7 @@ import android.arch.lifecycle.ViewModel
 import com.vovasoft.sportloto.repository.AppRepository
 import com.vovasoft.sportloto.repository.RepositoryCallback
 import com.vovasoft.sportloto.repository.models.Game
+import com.vovasoft.sportloto.repository.models.Wallet
 
 /***************************************************************************
  * Created by arseniy on 14/09/2017.
@@ -13,6 +14,8 @@ import com.vovasoft.sportloto.repository.models.Game
 class GamesVM : ViewModel() {
 
     private val appRepo = AppRepository()
+
+    private var walletsLiveData = MutableLiveData<List<Wallet>>()
 
     private var gamesLiveData = MutableLiveData<List<Game>>()
 
@@ -23,6 +26,16 @@ class GamesVM : ViewModel() {
     private var monthlyGameLiveData = MutableLiveData<Game>()
 
     private var isUpdating = false
+
+
+    fun getWallets() : LiveData<List<Wallet>> {
+        appRepo.getWallets(object : RepositoryCallback<List<Wallet>?> {
+            override fun done(data: List<Wallet>?) {
+                walletsLiveData.value = data
+            }
+        })
+        return walletsLiveData
+    }
 
 
     fun getGamesList() : LiveData<List<Game>> {
