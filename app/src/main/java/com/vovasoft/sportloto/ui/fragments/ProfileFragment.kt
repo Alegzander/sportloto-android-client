@@ -16,8 +16,10 @@ import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
-
-
+import com.vovasoft.sportloto.ui.MainActivity
+import com.vovasoft.sportloto.ui.dialogs.QReaderDialog
+import com.vovasoft.sportloto.utils.PermissionsResultCallback
+import com.vovasoft.sportloto.utils.RuntimePermissionUtil
 
 
 /***************************************************************************
@@ -30,6 +32,7 @@ class ProfileFragment : BaseFragment() {
 
 
     private val walletsAdapter = WalletsRecyclerAdapter()
+    private var hasCameraPermission = false
 
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -39,6 +42,7 @@ class ProfileFragment : BaseFragment() {
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        hasCameraPermission = RuntimePermissionUtil.checkPermissonGranted(context, MainActivity.CAMERA_PERMISSION)
         setupViews()
         observeData()
     }
@@ -50,7 +54,11 @@ class ProfileFragment : BaseFragment() {
         recyclerView.adapter = walletsAdapter
 
         scanBtn.setOnClickListener {
-
+            if (hasCameraPermission) {
+                runQReader()
+            } else {
+                RuntimePermissionUtil.requestPermission(activity, MainActivity.CAMERA_PERMISSION, MainActivity.CAMERA_PERMISSION_CODE)
+            }
         }
 
         walletEt.setOnClickListener {
@@ -68,6 +76,15 @@ class ProfileFragment : BaseFragment() {
         addWalletBtn.setOnClickListener {
             addWallet()
         }
+    }
+
+
+    private fun runQReader() {
+        val dialog = QReaderDialog(context)
+        dialog.setOnDetectedCallback { data ->
+            walletEt.setText(data)
+        }
+        dialog.show()
     }
 
 
@@ -94,6 +111,24 @@ class ProfileFragment : BaseFragment() {
                 walletsAdapter.addWallets(wallets)
             }
         })
+    }
+
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>,
+                                            grantResults: IntArray) {
+        if (requestCode == 100) {
+            RuntimePermissionUtil.onRequestPermissionsResult(grantResults, object : PermissionsResultCallback {
+                override fun onPermissionGranted() {
+                    if (RuntimePermissionUtil.checkPermissonGranted(context, MainActivity.CAMERA_PERMISSION)) {
+                        runQReader()
+                    }
+                }
+
+                override fun onPermissionDenied() {
+
+                }
+            })
+        }
     }
 
 }

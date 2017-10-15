@@ -1,5 +1,6 @@
 package com.vovasoft.sportloto.ui
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
@@ -19,8 +20,21 @@ import com.vovasoft.sportloto.view_models.AppVM
 import com.vovasoft.sportloto.view_models.GamesVM
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.navigation_drawer_layout.*
+import com.vovasoft.sportloto.R.id.view
+import android.R.attr.y
+import android.R.attr.x
+import android.graphics.Point
+import android.view.Display
+
+
 
 class MainActivity : AppCompatActivity() {
+
+    companion object {
+        val CAMERA_PERMISSION = Manifest.permission.CAMERA
+        val CAMERA_PERMISSION_CODE = 100
+    }
+
 
     private val gamesVM: GamesVM
         get() = ViewModelProviders.of(this).get(GamesVM::class.java)
@@ -53,6 +67,10 @@ class MainActivity : AppCompatActivity() {
         }
 
         gamesVM.updateGamesList()
+
+//        Log.e("Width", .toString())
+//        Log.e("Height", height.toString())
+
     }
 
 
