@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.fragment_game_monthly.*
 /***************************************************************************
  * Created by arseniy on 15/10/2017.
  ****************************************************************************/
-class HistoryGragment : BaseFragment() {
+class HistoryFragment : BaseFragment() {
 
     private val gamesVM: GamesVM
         get() = ViewModelProviders.of(activity).get(GamesVM::class.java)

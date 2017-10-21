@@ -1,8 +1,12 @@
 package com.vovasoft.sportloto.ui.fragments
 
+import android.app.Activity
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
+import android.support.v4.content.ContextCompat.checkSelfPermission
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
@@ -16,10 +20,7 @@ import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
-import com.vovasoft.sportloto.ui.MainActivity
-import com.vovasoft.sportloto.ui.dialogs.QReaderDialog
-import com.vovasoft.sportloto.utils.PermissionsResultCallback
-import com.vovasoft.sportloto.utils.RuntimePermissionUtil
+import com.vovasoft.sportloto.ui.widgets.ZxingReader
 
 
 /***************************************************************************
@@ -42,7 +43,7 @@ class ProfileFragment : BaseFragment() {
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        hasCameraPermission = RuntimePermissionUtil.checkPermissonGranted(context, MainActivity.CAMERA_PERMISSION)
+        hasCameraPermission = checkSelfPermission(context, ZxingReader.CAMERA_PERMISSION) == PackageManager.PERMISSION_GRANTED
         setupViews()
         observeData()
     }
@@ -57,7 +58,7 @@ class ProfileFragment : BaseFragment() {
             if (hasCameraPermission) {
                 runQReader()
             } else {
-                RuntimePermissionUtil.requestPermission(activity, MainActivity.CAMERA_PERMISSION, MainActivity.CAMERA_PERMISSION_CODE)
+                requestPermissions(listOf(ZxingReader.CAMERA_PERMISSION).toTypedArray(), ZxingReader.CAMERA_PERMISSION_CODE)
             }
         }
 
@@ -80,11 +81,8 @@ class ProfileFragment : BaseFragment() {
 
 
     private fun runQReader() {
-        val dialog = QReaderDialog(context)
-        dialog.setOnDetectedCallback { data ->
-            walletEt.setText(data)
-        }
-        dialog.show()
+        val intent = Intent(context, ZxingReader::class.java)
+        startActivityForResult(intent, ZxingReader.RESULT_CODE)
     }
 
 
@@ -114,20 +112,26 @@ class ProfileFragment : BaseFragment() {
     }
 
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>,
-                                            grantResults: IntArray) {
-        if (requestCode == 100) {
-            RuntimePermissionUtil.onRequestPermissionsResult(grantResults, object : PermissionsResultCallback {
-                override fun onPermissionGranted() {
-                    if (RuntimePermissionUtil.checkPermissonGranted(context, MainActivity.CAMERA_PERMISSION)) {
-                        runQReader()
-                    }
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK) {
+            when (requestCode) {
+                ZxingReader.RESULT_CODE -> {
+                    walletEt.setText(data?.getStringExtra("result"))
                 }
+            }
+        }
+    }
 
-                override fun onPermissionDenied() {
 
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+        when (requestCode) {
+            ZxingReader.CAMERA_PERMISSION_CODE -> {
+                hasCameraPermission = checkSelfPermission(context, ZxingReader.CAMERA_PERMISSION) == PackageManager.PERMISSION_GRANTED
+                if (hasCameraPermission) {
+                    runQReader()
                 }
-            })
+            }
         }
     }
 
