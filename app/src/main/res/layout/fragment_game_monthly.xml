@@ -111,7 +111,7 @@
                 android:layout_marginLeft="16dp"
                 android:layout_marginStart="16dp"
                 android:background="@drawable/view_rounded_background_semi_black"
-                android:gravity="center"
+                android:gravity="end"
                 android:paddingEnd="8dp"
                 android:paddingStart="8dp"
                 android:textColor="@color/colorOrange"

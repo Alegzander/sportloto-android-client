@@ -69,6 +69,8 @@ class GameDailyFragment : BaseFragment() {
 
         peopleTv.text = game.playersNum.toString()
 
+        timeProgress?.setProgress(0)
+
         countDown = object : CountDownTimer(game.endTime() - System.currentTimeMillis(), 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 val seconds = (millisUntilFinished / 1000) % 60
@@ -87,7 +89,12 @@ class GameDailyFragment : BaseFragment() {
         }
 
         topPlacesBtn.setOnClickListener {
-            val dialog = TopPlacesDialog(context)
+            val dialog = TopPlacesDialog(context, game)
+            game.id?.let {
+                gamesVM.getWinners(it).observe(this, Observer { winners ->
+                    dialog.setWinners(winners ?: emptyList())
+                })
+            }
             dialog.show()
         }
 

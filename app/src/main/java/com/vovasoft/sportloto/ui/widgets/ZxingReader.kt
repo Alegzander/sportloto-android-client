@@ -4,9 +4,7 @@ import android.Manifest
 import android.app.Activity
 import me.dm7.barcodescanner.zxing.ZXingScannerView
 import android.os.Bundle
-import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import com.google.zxing.Result
 import android.content.Intent
 
@@ -48,7 +46,5 @@ class ZxingReader : AppCompatActivity(), ZXingScannerView.ResultHandler {
         data.putExtra("result", rawResult.text)
         setResult(Activity.RESULT_OK, data)
         finish()
-        // If you would like to resume scanning, call this method below:
-        // scannerView.resumeCameraPreview(this);
     }
 }

@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.vovasoft.sportloto.R
-import com.vovasoft.sportloto.repository.models.TopPlace
+import com.vovasoft.sportloto.repository.models.Winner
 import com.vovasoft.sportloto.ui.view_holders.TopPlacesViewHolder
 
 /***************************************************************************
@@ -28,7 +28,7 @@ class TopPlacesRecyclerAdapter : RecyclerView.Adapter<TopPlacesViewHolder>() {
     }
 
 
-    var dataSet = mutableListOf<TopPlace>()
+    var dataSet = mutableListOf<Winner>()
         set(value) {
             field.clear()
             field.addAll(value)

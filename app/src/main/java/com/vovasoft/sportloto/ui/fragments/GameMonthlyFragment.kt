@@ -67,12 +67,15 @@ class GameMonthlyFragment : BaseFragment() {
         val days = (game.endTime() - System.currentTimeMillis()) / (1000 * 60 * 60 * 24)
         daysBoard.setCharacterList(TickerUtils.getDefaultListForUSCurrency())
         daysBoard.typeface = Typeface.create("sans-serif-light", Typeface.NORMAL)
-        daysBoard.setText("22", true)
-
-//        daysBoard.setValue(days.toString())
+        daysBoard.setText("%02d".format(days), true)
 
         topPlacesBtn.setOnClickListener {
-            val dialog = TopPlacesDialog(context)
+            val dialog = TopPlacesDialog(context, game)
+            game.id?.let {
+                gamesVM.getWinners(it).observe(this, Observer { winners ->
+                    dialog.setWinners(winners ?: emptyList())
+                })
+            }
             dialog.show()
         }
 

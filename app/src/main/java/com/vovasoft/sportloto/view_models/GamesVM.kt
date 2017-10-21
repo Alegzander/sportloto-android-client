@@ -7,6 +7,7 @@ import com.vovasoft.sportloto.repository.AppRepository
 import com.vovasoft.sportloto.repository.RepositoryCallback
 import com.vovasoft.sportloto.repository.models.Game
 import com.vovasoft.sportloto.repository.models.Wallet
+import com.vovasoft.sportloto.repository.models.Winner
 
 /***************************************************************************
  * Created by arseniy on 14/09/2017.
@@ -18,6 +19,8 @@ class GamesVM : ViewModel() {
     private var walletsLiveData = MutableLiveData<List<Wallet>>()
 
     private var gamesLiveData = MutableLiveData<List<Game>>()
+
+    private var gamesHistoryLiveData = MutableLiveData<List<Game>>()
 
     private var dailyGameLiveData = MutableLiveData<Game>()
 
@@ -38,11 +41,32 @@ class GamesVM : ViewModel() {
     }
 
 
+    fun getGamesHistory() : LiveData<List<Game>> {
+        appRepo.getGamesHistory(object : RepositoryCallback<List<Game>?> {
+            override fun done(data: List<Game>?) {
+                gamesHistoryLiveData.value = data
+            }
+        })
+        return gamesHistoryLiveData
+    }
+
+
     fun getGamesList() : LiveData<List<Game>> {
         if (gamesLiveData.value == null) {
             updateGamesList()
         }
         return gamesLiveData
+    }
+
+
+    fun getWinners(id: Int) : LiveData<List<Winner>> {
+        val winners = MutableLiveData<List<Winner>>()
+        appRepo.getRemoteWinners(id, object : RepositoryCallback<List<Winner>?> {
+            override fun done(data: List<Winner>?) {
+                winners.value = data
+            }
+        })
+        return winners
     }
 
 
