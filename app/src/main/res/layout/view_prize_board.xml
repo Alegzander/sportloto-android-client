@@ -5,13 +5,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal">
 
-    <com.vovasoft.sportloto.ui.widgets.PrizeBoardView.BlackTabView
+    <com.vovasoft.unilot.ui.widgets.PrizeBoardView.BlackTabView
         android:id="@+id/integer10"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_weight="1" />
 
-    <com.vovasoft.sportloto.ui.widgets.PrizeBoardView.BlackTabView
+    <com.vovasoft.unilot.ui.widgets.PrizeBoardView.BlackTabView
         android:id="@+id/integer1"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
@@ -30,20 +30,20 @@
         android:textColor="@color/colorOrange"
         android:textSize="56sp" />
 
-    <com.vovasoft.sportloto.ui.widgets.PrizeBoardView.BlackTabView
+    <com.vovasoft.unilot.ui.widgets.PrizeBoardView.BlackTabView
         android:id="@+id/fraction1"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_weight="1" />
 
-    <com.vovasoft.sportloto.ui.widgets.PrizeBoardView.BlackTabView
+    <com.vovasoft.unilot.ui.widgets.PrizeBoardView.BlackTabView
         android:id="@+id/fraction10"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_marginLeft="4dp"
         android:layout_weight="1" />
 
-    <com.vovasoft.sportloto.ui.widgets.PrizeBoardView.BlackTabView
+    <com.vovasoft.unilot.ui.widgets.PrizeBoardView.BlackTabView
         android:id="@+id/fraction100"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"

@@ -253,7 +253,7 @@
 
             </LinearLayout>
 
-            <com.vovasoft.sportloto.ui.widgets.GradientProgressBar
+            <com.vovasoft.unilot.ui.widgets.GradientProgressBar
                 android:id="@+id/timeProgress"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
