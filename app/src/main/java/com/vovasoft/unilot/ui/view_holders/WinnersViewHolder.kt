@@ -9,7 +9,7 @@ import com.vovasoft.unilot.repository.models.Winner
 /***************************************************************************
  * Created by arseniy on 14/10/2017.
  ****************************************************************************/
-class TopPlacesViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
+class WinnersViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
 
     private val placeTv = itemView?.findViewById<AppCompatTextView>(R.id.placeTv)
     private val prizeTv = itemView?.findViewById<AppCompatTextView>(R.id.prizeTv)

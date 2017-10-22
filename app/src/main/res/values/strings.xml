@@ -56,4 +56,8 @@
     <string name="wallet_number_has_been_copied">Wallet number has been copied</string>
     <string name="your_wallets">Your wallets</string>
     <string name="add">Add</string>
+    <string name="delete">delete</string>
+    <string name="delete_confirmation">Are you sure you want to delete wallet?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 </resources>

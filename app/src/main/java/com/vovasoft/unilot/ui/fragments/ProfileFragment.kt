@@ -3,10 +3,12 @@ package com.vovasoft.unilot.ui.fragments
 import android.app.Activity
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.support.v4.content.ContextCompat.checkSelfPermission
+import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
@@ -53,6 +55,21 @@ class ProfileFragment : BaseFragment() {
 
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = walletsAdapter
+
+        walletsAdapter.setOnDeleteListener { wallet ->
+            val dialog = AlertDialog.Builder(context)
+                    .setTitle(R.string.delete)
+                    .setMessage(R.string.delete_confirmation)
+                    .setNegativeButton(R.string.no, { dialog, _ ->
+                        dialog.dismiss()
+                    })
+                    .setPositiveButton(R.string.yes, {dialog, _ ->
+                        walletsAdapter.deleteWallet(wallet)
+                        dialog.dismiss()
+                    })
+                    .create()
+            dialog.show()
+        }
 
         scanBtn.setOnClickListener {
             if (hasCameraPermission) {

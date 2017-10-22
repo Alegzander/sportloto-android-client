@@ -6,12 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import com.vovasoft.unilot.R
 import com.vovasoft.unilot.repository.models.Winner
-import com.vovasoft.unilot.ui.view_holders.TopPlacesViewHolder
+import com.vovasoft.unilot.ui.view_holders.WinnersViewHolder
 
 /***************************************************************************
  * Created by arseniy on 14/10/2017.
  ****************************************************************************/
-class TopPlacesRecyclerAdapter : RecyclerView.Adapter<TopPlacesViewHolder>() {
+class WinnersRecyclerAdapter : RecyclerView.Adapter<WinnersViewHolder>() {
 
     enum class ViewType(val value: Int) {
         WHITE(0), GRAY(1);
@@ -46,23 +46,23 @@ class TopPlacesRecyclerAdapter : RecyclerView.Adapter<TopPlacesViewHolder>() {
     }
 
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): TopPlacesViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): WinnersViewHolder {
         var view: View? = null
 
         when(viewType) {
             ViewType.WHITE.value -> {
-                view = LayoutInflater.from(parent?.context).inflate(R.layout.view_holder_top_places_white, parent,false)
+                view = LayoutInflater.from(parent?.context).inflate(R.layout.view_holder_winners_white, parent,false)
             }
             ViewType.GRAY.value -> {
-                view = LayoutInflater.from(parent?.context).inflate(R.layout.view_holder_top_places_gray, parent,false)
+                view = LayoutInflater.from(parent?.context).inflate(R.layout.view_holder_winners_gray, parent,false)
             }
         }
 
-        return TopPlacesViewHolder(view)
+        return WinnersViewHolder(view)
     }
 
 
-    override fun onBindViewHolder(holder: TopPlacesViewHolder?, position: Int) {
+    override fun onBindViewHolder(holder: WinnersViewHolder?, position: Int) {
         holder?.setData(dataSet[position])
     }
 

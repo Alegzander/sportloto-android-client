@@ -56,4 +56,7 @@
     <string name="wallet_number_has_been_copied">Номер кошелька был скопирован</string>
     <string name="your_wallets">Ваши кошельки</string>
     <string name="add">Добавить</string>
+    <string name="delete_confirmation">Вы действительно хотите удалить кошелек?</string>
+    <string name="yes">Да</string>
+    <string name="no">Нет</string>
 </resources>

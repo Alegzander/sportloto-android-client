@@ -9,7 +9,7 @@ import android.widget.FrameLayout
 import com.vovasoft.unilot.R
 import com.vovasoft.unilot.repository.models.Game
 import com.vovasoft.unilot.repository.models.Winner
-import com.vovasoft.unilot.ui.recycler_adapters.TopPlacesRecyclerAdapter
+import com.vovasoft.unilot.ui.recycler_adapters.WinnersRecyclerAdapter
 import kotlinx.android.synthetic.main.dialog_view_top_places.view.*
 
 /***************************************************************************
@@ -47,7 +47,7 @@ class TopPlacesDialog(val context: Context, val game: Game) {
     inner class TopPlacesDialogView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0)
         : FrameLayout(context, attrs, defStyleAttr) {
 
-        private val adapter = TopPlacesRecyclerAdapter()
+        private val adapter = WinnersRecyclerAdapter()
 
         init {
             inflate(context, R.layout.dialog_view_top_places, this)

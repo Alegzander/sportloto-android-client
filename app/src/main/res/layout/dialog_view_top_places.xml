@@ -106,7 +106,7 @@
             android:clipToPadding="false"
             android:overScrollMode="never"
             android:scrollbars="horizontal"
-            tools:listitem="@layout/view_holder_top_places_white" />
+            tools:listitem="@layout/view_holder_winners_white" />
 
         <ProgressBar
             android:id="@+id/progressBar"

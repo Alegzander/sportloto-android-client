@@ -17,6 +17,8 @@ class WalletsRecyclerAdapter : RecyclerView.Adapter<WalletsViewHolder>() {
 
     var dataSet = mutableListOf<Wallet>()
 
+    var onDelete: ((Wallet) -> Unit)? = null
+
 
     fun addWallets(wallets: List<Wallet>) {
         dataSet.clear()
@@ -28,6 +30,22 @@ class WalletsRecyclerAdapter : RecyclerView.Adapter<WalletsViewHolder>() {
     fun addWallet(wallet: Wallet) {
         dataSet.add(wallet)
         notifyDataSetChanged()
+    }
+
+
+    fun deleteWallet(wallet: Wallet) {
+        doAsync {
+            dataSet.remove(wallet)
+            wallet.delete()
+            uiThread {
+                notifyDataSetChanged()
+            }
+        }
+    }
+
+
+    fun setOnDeleteListener(listener: (Wallet) -> Unit) {
+        onDelete = listener
     }
 
 
@@ -45,13 +63,7 @@ class WalletsRecyclerAdapter : RecyclerView.Adapter<WalletsViewHolder>() {
     override fun onBindViewHolder(holder: WalletsViewHolder?, position: Int) {
         holder?.setData(dataSet[position])
         holder?.setOnDeleteListener {
-            doAsync {
-                dataSet.remove(it)
-                it.delete()
-                uiThread {
-                    notifyDataSetChanged()
-                }
-            }
+            onDelete?.invoke(it)
         }
     }
 

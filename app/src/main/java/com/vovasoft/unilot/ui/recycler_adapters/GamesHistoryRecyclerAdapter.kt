@@ -51,10 +51,10 @@ class GamesHistoryRecyclerAdapter : RecyclerView.Adapter<GamesHistoryViewHolder>
 
         when(viewType) {
             ViewType.WHITE.value -> {
-                view = LayoutInflater.from(parent?.context).inflate(R.layout.view_holder_top_places_white, parent,false)
+                view = LayoutInflater.from(parent?.context).inflate(R.layout.view_holder_winners_white, parent,false)
             }
             ViewType.GRAY.value -> {
-                view = LayoutInflater.from(parent?.context).inflate(R.layout.view_holder_top_places_gray, parent,false)
+                view = LayoutInflater.from(parent?.context).inflate(R.layout.view_holder_winners_gray, parent,false)
             }
         }
 

@@ -69,6 +69,7 @@ class MainPagerFragment : BaseFragment() {
 
             override fun onPageSelected(position: Int) {
                 appVM.selectedPage.value = position
+                activity.hideKeyboard()
             }
 
             override fun onPageScrollStateChanged(state: Int) {
