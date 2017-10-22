@@ -57,9 +57,6 @@ class MainActivity : AppCompatActivity() {
 
         gamesVM.updateGamesList()
 
-//        Log.e("Width", .toString())
-//        Log.e("Height", height.toString())
-
     }
 
 

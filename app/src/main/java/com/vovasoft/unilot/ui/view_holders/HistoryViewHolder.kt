@@ -1,5 +1,6 @@
 package com.vovasoft.unilot.ui.view_holders
 
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.AppCompatImageView
 import android.support.v7.widget.AppCompatTextView
 import android.support.v7.widget.RecyclerView
@@ -34,11 +35,16 @@ class HistoryViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView), Vi
         dateTv?.text = game.endTime().toHumanDate()
 
         when (game.status) {
-            Game.Status.PUBLISHED.value -> statusTv?.text = "В процессе"
-            Game.Status.FINISHED.value -> statusTv?.text = "Завершен"
+            Game.Status.PUBLISHED.value -> {
+                statusTv?.text = "В процессе"
+                prizeTv?.setTextColor(ContextCompat.getColor(itemView.context, R.color.colorBlue))
+                prizeTv?.text = "перейти"
+            }
+            Game.Status.FINISHED.value -> {
+                statusTv?.text = "Завершен"
+                prizeTv?.text = "нет" //TODO if {winner} then {prize} else no
+            }
         }
-
-        prizeTv?.text = "нет"
     }
 
 

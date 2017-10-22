@@ -8,8 +8,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.vovasoft.unilot.R
+import com.vovasoft.unilot.repository.models.Game
 import com.vovasoft.unilot.ui.AppFragmentManager
 import com.vovasoft.unilot.ui.recycler_adapters.HistoryRecyclerAdapter
+import com.vovasoft.unilot.view_models.AppVM
 import com.vovasoft.unilot.view_models.GamesVM
 import kotlinx.android.synthetic.main.fragment_history.*
 
@@ -17,6 +19,9 @@ import kotlinx.android.synthetic.main.fragment_history.*
  * Created by arseniy on 15/10/2017.
  ****************************************************************************/
 class HistoryFragment : BaseFragment() {
+
+    private val appVM: AppVM
+        get() = ViewModelProviders.of(activity).get(AppVM::class.java)
 
     private val gamesVM: GamesVM
         get() = ViewModelProviders.of(activity).get(GamesVM::class.java)
@@ -56,8 +61,18 @@ class HistoryFragment : BaseFragment() {
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = adapter
         adapter.setOnItemClickListener { game ->
-            gamesVM.selectedHistoryGame = game
-            AppFragmentManager.instance.openFragment(HistoryGameDetailsFragment(), true)
+            if (game.status == Game.Status.PUBLISHED.value) {
+                when (game.type) {
+                    Game.Type.DAILY.value -> appVM.selectedPage.value = MainPagerFragment.Page.DAY.value
+                    Game.Type.WEEKLY.value -> appVM.selectedPage.value = MainPagerFragment.Page.WEEK.value
+                    Game.Type.MONTHLY.value -> appVM.selectedPage.value = MainPagerFragment.Page.MONTH.value
+                }
+                onBackPressed()
+            }
+            else {
+                gamesVM.selectedHistoryGame = game
+                AppFragmentManager.instance.openFragment(HistoryGameDetailsFragment(), true)
+            }
         }
     }
 

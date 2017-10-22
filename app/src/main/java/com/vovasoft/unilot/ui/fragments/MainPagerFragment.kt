@@ -4,6 +4,7 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.graphics.PorterDuff
 import android.os.Bundle
+import android.os.Handler
 import android.support.v4.content.ContextCompat
 import android.support.v4.view.GravityCompat
 import android.support.v4.view.ViewPager
@@ -21,6 +22,22 @@ import kotlinx.android.synthetic.main.fragment_main_pager.*
  * Created by arseniy on 15/09/2017.
  ****************************************************************************/
 class MainPagerFragment : BaseFragment() {
+
+
+    enum class Page(val value: Int) {
+        DAY(0), WEEK(1), MONTH(2), PROFILE(3);
+
+        companion object {
+            fun from(findValue: Int) : Page {
+                return when (findValue) {
+                    0 -> DAY
+                    1 -> WEEK
+                    2 -> MONTH
+                    else -> PROFILE
+                }
+            }
+        }
+    }
 
     private val appVM: AppVM
         get() = ViewModelProviders.of(activity).get(AppVM::class.java)
@@ -55,11 +72,13 @@ class MainPagerFragment : BaseFragment() {
         val pagerAdapter = MainPagerAdapter(childFragmentManager)
         pager.adapter = pagerAdapter
 
+        val position = appVM.selectedPage.value!!
+
         tabs.setupWithViewPager(pager)
-        tabs.getTabAt(0)?.setText(R.string.daily)?.setIcon(R.drawable.ic_day_gray)
-        tabs.getTabAt(1)?.setText(R.string.weekly)?.setIcon(R.drawable.ic_week_gray)
-        tabs.getTabAt(2)?.setText(R.string.monthly_bonus)?.setIcon(R.drawable.ic_month_gray)
-        tabs.getTabAt(3)?.setText(R.string.profile)?.setIcon(R.drawable.ic_profile_gray)
+        tabs.getTabAt(Page.DAY.value)?.setText(R.string.daily)?.setIcon(R.drawable.ic_day_gray)
+        tabs.getTabAt(Page.WEEK.value)?.setText(R.string.weekly)?.setIcon(R.drawable.ic_week_gray)
+        tabs.getTabAt(Page.MONTH.value)?.setText(R.string.monthly_bonus)?.setIcon(R.drawable.ic_month_gray)
+        tabs.getTabAt(Page.PROFILE.value)?.setText(R.string.profile)?.setIcon(R.drawable.ic_profile_gray)
 
         pager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
@@ -81,5 +100,6 @@ class MainPagerFragment : BaseFragment() {
             }
         })
 
+        Handler().post { pager.setCurrentItem(position, false) }
     }
 }
