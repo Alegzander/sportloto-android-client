@@ -2,8 +2,8 @@ package com.vovasoft.unilot.repository
 
 import com.vovasoft.unilot.App
 import com.vovasoft.unilot.repository.models.Game
-import com.vovasoft.unilot.repository.models.Winner
 import com.vovasoft.unilot.repository.models.Wallet
+import com.vovasoft.unilot.repository.models.Winner
 import com.vovasoft.unilot.repository.retrofit.WebClient
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread

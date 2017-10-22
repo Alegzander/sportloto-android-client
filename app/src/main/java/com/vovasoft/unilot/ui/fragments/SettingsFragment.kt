@@ -4,8 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.vovasoft.unilot.components.Preferences
 import com.vovasoft.unilot.R
+import com.vovasoft.unilot.components.Preferences
 import com.vovasoft.unilot.ui.AppFragmentManager
 import kotlinx.android.synthetic.main.fragment_settings.*
 
@@ -21,6 +21,7 @@ class SettingsFragment : BaseFragment() {
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        lockDrawerMode(true)
         setupView()
     }
 
@@ -86,6 +87,7 @@ class SettingsFragment : BaseFragment() {
 
 
     override fun onBackPressed() {
+        lockDrawerMode(false)
         AppFragmentManager.instance.popBackStack()
     }
 }

@@ -1,18 +1,12 @@
 package com.vovasoft.unilot.repository.retrofit
 
-import com.google.android.gms.security.ProviderInstaller
-import com.vovasoft.unilot.App
 import com.vovasoft.unilot.BuildConfig
 import com.vovasoft.unilot.components.Preferences
-import okhttp3.CipherSuite
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
-import okhttp3.ConnectionSpec
-import okhttp3.TlsVersion
-import java.util.*
 
 
 /***************************************************************************

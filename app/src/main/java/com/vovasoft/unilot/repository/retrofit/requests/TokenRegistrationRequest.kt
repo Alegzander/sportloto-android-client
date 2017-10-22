@@ -1,6 +1,5 @@
 package com.vovasoft.unilot.repository.retrofit.requests
 
-import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 /***************************************************************************

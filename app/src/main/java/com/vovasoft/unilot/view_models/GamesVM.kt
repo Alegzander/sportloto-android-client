@@ -31,6 +31,9 @@ class GamesVM : ViewModel() {
     private var isUpdating = false
 
 
+    var selectedHistoryGame: Game? = null
+
+
     fun getWallets() : LiveData<List<Wallet>> {
         appRepo.getWallets(object : RepositoryCallback<List<Wallet>?> {
             override fun done(data: List<Wallet>?) {

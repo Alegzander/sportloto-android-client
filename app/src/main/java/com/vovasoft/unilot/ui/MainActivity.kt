@@ -13,6 +13,7 @@ import com.vovasoft.unilot.App
 import com.vovasoft.unilot.R
 import com.vovasoft.unilot.components.Preferences
 import com.vovasoft.unilot.ui.fragments.BaseFragment
+import com.vovasoft.unilot.ui.fragments.HistoryFragment
 import com.vovasoft.unilot.ui.fragments.MainPagerFragment
 import com.vovasoft.unilot.ui.fragments.SettingsFragment
 import com.vovasoft.unilot.view_models.AppVM
@@ -75,6 +76,7 @@ class MainActivity : AppCompatActivity() {
 
         historyBtn.setOnClickListener {
             drawerLayout.closeDrawers()
+            AppFragmentManager.instance.openFragment(HistoryFragment(), true)
         }
 
         statisticBtn.setOnClickListener {

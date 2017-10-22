@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
     android:background="@drawable/view_rounded_background_gray"
+    android:orientation="horizontal"
     android:paddingBottom="8dp"
     android:paddingEnd="12dp"
     android:paddingStart="12dp"
@@ -12,22 +12,25 @@
 
     <LinearLayout
         android:layout_width="0dp"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
         android:orientation="horizontal">
 
         <android.support.v7.widget.AppCompatImageView
             android:id="@+id/iconImg"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:scaleType="fitStart"
             app:srcCompat="@drawable/ic_day_gray" />
 
         <android.support.v7.widget.AppCompatTextView
             android:id="@+id/dateTv"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:paddingLeft="8dp"
+            android:paddingStart="8dp"
+            android:singleLine="true"
             android:textColor="@color/colorBlack"
             app:fontFamily="@font/roboto" />
     </LinearLayout>
@@ -35,16 +38,20 @@
     <android.support.v7.widget.AppCompatTextView
         android:id="@+id/statusTv"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:singleLine="true"
         android:textColor="@color/colorBlack"
         app:fontFamily="@font/roboto" />
 
     <android.support.v7.widget.AppCompatTextView
         android:id="@+id/prizeTv"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:singleLine="true"
         android:textColor="@color/colorBlack"
         app:fontFamily="@font/roboto" />
 </LinearLayout>

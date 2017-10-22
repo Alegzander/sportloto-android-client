@@ -1,18 +1,16 @@
 package com.vovasoft.unilot.ui.dialogs
 
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Context
 import android.os.CountDownTimer
 import android.support.v7.app.AlertDialog
 import android.util.AttributeSet
 import android.widget.FrameLayout
+import android.widget.Toast
 import com.vovasoft.unilot.R
 import com.vovasoft.unilot.repository.models.Game
 import kotlinx.android.synthetic.main.dialog_view_participate.view.*
-import kotlinx.android.synthetic.main.fragment_game_weekly.*
-import android.R.attr.label
-import android.content.ClipData
-import android.content.ClipboardManager
-import android.widget.Toast
 
 
 /***************************************************************************

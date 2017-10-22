@@ -1,16 +1,14 @@
 package com.vovasoft.unilot.repository.retrofit
 
-import com.google.android.gms.security.ProviderInstaller
 import com.vovasoft.unilot.App
 import com.vovasoft.unilot.BuildConfig
-import com.vovasoft.unilot.components.Preferences
 import com.vovasoft.unilot.R
+import com.vovasoft.unilot.components.Preferences
 import com.vovasoft.unilot.repository.retrofit.requests.AuthorizationRequest
 import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.util.*
 import java.util.concurrent.TimeUnit
 
 /***************************************************************************

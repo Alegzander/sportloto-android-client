@@ -3,7 +3,6 @@ package com.vovasoft.unilot.repository.models
 import android.arch.persistence.room.ColumnInfo
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey
-import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import com.vovasoft.unilot.App
 import com.vovasoft.unilot.repository.RepositoryCallback

@@ -61,7 +61,7 @@ class GamesWeeklyFragment : BaseFragment() {
     private fun setupViews(game: Game) {
         prizeBoard.setCharacterList(TickerUtils.getDefaultListForUSCurrency())
         prizeBoard.typeface = Typeface.create("sans-serif-light", Typeface.NORMAL)
-        prizeBoard.setText("%.2f".format(game.prizeAmount), true)
+        prizeBoard.setText("%.4f".format(game.prizeAmount), true)
 
         prizeFiatTv.setCharacterList(TickerUtils.getDefaultListForUSCurrency())
         prizeFiatTv.typeface = Typeface.create("sans-serif-light", Typeface.NORMAL)

@@ -22,7 +22,7 @@ class WalletsViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
         walletTv?.text = wallet.number
     }
 
-    fun setOnDeleteListener(listener: (Wallet)->Unit) {
+    fun setOnDeleteListener(listener: (Wallet) -> Unit) {
         deleteBtn?.setOnClickListener {
             listener(wallet)
         }

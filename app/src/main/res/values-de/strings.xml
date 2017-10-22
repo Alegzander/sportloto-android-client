@@ -54,8 +54,9 @@
     <string name="lottery_ends_in">Lottery finishes in</string>
     <string name="copy_wallet_number">Copy wallet number</string>
     <string name="wallet_number_has_been_copied">Wallet number has been copied</string>
-    <string name="your_wallets">Ваши кошельки</string>
+    <string name="your_wallets">Your wallets</string>
     <string name="add">Add</string>
+    <string name="delete">Delete</string>
     <string name="delete_confirmation">Are you sure you want to delete wallet?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>

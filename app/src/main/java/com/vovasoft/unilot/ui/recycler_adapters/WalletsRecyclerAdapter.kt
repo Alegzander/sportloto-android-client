@@ -17,7 +17,7 @@ class WalletsRecyclerAdapter : RecyclerView.Adapter<WalletsViewHolder>() {
 
     var dataSet = mutableListOf<Wallet>()
 
-    var onDelete: ((Wallet) -> Unit)? = null
+    private var onDelete: ((Wallet) -> Unit)? = null
 
 
     fun addWallets(wallets: List<Wallet>) {

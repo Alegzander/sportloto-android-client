@@ -62,7 +62,7 @@ class TopPlacesDialog(val context: Context, val game: Game) {
 
             progressBar.visibility = View.VISIBLE
 
-            val prizeText = "${"%.2f".format(game.prizeAmount)} ETH = ${"$ %.2f".format(game.prizeAmountFiat)}"
+            val prizeText = "${"%.4f".format(game.prizeAmount)} ETH = ${"$ %.2f".format(game.prizeAmountFiat)}"
             prizeTv.text = prizeText
 
             recyclerView.layoutManager = LinearLayoutManager(context)

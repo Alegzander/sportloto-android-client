@@ -3,7 +3,6 @@ package com.vovasoft.unilot.ui.fragments
 import android.app.Activity
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
-import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -13,16 +12,16 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
+import android.widget.TextView
 import com.vovasoft.unilot.R
 import com.vovasoft.unilot.repository.models.Wallet
 import com.vovasoft.unilot.ui.recycler_adapters.WalletsRecyclerAdapter
+import com.vovasoft.unilot.ui.widgets.ZxingReader
 import com.vovasoft.unilot.view_models.GamesVM
 import kotlinx.android.synthetic.main.fragment_profile.*
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
-import android.view.inputmethod.EditorInfo
-import android.widget.TextView
-import com.vovasoft.unilot.ui.widgets.ZxingReader
 
 
 /***************************************************************************
@@ -79,10 +78,6 @@ class ProfileFragment : BaseFragment() {
             }
         }
 
-        walletEt.setOnClickListener {
-            walletEt.isCursorVisible = true
-        }
-
         walletEt.setOnEditorActionListener(TextView.OnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 addWallet()
@@ -111,7 +106,7 @@ class ProfileFragment : BaseFragment() {
                 wallet.save()
                 uiThread {
                     walletEt.setText("")
-                    walletEt.isCursorVisible = false
+                    walletEt.clearFocus()
                     activity.hideKeyboard()
                     walletsAdapter.addWallet(wallet)
                 }

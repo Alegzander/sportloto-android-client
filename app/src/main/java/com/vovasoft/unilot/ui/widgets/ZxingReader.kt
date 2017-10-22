@@ -2,13 +2,11 @@ package com.vovasoft.unilot.ui.widgets
 
 import android.Manifest
 import android.app.Activity
-import me.dm7.barcodescanner.zxing.ZXingScannerView
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.google.zxing.Result
-import android.content.Intent
-
-
+import me.dm7.barcodescanner.zxing.ZXingScannerView
 
 
 /***************************************************************************
