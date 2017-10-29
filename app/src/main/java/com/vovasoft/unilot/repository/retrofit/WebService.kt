@@ -1,8 +1,8 @@
 package com.vovasoft.unilot.repository.retrofit
 
-import com.vovasoft.unilot.repository.models.AuthorizationModel
-import com.vovasoft.unilot.repository.models.Game
-import com.vovasoft.unilot.repository.models.Winner
+import com.vovasoft.unilot.repository.models.pure.AuthorizationModel
+import com.vovasoft.unilot.repository.models.entities.Game
+import com.vovasoft.unilot.repository.models.pure.Winner
 import com.vovasoft.unilot.repository.retrofit.requests.AuthorizationRequest
 import com.vovasoft.unilot.repository.retrofit.requests.TokenRegistrationRequest
 import retrofit2.Call

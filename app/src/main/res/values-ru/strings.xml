@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">unilot</string>
+    <string name="app_name">Unilot</string>
     <string name="client_id">PccTjiTN7xXU9PCJRiAzYA2frgKUSEl0scJMTzFb</string>
     <string name="client_secret">2HIDVZRBWIDWUVMnlgH76K6pA3g5vPuAygnTm5P4IbvTkQMymFVCejMRoOkiZkadenWUsiM5OPP8mhREYytAxtzym9ejKj5LVG37z3mgbtrlJ1nMuv3s14sx60AuwwO1</string>
     <string name="grant_type">client_credentials</string>
@@ -16,7 +16,7 @@
     <string name="hours">Часов</string>
     <string name="minutes">Минут</string>
     <string name="sec">Сек</string>
-    <string name="game_history">История розыгрышей</string>
+    <string name="games_history">История розыгрышей</string>
     <string name="statistic">Статистика</string>
     <string name="how_it_works">Как это работает</string>
     <string name="white_paper">White paper</string>
@@ -60,4 +60,13 @@
     <string name="delete_confirmation">Вы действительно хотите удалить кошелек?</string>
     <string name="yes">Да</string>
     <string name="no">Нет</string>
+    <string name="congratulations">Поздравляем!</string>
+    <string name="you_won">Вы победили!</string>
+    <string name="you_take_place_d" formatted="false">Вы заняли %d место\nи выиграли:</string>
+    <string name="game_history">История розыгрыша</string>
+    <string name="system_selecting_winner">Система выбирает победителя</string>
+    <string name="copy_transaction_number">Скопировать номер транзакции</string>
+    <string name="results_of_daily_drawing">Итоги дневной лотереи</string>
+    <string name="unfortunately_you_are_lose">К сожалению, вас нет в список победителей</string>
+    <string name="you_automatically_participate_in_bonus_drawing_that_will_run_in">Вы автоматически становитесь участником бонусного розыгрыша, который состоится через:</string>
 </resources>

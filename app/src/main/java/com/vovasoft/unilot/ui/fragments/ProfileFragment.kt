@@ -15,7 +15,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import com.vovasoft.unilot.R
-import com.vovasoft.unilot.repository.models.Wallet
+import com.vovasoft.unilot.repository.models.entities.Wallet
 import com.vovasoft.unilot.ui.recycler_adapters.WalletsRecyclerAdapter
 import com.vovasoft.unilot.ui.widgets.ZxingReader
 import com.vovasoft.unilot.view_models.GamesVM

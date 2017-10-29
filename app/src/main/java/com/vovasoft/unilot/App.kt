@@ -38,6 +38,6 @@ class App : Application() {
         super.onCreate()
         ProviderInstaller.installIfNeeded(this)
         instance = this
-        App.database =  Room.databaseBuilder(this, AppDatabase::class.java, "local_storage").build()
+        App.database =  Room.databaseBuilder(this, AppDatabase::class.java, "local_storage").fallbackToDestructiveMigration().build()
     }
 }

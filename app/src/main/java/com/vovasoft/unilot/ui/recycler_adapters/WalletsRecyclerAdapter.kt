@@ -4,7 +4,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.vovasoft.unilot.R
-import com.vovasoft.unilot.repository.models.Wallet
+import com.vovasoft.unilot.repository.models.entities.Wallet
 import com.vovasoft.unilot.ui.view_holders.WalletsViewHolder
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread

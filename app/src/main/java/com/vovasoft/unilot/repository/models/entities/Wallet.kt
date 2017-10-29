@@ -1,10 +1,11 @@
-package com.vovasoft.unilot.repository.models
+package com.vovasoft.unilot.repository.models.entities
 
 import android.arch.persistence.room.ColumnInfo
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey
 import com.vovasoft.unilot.App
 import com.vovasoft.unilot.repository.RepositoryCallback
+import com.vovasoft.unilot.repository.models.GsonModel
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 
@@ -17,7 +18,7 @@ data class Wallet(@PrimaryKey(autoGenerate = true) @ColumnInfo(name = "id")
 
                   @ColumnInfo(name = "number")
                   var number: String? = null
-) {
+) : GsonModel() {
 
 
     fun save() {

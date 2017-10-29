@@ -23,7 +23,6 @@ import kotlinx.android.synthetic.main.fragment_main_pager.*
  ****************************************************************************/
 class MainPagerFragment : BaseFragment() {
 
-
     enum class Page(val value: Int) {
         DAY(0), WEEK(1), MONTH(2), PROFILE(3);
 
@@ -100,6 +99,11 @@ class MainPagerFragment : BaseFragment() {
             }
         })
 
-        Handler().post { pager.setCurrentItem(position, false) }
+        Handler().post {
+            view?.let {
+                pager.setCurrentItem(position, false)
+            }
+        }
     }
+
 }

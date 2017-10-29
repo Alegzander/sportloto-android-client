@@ -3,11 +3,15 @@ package com.vovasoft.unilot.view_models
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
+import com.vovasoft.unilot.App
 import com.vovasoft.unilot.repository.AppRepository
 import com.vovasoft.unilot.repository.RepositoryCallback
-import com.vovasoft.unilot.repository.models.Game
-import com.vovasoft.unilot.repository.models.Wallet
-import com.vovasoft.unilot.repository.models.Winner
+import com.vovasoft.unilot.repository.models.entities.Game
+import com.vovasoft.unilot.repository.models.entities.GameResult
+import com.vovasoft.unilot.repository.models.entities.Wallet
+import com.vovasoft.unilot.repository.models.pure.Winner
+import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.uiThread
 
 /***************************************************************************
  * Created by arseniy on 14/09/2017.
@@ -79,16 +83,24 @@ class GamesVM : ViewModel() {
             appRepo.getRemoteGames(object : RepositoryCallback<List<Game>?> {
                 override fun done(data: List<Game>?) {
 
+                    gamesLiveData.value = data
+
                     dailyGameLiveData.value = data?.firstOrNull { game ->
-                        Game.Status.from(game.status) == Game.Status.PUBLISHED && Game.Type.from(game.type) == Game.Type.DAILY
+                        (Game.Status.from(game.status) == Game.Status.PUBLISHED
+                                || Game.Status.from(game.status) == Game.Status.FINISHING)
+                                && Game.Type.from(game.type) == Game.Type.DAILY
                     }
 
                     weeklyGameLiveData.value = data?.firstOrNull { game ->
-                        Game.Status.from(game.status) == Game.Status.PUBLISHED && Game.Type.from(game.type) == Game.Type.WEEKLY
+                        (Game.Status.from(game.status) == Game.Status.PUBLISHED
+                                || Game.Status.from(game.status) == Game.Status.FINISHING)
+                                && Game.Type.from(game.type) == Game.Type.WEEKLY
                     }
 
                     monthlyGameLiveData.value = data?.firstOrNull { game ->
-                        Game.Status.from(game.status) == Game.Status.PUBLISHED && Game.Type.from(game.type) == Game.Type.MONTHLY
+                        (Game.Status.from(game.status) == Game.Status.PUBLISHED
+                                || Game.Status.from(game.status) == Game.Status.FINISHING)
+                                && Game.Type.from(game.type) == Game.Type.MONTHLY
                     }
 
                     isUpdating = false
@@ -111,5 +123,24 @@ class GamesVM : ViewModel() {
     fun getMonthlyGame() : LiveData<Game> {
         return monthlyGameLiveData
     }
+
+
+    fun getResults(callback: RepositoryCallback<List<GameResult>>) {
+        appRepo.getResults(object : RepositoryCallback<List<GameResult>> {
+            override fun done(data: List<GameResult>?) {
+                callback.done(data)
+            }
+        })
+    }
+
+
+    fun getGameById(id: Int, callback: RepositoryCallback<Game?>) {
+        appRepo.getGameById(id, object : RepositoryCallback<Game?> {
+            override fun done(data: Game?) {
+                callback.done(data)
+            }
+        })
+    }
+
 
 }

@@ -1,7 +1,9 @@
 package com.vovasoft.unilot.ui.fragments
 
+import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.widget.DrawerLayout
+import android.view.View
 import com.vovasoft.unilot.ui.MainActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -10,11 +12,16 @@ import kotlinx.android.synthetic.main.activity_main.*
  ****************************************************************************/
 abstract class BaseFragment : Fragment() {
 
+    protected var isCreated = false
+
+    protected var isOnScreen = false
+
     open fun onBackPressed() { }
 
     open fun showLoading(show: Boolean) { }
 
     open fun onNetworkStateChanged(isOnline: Boolean) { }
+
 
     fun lockDrawerMode(lock: Boolean) {
         val drawer = activity.drawerLayout
@@ -22,6 +29,20 @@ abstract class BaseFragment : Fragment() {
         else drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
     }
 
+
     val activity : MainActivity
         get() = super.getActivity() as MainActivity
+
+
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        isCreated = true
+    }
+
+
+    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
+        super.setUserVisibleHint(isVisibleToUser)
+        isOnScreen = isVisibleToUser
+    }
+
 }

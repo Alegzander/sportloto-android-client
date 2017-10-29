@@ -7,7 +7,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.vovasoft.unilot.R
 import com.vovasoft.unilot.components.toHumanDate
-import com.vovasoft.unilot.repository.models.Game
+import com.vovasoft.unilot.repository.models.entities.Game
 
 /***************************************************************************
  * Created by arseniy on 21/10/2017.

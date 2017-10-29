@@ -1,8 +1,7 @@
 package com.vovasoft.unilot.repository.room.dao
 
 import android.arch.persistence.room.*
-import com.vovasoft.unilot.repository.models.Game
-import com.vovasoft.unilot.repository.models.Wallet
+import com.vovasoft.unilot.repository.models.entities.Wallet
 
 
 /***************************************************************************
@@ -13,8 +12,11 @@ interface WalletsDao {
     @Query("SELECT * FROM wallets")
     fun getWallets(): List<Wallet>
 
+    @Query("SELECT number FROM wallets")
+    fun getWalletsNumbers(): List<String>
+
     @Query("SELECT * FROM wallets WHERE number = :arg0 LIMIT 1")
-    fun getGameByNumber(number: String): Game
+    fun getWalletByNumber(number: String): Wallet
 
     @Insert(onConflict= OnConflictStrategy.REPLACE)
     fun insert(wallet: Wallet)

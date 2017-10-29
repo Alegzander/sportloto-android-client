@@ -109,6 +109,7 @@
                 android:id="@+id/prizeBoard"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
                 android:layout_marginStart="16dp"
                 android:background="@drawable/view_rounded_background_semi_black"
                 android:gravity="end"
@@ -172,6 +173,7 @@
         </android.support.constraint.ConstraintLayout>
 
         <LinearLayout
+            android:id="@+id/publishedView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="48"
@@ -323,6 +325,84 @@
 
             </android.support.constraint.ConstraintLayout>
 
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/finishingView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="48"
+            android:background="@drawable/view_rounded_background_semi_black"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="12dp"
+            android:visibility="gone"
+            android:weightSum="100">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="30"
+                android:gravity="center"
+                android:text="@string/system_selecting_winner"
+                android:textColor="@color/colorWhite"
+                android:textSize="25sp" />
+
+            <TextView
+                android:id="@+id/calculateTimeTv"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="30"
+                android:fontFamily="@font/roboto_light"
+                android:gravity="center"
+                android:textColor="@color/colorWhite"
+                android:textSize="34sp" />
+
+            <TextView
+                android:id="@+id/walletTv"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="10"
+                android:fontFamily="@font/roboto"
+                android:gravity="center"
+                android:textColor="@color/colorWhite"
+                android:textSize="12sp" />
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/copyBtn"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_weight="20"
+                android:background="@drawable/view_square_rounded_gray_stroke">
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:id="@+id/copyImg"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginStart="16dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_copy_orange" />
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:includeFontPadding="false"
+                    android:text="@string/copy_transaction_number"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="16sp"
+                    app:fontFamily="@font/roboto"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/copyImg"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </android.support.constraint.ConstraintLayout>
 
         </LinearLayout>
 

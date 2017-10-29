@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.vovasoft.unilot.R
-import com.vovasoft.unilot.repository.models.Winner
+import com.vovasoft.unilot.repository.models.pure.Winner
 import com.vovasoft.unilot.ui.view_holders.DetailsHistoryViewHolder
 
 /***************************************************************************

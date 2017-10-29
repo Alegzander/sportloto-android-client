@@ -9,6 +9,7 @@
 
     <color name="colorYellow">#FCDF8A</color>
     <color name="colorOrange">#FFCEAB</color>
+    <color name="colorDarkOrange">#e2ac84</color>
     <color name="colorPink">#FF988C</color>
     <color name="colorLightGray">#8E86A2</color>
     <color name="colorGray">#666666</color>

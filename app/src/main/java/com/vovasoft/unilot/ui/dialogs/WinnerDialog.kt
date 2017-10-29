@@ -1,17 +1,19 @@
 package com.vovasoft.unilot.ui.dialogs
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.support.v7.app.AlertDialog
 import android.util.AttributeSet
 import android.widget.FrameLayout
 import com.vovasoft.unilot.R
-import com.vovasoft.unilot.repository.models.Game
+import com.vovasoft.unilot.repository.models.entities.Game
+import com.vovasoft.unilot.repository.models.entities.GameResult
 import kotlinx.android.synthetic.main.dialog_view_winner.view.*
 
 /***************************************************************************
  * Created by arseniy on 22/10/2017.
  ****************************************************************************/
-class WinnerDialog(val context: Context, val game: Game) {
+class WinnerDialog(val context: Context, val result: GameResult) {
 
     private val winnerDialogView: WinnerDialogView
     private var dialog: AlertDialog? = null
@@ -25,6 +27,9 @@ class WinnerDialog(val context: Context, val game: Game) {
     fun show() {
         val builder = AlertDialog.Builder(context).setView(winnerDialogView)
         dialog = builder.create()
+        dialog?.setOnDismissListener({
+            result.deleteAsync()
+        })
         dialog?.show()
     }
 
@@ -44,10 +49,15 @@ class WinnerDialog(val context: Context, val game: Game) {
         }
 
 
+        @SuppressLint("SetTextI18n")
         private fun setupViews() {
             closeBtn.setOnClickListener {
                 dismiss()
             }
+
+            placeTv.text = context.getString(R.string.you_take_place_d).format(result.position)
+            prizeTv.text = "%.3f".format(result.prize)
+            prizeFialtTv.text = "US $%.2f".format(result.prizeFiat)
         }
 
     }

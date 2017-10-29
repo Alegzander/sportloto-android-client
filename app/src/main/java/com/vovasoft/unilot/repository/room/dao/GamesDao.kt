@@ -4,7 +4,7 @@ import android.arch.persistence.room.Dao
 import android.arch.persistence.room.Insert
 import android.arch.persistence.room.OnConflictStrategy
 import android.arch.persistence.room.Query
-import com.vovasoft.unilot.repository.models.Game
+import com.vovasoft.unilot.repository.models.entities.Game
 
 /***************************************************************************
  * Created by arseniy on 15/09/2017.
@@ -15,7 +15,7 @@ interface GamesDao {
     fun getGames(): List<Game>
 
     @Query("SELECT * FROM games WHERE id = :arg0 LIMIT 1")
-    fun getGameById(id: Int): Game
+    fun getGameById(id: Int): Game?
 
     @Insert(onConflict= OnConflictStrategy.REPLACE)
     fun insert(game: Game)

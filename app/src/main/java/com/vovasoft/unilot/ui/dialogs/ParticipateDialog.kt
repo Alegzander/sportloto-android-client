@@ -9,7 +9,7 @@ import android.util.AttributeSet
 import android.widget.FrameLayout
 import android.widget.Toast
 import com.vovasoft.unilot.R
-import com.vovasoft.unilot.repository.models.Game
+import com.vovasoft.unilot.repository.models.entities.Game
 import kotlinx.android.synthetic.main.dialog_view_participate.view.*
 
 
@@ -55,6 +55,8 @@ class ParticipateDialog(val context: Context, val game: Game) {
             closeBtn.setOnClickListener {
                 dismiss()
             }
+
+            walletTv.text = game.smartContractId
 
             copyBtn.setOnClickListener {
                 val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager

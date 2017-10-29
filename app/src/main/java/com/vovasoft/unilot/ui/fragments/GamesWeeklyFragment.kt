@@ -1,33 +1,30 @@
 package com.vovasoft.unilot.ui.fragments
 
 import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
+import android.content.IntentFilter
 import android.graphics.Typeface
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.support.v4.content.LocalBroadcastManager
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.robinhood.ticker.TickerUtils
 import com.vovasoft.unilot.R
-import com.vovasoft.unilot.repository.models.Game
+import com.vovasoft.unilot.repository.models.entities.Game
 import com.vovasoft.unilot.ui.dialogs.ParticipateDialog
 import com.vovasoft.unilot.ui.dialogs.TopPlacesDialog
-import com.vovasoft.unilot.view_models.GamesVM
 import kotlinx.android.synthetic.main.fragment_game_weekly.*
 
 /***************************************************************************
  * Created by arseniy on 16/09/2017.
  ****************************************************************************/
-class GamesWeeklyFragment : BaseFragment() {
-
-    private val gamesVM: GamesVM
-        get() = ViewModelProviders.of(activity).get(GamesVM::class.java)
-
-
-    private var countDown: CountDownTimer? = null
-
+class GamesWeeklyFragment : GameBaseFragment() {
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater!!.inflate(R.layout.fragment_game_weekly, container, false)
@@ -40,80 +37,132 @@ class GamesWeeklyFragment : BaseFragment() {
     }
 
 
+    override fun onStart() {
+        super.onStart()
+        LocalBroadcastManager.getInstance(context).registerReceiver(messageReceiver, IntentFilter("weekly"))
+    }
+
+
+    override fun onStop() {
+        super.onStop()
+        LocalBroadcastManager.getInstance(context).unregisterReceiver(messageReceiver)
+    }
+
+
     private fun observeData() {
         showLoading(true)
         gamesVM.getWeeklyGame().observe(this, Observer { game ->
             showLoading(false)
-            if (game == null) {
-                contentFrame.visibility = View.INVISIBLE
-                noContentFrame.visibility = View.VISIBLE
-            }
-            else {
-                Log.e("observeData", game.toString())
-                setupViews(game)
-                contentFrame.visibility = View.VISIBLE
-                noContentFrame.visibility = View.INVISIBLE
-            }
+            Log.e("observeData", game.toString())
+            this.game = game
+            setupViews()
         })
     }
 
 
-    private fun setupViews(game: Game) {
-        prizeBoard.setCharacterList(TickerUtils.getDefaultListForUSCurrency())
-        prizeBoard.typeface = Typeface.create("sans-serif-light", Typeface.NORMAL)
-        prizeBoard.setText("%.4f".format(game.prizeAmount), true)
+    override fun setupViews() {
+        contentFrame.visibility = View.INVISIBLE
+        noContentFrame.visibility = View.VISIBLE
 
-        prizeFiatTv.setCharacterList(TickerUtils.getDefaultListForUSCurrency())
-        prizeFiatTv.typeface = Typeface.create("sans-serif-light", Typeface.NORMAL)
-        prizeFiatTv.setText("$ %.2f".format(game.prizeAmountFiat), true)
+        game?.let { game ->
+            contentFrame.visibility = View.VISIBLE
+            noContentFrame.visibility = View.INVISIBLE
 
-        peopleTv.text = game.playersNum.toString()
+            prizeBoard.setCharacterList(TickerUtils.getDefaultListForUSCurrency())
+            prizeBoard.typeface = Typeface.create("sans-serif-light", Typeface.NORMAL)
+            prizeBoard.setText("%.3f".format(game.prizeAmount), true)
 
-        timeProgress?.setProgress(0)
+            prizeFiatTv.setCharacterList(TickerUtils.getDefaultListForUSCurrency())
+            prizeFiatTv.typeface = Typeface.create("sans-serif-light", Typeface.NORMAL)
+            prizeFiatTv.setText("$ %.2f".format(game.prizeAmountFiat), true)
 
-        countDown = object : CountDownTimer(game.endTime() - System.currentTimeMillis(), 60000) {
-            override fun onTick(millisUntilFinished: Long) {
-                val minutes = (millisUntilFinished / (1000 * 60)) % 60
-                val hours = (millisUntilFinished / (1000 * 60 * 60)) % 24
-                val days = (millisUntilFinished / (1000 * 60 * 60 * 24))
+            peopleTv.text = game.playersNum.toString()
 
-                timeTv.text = String.format("%02d : %02d : %02d", days, hours, minutes)
-
-                val progress = ((millisUntilFinished * 100) / (game.endTime() - game.startTime())).toInt()
-                timeProgress?.setProgress(progress)
+            if (game.status == Game.Status.PUBLISHED.value) {
+                showPublished()
+            }
+            else {
+                showFinishing()
             }
 
-            override fun onFinish() {
-
+            topPlacesBtn.setOnClickListener {
+                val dialog = TopPlacesDialog(context, game)
+                game.id?.let {
+                    gamesVM.getWinners(it).observe(this, Observer { winners ->
+                        dialog.setWinners(winners ?: emptyList())
+                    })
+                }
+                dialog.show()
             }
         }
-        countDown?.start()
+    }
 
-        topPlacesBtn.setOnClickListener {
-            val dialog = TopPlacesDialog(context, game)
-            game.id?.let {
-                gamesVM.getWinners(it).observe(this, Observer { winners ->
-                    dialog.setWinners(winners ?: emptyList())
-                })
+
+    private fun showFinishing() {
+        publishedView.visibility = View.GONE
+        finishingView.visibility = View.VISIBLE
+
+        game?.let { game ->
+            walletTv.text = game.smartContractId
+
+            copyBtn.setOnClickListener {
+                val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                val clip = ClipData.newPlainText("wallet", walletTv.text)
+                clipboard.primaryClip = clip
+                Toast.makeText(context, R.string.wallet_number_has_been_copied, Toast.LENGTH_SHORT).show()
             }
-            dialog.show()
-        }
 
-        participateBtn.setOnClickListener {
-            val dialog = ParticipateDialog(context, game)
-            dialog.show()
+            countDown = object : CountDownTimer(game.endTime() - System.currentTimeMillis(), 1000) {
+                override fun onTick(millisUntilFinished: Long) {
+                    val seconds = (millisUntilFinished / 1000) % 60
+                    val minutes = (millisUntilFinished / (1000 * 60)) % 60
+                    calculateTimeTv.text = String.format("%02d : %02d", minutes, seconds)
+                }
+
+                override fun onFinish() {
+
+                }
+            }
+            countDown?.start()
+        }
+    }
+
+
+    private fun showPublished() {
+        publishedView.visibility = View.VISIBLE
+        finishingView.visibility = View.GONE
+
+        game?.let { game ->
+            timeProgress?.setProgress(0)
+
+            countDown = object : CountDownTimer(game.endTime() - System.currentTimeMillis(), 60000) {
+                override fun onTick(millisUntilFinished: Long) {
+                    val minutes = (millisUntilFinished / (1000 * 60)) % 60
+                    val hours = (millisUntilFinished / (1000 * 60 * 60)) % 24
+                    val days = (millisUntilFinished / (1000 * 60 * 60 * 24))
+
+                    timeTv.text = String.format("%02d : %02d : %02d", days, hours, minutes)
+
+                    val progress = ((millisUntilFinished * 100) / (game.endTime() - game.startTime())).toInt()
+                    timeProgress?.setProgress(progress)
+                }
+
+                override fun onFinish() {
+
+                }
+            }
+            countDown?.start()
+
+            participateBtn.setOnClickListener {
+                val dialog = ParticipateDialog(context, game)
+                dialog.show()
+            }
         }
     }
 
 
     override fun showLoading(show: Boolean) {
         progressBar.visibility = if (show) View.VISIBLE else View.INVISIBLE
-    }
-
-
-    override fun onPause() {
-        super.onPause()
-        countDown?.cancel()
     }
 
 }

@@ -5,13 +5,14 @@ import android.support.v7.app.AlertDialog
 import android.util.AttributeSet
 import android.widget.FrameLayout
 import com.vovasoft.unilot.R
-import com.vovasoft.unilot.repository.models.Game
+import com.vovasoft.unilot.repository.models.entities.Game
+import com.vovasoft.unilot.repository.models.entities.GameResult
 import kotlinx.android.synthetic.main.dialog_view_looser.view.*
 
 /***************************************************************************
  * Created by arseniy on 22/10/2017.
  ****************************************************************************/
-class LooserDialog(val context: Context, val game: Game) {
+class LooserDialog(val context: Context, val game: Game, val result: GameResult) {
 
     private val looserDialogView: LooserDialogView
     private var dialog: AlertDialog? = null
@@ -25,6 +26,9 @@ class LooserDialog(val context: Context, val game: Game) {
     fun show() {
         val builder = AlertDialog.Builder(context).setView(looserDialogView)
         dialog = builder.create()
+        dialog?.setOnDismissListener({
+            result.deleteAsync()
+        })
         dialog?.show()
     }
 

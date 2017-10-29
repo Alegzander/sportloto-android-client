@@ -56,7 +56,6 @@ class MainActivity : AppCompatActivity() {
         }
 
         gamesVM.updateGamesList()
-
     }
 
 

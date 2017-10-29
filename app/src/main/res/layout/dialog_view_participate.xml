@@ -89,7 +89,6 @@
         android:layout_marginTop="24dp"
         app:fontFamily="@font/roboto"
         android:gravity="center"
-        android:text="0x1F0cAF644F81F3c3951F992b85CDa2b46e7A2C6e"
         android:textColor="@color/colorBlack"
         android:textSize="12sp" />
 
@@ -108,7 +107,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_copy"
+            app:srcCompat="@drawable/ic_copy_black"
             android:layout_marginLeft="16dp" />
 
         <android.support.v7.widget.AppCompatTextView

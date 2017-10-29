@@ -5,7 +5,7 @@ import android.support.v7.widget.AppCompatTextView
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.vovasoft.unilot.R
-import com.vovasoft.unilot.repository.models.Wallet
+import com.vovasoft.unilot.repository.models.entities.Wallet
 
 /***************************************************************************
  * Created by arseniy on 14/10/2017.

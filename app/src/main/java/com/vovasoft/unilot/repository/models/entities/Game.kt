@@ -1,4 +1,4 @@
-package com.vovasoft.unilot.repository.models
+package com.vovasoft.unilot.repository.models.entities
 
 import android.arch.persistence.room.ColumnInfo
 import android.arch.persistence.room.Entity
@@ -6,8 +6,10 @@ import android.arch.persistence.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import com.vovasoft.unilot.App
 import com.vovasoft.unilot.repository.RepositoryCallback
+import com.vovasoft.unilot.repository.models.GsonModel
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
+import java.io.Serializable
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -50,7 +52,7 @@ data class Game(@SerializedName("id")
                 @SerializedName("ending_at")
                 @ColumnInfo(name = "ending_at")
                 var endingAt: String? = null
-) {
+) : GsonModel() {
 
     enum class Type {
         DAILY,
@@ -84,6 +86,7 @@ data class Game(@SerializedName("id")
     enum class Status {
         PUBLISHED,
         CANCELLED,
+        FINISHING,
         FINISHED,
         UNKNOWN;
 
@@ -92,6 +95,7 @@ data class Game(@SerializedName("id")
                 return when(findValue) {
                     10 -> return PUBLISHED
                     20 -> return CANCELLED
+                    15 -> return FINISHING
                     30 -> return FINISHED
                     else -> UNKNOWN
                 }
@@ -103,6 +107,7 @@ data class Game(@SerializedName("id")
                 return when(this) {
                     PUBLISHED -> 10
                     CANCELLED -> 20
+                    FINISHING -> 15
                     FINISHED -> 30
                     else -> -1
                 }
@@ -137,12 +142,9 @@ data class Game(@SerializedName("id")
     }
 
 
-    fun saveAsync(callback: RepositoryCallback<Unit>) {
+    fun saveAsync() {
         doAsync {
             App.database.gamesDao().insert(this@Game)
-            uiThread {
-                callback.done()
-            }
         }
     }
 

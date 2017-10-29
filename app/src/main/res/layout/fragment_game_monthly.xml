@@ -36,7 +36,7 @@
         android:paddingRight="16dp"
         android:paddingStart="16dp"
         android:visibility="invisible"
-        android:weightSum="92">
+        android:weightSum="100">
 
 
         <android.support.v7.widget.AppCompatTextView
@@ -172,102 +172,181 @@
         </android.support.constraint.ConstraintLayout>
 
         <LinearLayout
+            android:id="@+id/publishedView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_weight="20"
-            android:gravity="center"
-            android:orientation="horizontal"
-            tools:layout_editor_absoluteX="16dp"
-            tools:layout_editor_absoluteY="209dp">
+            android:layout_weight="48"
+            android:orientation="vertical"
+            android:visibility="visible">
 
-            <android.support.v7.widget.AppCompatTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="end"
-                android:paddingEnd="12dp"
-                android:paddingRight="12dp"
-                android:text="@string/winner_announcement"
-                android:textColor="@color/colorOrange"
-                android:textSize="16sp"
-                app:fontFamily="@font/roboto_light"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <com.robinhood.ticker.TickerView
-                android:id="@+id/daysBoard"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/view_rounded_background_semi_white"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="3"
                 android:gravity="center"
-                android:paddingEnd="8dp"
-                android:paddingStart="8dp"
-                android:textColor="@color/colorBlack"
-                android:textSize="72sp"
-                app:layout_constraintStart_toEndOf="@+id/textView4"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:orientation="horizontal"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="209dp">
 
-            <android.support.v7.widget.AppCompatTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="12dp"
-                android:paddingStart="12dp"
-                android:text="@string/days"
-                android:textColor="@color/colorOrange"
-                android:textSize="16sp"
-                app:fontFamily="@font/roboto_light"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/linearLayout2"
-                app:layout_constraintTop_toTopOf="parent" />
+                <android.support.v7.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:paddingEnd="12dp"
+                    android:paddingRight="12dp"
+                    android:text="@string/winner_announcement"
+                    android:textColor="@color/colorOrange"
+                    android:textSize="16sp"
+                    app:fontFamily="@font/roboto_light"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.robinhood.ticker.TickerView
+                    android:id="@+id/daysBoard"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/view_rounded_background_semi_white"
+                    android:gravity="center"
+                    android:paddingEnd="8dp"
+                    android:paddingStart="8dp"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="80sp"
+                    app:layout_constraintStart_toEndOf="@+id/textView4"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="12dp"
+                    android:paddingStart="12dp"
+                    android:text="@string/days"
+                    android:textColor="@color/colorOrange"
+                    android:textSize="16sp"
+                    app:fontFamily="@font/roboto_light"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/linearLayout2"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </LinearLayout>
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/infoBtn"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_weight="1"
+                android:background="@drawable/view_rounded_gray_stroke">
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:id="@+id/infoImg"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginStart="16dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_info" />
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:includeFontPadding="false"
+                    android:text="@string/how_to_participate"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="18sp"
+                    app:fontFamily="@font/roboto_light"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/infoImg"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </android.support.constraint.ConstraintLayout>
 
         </LinearLayout>
 
-        <android.support.v7.widget.AppCompatTextView
+        <LinearLayout
+            android:id="@+id/finishingView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="10"
+            android:layout_weight="48"
+            android:background="@drawable/view_rounded_background_semi_black"
             android:gravity="center"
-            android:text="@string/you_are_not_in_participants_list"
-            android:textColor="@color/colorWhite"
-            android:textSize="18sp"
-            app:fontFamily="@font/roboto_light" />
+            android:orientation="vertical"
+            android:padding="12dp"
+            android:visibility="gone"
+            android:weightSum="100">
 
-        <android.support.constraint.ConstraintLayout
-            android:id="@+id/infoBtn"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_weight="10"
-            android:background="@drawable/view_rounded_gray_stroke">
-
-            <android.support.v7.widget.AppCompatImageView
-                android:id="@+id/infoImg"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginStart="16dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_info" />
-
-            <android.support.v7.widget.AppCompatTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:includeFontPadding="false"
-                android:text="@string/how_to_participate"
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="30"
+                android:gravity="center"
+                android:text="@string/system_selecting_winner"
                 android:textColor="@color/colorWhite"
-                android:textSize="18sp"
-                app:fontFamily="@font/roboto_light"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/infoImg"
-                app:layout_constraintTop_toTopOf="parent" />
-        </android.support.constraint.ConstraintLayout>
+                android:textSize="25sp" />
+
+            <TextView
+                android:id="@+id/calculateTimeTv"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="30"
+                android:fontFamily="@font/roboto_light"
+                android:gravity="center"
+                android:textColor="@color/colorWhite"
+                android:textSize="34sp" />
+
+            <TextView
+                android:id="@+id/walletTv"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="10"
+                android:fontFamily="@font/roboto"
+                android:gravity="center"
+                android:textColor="@color/colorWhite"
+                android:textSize="12sp" />
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/copyBtn"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_weight="20"
+                android:background="@drawable/view_square_rounded_gray_stroke">
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:id="@+id/copyImg"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginStart="16dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_copy_orange" />
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:includeFontPadding="false"
+                    android:text="@string/copy_transaction_number"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="16sp"
+                    app:fontFamily="@font/roboto"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/copyImg"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </android.support.constraint.ConstraintLayout>
+
+        </LinearLayout>
 
         <android.support.constraint.ConstraintLayout
             android:id="@+id/topPlacesBtn"

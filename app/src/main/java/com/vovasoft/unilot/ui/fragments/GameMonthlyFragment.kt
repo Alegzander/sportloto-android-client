@@ -1,28 +1,29 @@
 package com.vovasoft.unilot.ui.fragments
 
 import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
+import android.content.IntentFilter
 import android.graphics.Typeface
 import android.os.Bundle
+import android.os.CountDownTimer
+import android.support.v4.content.LocalBroadcastManager
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.robinhood.ticker.TickerUtils
 import com.vovasoft.unilot.R
-import com.vovasoft.unilot.repository.models.Game
+import com.vovasoft.unilot.repository.models.entities.Game
 import com.vovasoft.unilot.ui.dialogs.TopPlacesDialog
-import com.vovasoft.unilot.view_models.GamesVM
 import kotlinx.android.synthetic.main.fragment_game_monthly.*
 
 /***************************************************************************
  * Created by arseniy on 16/09/2017.
  ****************************************************************************/
-class GameMonthlyFragment : BaseFragment() {
-
-    private val gamesVM: GamesVM
-        get() = ViewModelProviders.of(activity).get(GamesVM::class.java)
-
+class GameMonthlyFragment : GameBaseFragment() {
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater!!.inflate(R.layout.fragment_game_monthly, container, false)
@@ -35,50 +36,112 @@ class GameMonthlyFragment : BaseFragment() {
     }
 
 
+    override fun onStart() {
+        super.onStart()
+        LocalBroadcastManager.getInstance(context).registerReceiver(messageReceiver, IntentFilter("monthly"))
+    }
+
+
+    override fun onStop() {
+        super.onStop()
+        LocalBroadcastManager.getInstance(context).unregisterReceiver(messageReceiver)
+    }
+
+
     private fun observeData() {
         showLoading(true)
         gamesVM.getMonthlyGame().observe(this, Observer { game ->
             showLoading(false)
-            if (game == null) {
-                contentFrame.visibility = View.INVISIBLE
-                noContentFrame.visibility = View.VISIBLE
-            }
-            else {
-                Log.e("observeData", game.toString())
-                setupViews(game)
-                contentFrame.visibility = View.VISIBLE
-                noContentFrame.visibility = View.INVISIBLE
-            }
+            Log.e("observeData", game.toString())
+            this.game = game
+            setupViews()
         })
     }
 
 
-    private fun setupViews(game: Game) {
-        prizeBoard.setCharacterList(TickerUtils.getDefaultListForUSCurrency())
-        prizeBoard.typeface = Typeface.create("sans-serif-light", Typeface.NORMAL)
-        prizeBoard.setText("%.4f".format(game.prizeAmount), true)
+    override fun setupViews() {
+        contentFrame.visibility = View.INVISIBLE
+        noContentFrame.visibility = View.VISIBLE
 
-        prizeFiatTv.setCharacterList(TickerUtils.getDefaultListForUSCurrency())
-        prizeFiatTv.typeface = Typeface.create("sans-serif-light", Typeface.NORMAL)
-        prizeFiatTv.setText("$ %.2f".format(game.prizeAmountFiat), true)
+        game?.let { game ->
+            contentFrame.visibility = View.VISIBLE
+            noContentFrame.visibility = View.INVISIBLE
 
-        peopleTv.text = game.playersNum.toString()
+            prizeBoard.setCharacterList(TickerUtils.getDefaultListForUSCurrency())
+            prizeBoard.typeface = Typeface.create("sans-serif-light", Typeface.NORMAL)
+            prizeBoard.setText("%.3f".format(game.prizeAmount), true)
 
-        val days = (game.endTime() - System.currentTimeMillis()) / (1000 * 60 * 60 * 24)
-        daysBoard.setCharacterList(TickerUtils.getDefaultListForUSCurrency())
-        daysBoard.typeface = Typeface.create("sans-serif-light", Typeface.NORMAL)
-        daysBoard.setText("%02d".format(days), true)
+            prizeFiatTv.setCharacterList(TickerUtils.getDefaultListForUSCurrency())
+            prizeFiatTv.typeface = Typeface.create("sans-serif-light", Typeface.NORMAL)
+            prizeFiatTv.setText("$ %.2f".format(game.prizeAmountFiat), true)
 
-        topPlacesBtn.setOnClickListener {
-            val dialog = TopPlacesDialog(context, game)
-            game.id?.let {
-                gamesVM.getWinners(it).observe(this, Observer { winners ->
-                    dialog.setWinners(winners ?: emptyList())
-                })
+            peopleTv.text = game.playersNum.toString()
+
+            if (game.status == Game.Status.PUBLISHED.value) {
+                showPublished()
             }
-            dialog.show()
-        }
+            else {
+                showFinishing()
+            }
 
+            topPlacesBtn.setOnClickListener {
+                val dialog = TopPlacesDialog(context, game)
+                game.id?.let {
+                    gamesVM.getWinners(it).observe(this, Observer { winners ->
+                        dialog.setWinners(winners ?: emptyList())
+                    })
+                }
+                dialog.show()
+            }
+        }
+    }
+
+
+    private fun showFinishing() {
+        publishedView.visibility = View.GONE
+        finishingView.visibility = View.VISIBLE
+
+        game?.let { game ->
+            walletTv.text = game.smartContractId
+
+            copyBtn.setOnClickListener {
+                val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                val clip = ClipData.newPlainText("wallet", walletTv.text)
+                clipboard.primaryClip = clip
+                Toast.makeText(context, R.string.wallet_number_has_been_copied, Toast.LENGTH_SHORT).show()
+            }
+
+            countDown = object : CountDownTimer(game.endTime() - System.currentTimeMillis(), 1000) {
+                override fun onTick(millisUntilFinished: Long) {
+                    val seconds = (millisUntilFinished / 1000) % 60
+                    val minutes = (millisUntilFinished / (1000 * 60)) % 60
+                    calculateTimeTv.text = String.format("%02d : %02d", minutes, seconds)
+                }
+
+                override fun onFinish() {
+
+                }
+            }
+            countDown?.start()
+        }
+    }
+
+
+    private fun showPublished() {
+        publishedView.visibility = View.VISIBLE
+        finishingView.visibility = View.GONE
+
+        game?.let { game ->
+
+            val days = (game.endTime() - System.currentTimeMillis()) / (1000 * 60 * 60 * 24)
+            daysBoard.setCharacterList(TickerUtils.getDefaultListForUSCurrency())
+            daysBoard.typeface = Typeface.create("sans-serif-light", Typeface.NORMAL)
+            daysBoard.setText("%02d".format(days), true)
+
+            infoBtn.setOnClickListener {
+
+            }
+        }
     }
 
 

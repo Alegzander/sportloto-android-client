@@ -1,9 +1,10 @@
 package com.vovasoft.unilot.repository
 
 import com.vovasoft.unilot.App
-import com.vovasoft.unilot.repository.models.Game
-import com.vovasoft.unilot.repository.models.Wallet
-import com.vovasoft.unilot.repository.models.Winner
+import com.vovasoft.unilot.repository.models.entities.Game
+import com.vovasoft.unilot.repository.models.entities.GameResult
+import com.vovasoft.unilot.repository.models.entities.Wallet
+import com.vovasoft.unilot.repository.models.pure.Winner
 import com.vovasoft.unilot.repository.retrofit.WebClient
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
@@ -60,11 +61,41 @@ class AppRepository {
     }
 
 
+    fun getGameById(id: Int, callback: RepositoryCallback<Game?>) {
+        doAsync {
+            val game = App.database.gamesDao().getGameById(id)
+            uiThread {
+                callback.done(game)
+            }
+        }
+    }
+
+
     fun getWallets(callback: RepositoryCallback<List<Wallet>?>) {
         doAsync {
             val wallets = App.database.walletsDao().getWallets()
             uiThread {
                 callback.done(wallets)
+            }
+        }
+    }
+
+
+    fun getWalletsNumbers(callback: RepositoryCallback<List<String>?>) {
+        doAsync {
+            val numbers = App.database.walletsDao().getWalletsNumbers()
+            uiThread {
+                callback.done(numbers)
+            }
+        }
+    }
+
+
+    fun getResults(callback: RepositoryCallback<List<GameResult>>) {
+        doAsync {
+            val results = App.database.gameResultsDao().getGameResults()
+            uiThread {
+                callback.done(results)
             }
         }
     }

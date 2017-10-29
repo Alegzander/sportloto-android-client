@@ -14,8 +14,8 @@ import android.view.View
 import android.view.ViewGroup
 import com.vovasoft.unilot.R
 import com.vovasoft.unilot.components.toHumanDate
-import com.vovasoft.unilot.repository.models.Game
-import com.vovasoft.unilot.repository.models.Winner
+import com.vovasoft.unilot.repository.models.entities.Game
+import com.vovasoft.unilot.repository.models.pure.Winner
 import com.vovasoft.unilot.ui.AppFragmentManager
 import com.vovasoft.unilot.ui.recycler_adapters.DetailsHistoryRecyclerAdapter
 import com.vovasoft.unilot.ui.widgets.ZxingReader
@@ -86,7 +86,7 @@ class HistoryGameDetailsFragment : BaseFragment(), SearchView.OnQueryTextListene
         }
 
         dateTv.text = game?.endTime().toHumanDate()
-        prizeTv.text = "%.4f".format(game?.prizeAmount)
+        prizeTv.text = "%.3f".format(game?.prizeAmount)
         peopleTv.text = game?.playersNum?.toString()
 
         searchBox.setOnQueryTextListener(this)
@@ -108,7 +108,7 @@ class HistoryGameDetailsFragment : BaseFragment(), SearchView.OnQueryTextListene
 
     private fun refreshSearch() {
         adapter.dataSet = winners.filter { winner ->
-            winner.address?.contains(Regex(Pattern.quote(searchValue))) == true
+            winner.wallet?.contains(Regex(Pattern.quote(searchValue))) == true
         }.toMutableList()
     }
 

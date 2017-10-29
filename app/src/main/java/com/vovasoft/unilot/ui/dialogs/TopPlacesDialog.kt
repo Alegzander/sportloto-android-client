@@ -7,8 +7,8 @@ import android.util.AttributeSet
 import android.view.View
 import android.widget.FrameLayout
 import com.vovasoft.unilot.R
-import com.vovasoft.unilot.repository.models.Game
-import com.vovasoft.unilot.repository.models.Winner
+import com.vovasoft.unilot.repository.models.entities.Game
+import com.vovasoft.unilot.repository.models.pure.Winner
 import com.vovasoft.unilot.ui.recycler_adapters.WinnersRecyclerAdapter
 import kotlinx.android.synthetic.main.dialog_view_top_places.view.*
 
@@ -62,7 +62,7 @@ class TopPlacesDialog(val context: Context, val game: Game) {
 
             progressBar.visibility = View.VISIBLE
 
-            val prizeText = "${"%.4f".format(game.prizeAmount)} ETH = ${"$ %.2f".format(game.prizeAmountFiat)}"
+            val prizeText = "${"%.3f".format(game.prizeAmount)} ETH = ${"$ %.2f".format(game.prizeAmountFiat)}"
             prizeTv.text = prizeText
 
             recyclerView.layoutManager = LinearLayoutManager(context)

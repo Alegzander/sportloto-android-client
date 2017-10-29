@@ -54,7 +54,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="18dp"
                 android:layout_marginStart="18dp"
-                android:text="@string/game_history"
+                android:text="@string/games_history"
                 android:textColor="@color/colorWhite"
                 android:textSize="18sp"
                 app:fontFamily="@font/roboto_light" />
@@ -178,10 +178,17 @@
             android:layout_marginTop="18dp"
             android:background="@color/colorDarkGray" />
 
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:scaleType="fitStart"
+            app:srcCompat="@drawable/soon" />
+
         <android.support.v7.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
+            android:layout_marginTop="24dp"
             android:text="@string/be_aware"
             android:textColor="@color/colorWhite"
             android:textSize="18sp"
@@ -216,7 +223,7 @@
                 app:srcCompat="@drawable/ic_telegram" />
 
             <android.support.v7.widget.AppCompatImageButton
-                android:id="@+id/instagramBtn"
+                android:id="@+id/redditBtn"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:padding="12dp"
@@ -224,7 +231,7 @@
                 android:layout_marginRight="8dp"
                 android:background="@drawable/view_square_rounded_gray_stroke"
                 android:scaleType="fitCenter"
-                app:srcCompat="@drawable/ic_instagram" />
+                app:srcCompat="@drawable/ic_reddit" />
 
             <android.support.v7.widget.AppCompatImageButton
                 android:id="@+id/twitterBtn"

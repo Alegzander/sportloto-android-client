@@ -8,7 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.vovasoft.unilot.R
-import com.vovasoft.unilot.repository.models.Game
+import com.vovasoft.unilot.repository.models.entities.Game
 import com.vovasoft.unilot.ui.AppFragmentManager
 import com.vovasoft.unilot.ui.recycler_adapters.HistoryRecyclerAdapter
 import com.vovasoft.unilot.view_models.AppVM
