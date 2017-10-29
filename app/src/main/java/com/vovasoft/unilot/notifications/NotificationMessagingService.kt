@@ -3,6 +3,7 @@ package com.vovasoft.unilot.notifications
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Context
 import android.graphics.BitmapFactory
 import android.os.Build
@@ -13,6 +14,10 @@ import com.google.firebase.messaging.RemoteMessage
 import com.vovasoft.unilot.R
 import android.support.v4.content.LocalBroadcastManager
 import android.content.Intent
+import com.google.gson.Gson
+import com.google.gson.JsonObject
+import com.vovasoft.unilot.App
+import com.vovasoft.unilot.components.Preferences
 import com.vovasoft.unilot.repository.AppRepository
 import com.vovasoft.unilot.repository.RepositoryCallback
 import com.vovasoft.unilot.repository.models.GsonModel
@@ -20,13 +25,15 @@ import com.vovasoft.unilot.repository.models.entities.Game
 import com.vovasoft.unilot.repository.models.entities.GameResult
 import com.vovasoft.unilot.repository.models.pure.Result
 import com.vovasoft.unilot.repository.models.pure.Winner
+import com.vovasoft.unilot.ui.MainActivity
 import java.io.Serializable
+import java.util.*
 
 
 /***************************************************************************
  * Created by arseniy on 15/09/2017.
  ****************************************************************************/
-class MyFirebaseMessagingService : FirebaseMessagingService() {
+class NotificationMessagingService : FirebaseMessagingService() {
 
     enum class Action(val value: String) : Serializable {
         GAME_STARTED("game_started"),
@@ -62,34 +69,80 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
                 Log.e("Notification", remoteMessage.data.toString())
                 val action = remoteMessage.data["action"]?.let { Action.from(it) }
                 when (action) {
-                    Action.GAME_UPDATED -> gameUpdatedAction(remoteMessage.data["data"])
-                    Action.GAME_FINISHED -> gameFinishedAction(remoteMessage.data["data"])
+                    Action.GAME_UPDATED -> gameUpdatedAction(remoteMessage.data)
+                    Action.GAME_FINISHED -> gameFinishedAction(remoteMessage.data)
+                    Action.GAME_UNPUBLISHED -> gameUnpublishedAction(remoteMessage.data)
                 }
             }
         }
     }
 
 
-    private fun gameUpdatedAction(jsonData: String?) {
+    private fun gameUpdatedAction(data: Map<String, String>) {
+        val jsonData = data["data"]
+        val messageJson = data["message"]
+
         jsonData?.let {
             val game = GsonModel.fromJson(jsonData, Game::class.java)
-            val intent: Intent? = when (game.type) {
+            val broadcastIntent: Intent? = when (game.type) {
                 Game.Type.DAILY.value -> Intent("daily")
                 Game.Type.WEEKLY.value -> Intent("weekly")
                 Game.Type.MONTHLY.value -> Intent("monthly")
                 else -> null
             }
 
-            intent?.let {
-                intent.putExtra("action", Action.GAME_UPDATED)
-                intent.putExtra("game_updated", jsonData)
-                broadcaster.sendBroadcast(intent)
+            broadcastIntent?.let {
+                broadcastIntent.putExtra("action", Action.GAME_UPDATED)
+                broadcastIntent.putExtra("game_updated", jsonData)
+                broadcaster.sendBroadcast(broadcastIntent)
+            }
+
+            messageJson?.let {
+                val messageBody = Gson().fromJson(messageJson, JsonObject::class.java).get(Preferences.instance.language).asString
+                showNotification(messageBody)
             }
         }
     }
 
 
-    private fun gameFinishedAction(jsonData: String?) {
+    private fun gameUnpublishedAction(data: Map<String, String>) {
+        val jsonData = data["data"]
+        val messageJson = data["message"]
+
+        jsonData?.let {
+            val gameId = Gson().fromJson(jsonData, JsonObject::class.java).get("id").asInt
+
+            appRepo.getGameById(gameId, object : RepositoryCallback<Game?> {
+                override fun done(game: Game?) {
+                    game?.let {
+                        val broadcastIntent: Intent? = when (game.type) {
+                            Game.Type.DAILY.value -> Intent("daily")
+                            Game.Type.WEEKLY.value -> Intent("weekly")
+                            Game.Type.MONTHLY.value -> Intent("monthly")
+                            else -> null
+                        }
+
+                        broadcastIntent?.let {
+                            broadcastIntent.putExtra("action", Action.GAME_UPDATED)
+                            broadcastIntent.putExtra("game_updated", jsonData)
+                            broadcaster.sendBroadcast(broadcastIntent)
+                        }
+
+                        messageJson?.let {
+                            val messageBody = Gson().fromJson(messageJson, JsonObject::class.java).get(Preferences.instance.language).asString
+                            showNotification(messageBody)
+                        }
+                    }
+                }
+            })
+        }
+    }
+
+
+    private fun gameFinishedAction(data: Map<String, String>) {
+        val jsonData = data["data"]
+        val messageJson = data["message"]
+
         jsonData?.let {
             val result = GsonModel.fromJson(jsonData, Result::class.java)
             result.gameId?.let { gameId ->
@@ -108,8 +161,8 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
                                     if (isWinner) {
                                         appRepo.getRemoteWinners(gameId, object : RepositoryCallback<List<Winner>?> {
-                                            override fun done(data: List<Winner>?) {
-                                                data?.let { winners ->
+                                            override fun done(winnersData: List<Winner>?) {
+                                                winnersData?.let { winners ->
                                                     wallets?.forEach { wallet ->
                                                         winners.forEach { winner ->
                                                             if (wallet == winner.wallet) {
@@ -124,18 +177,25 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
                                                         }
                                                     }
 
-                                                    val intent: Intent? = when (game.type) {
+                                                    val broadcastIntent: Intent? = when (game.type) {
                                                         Game.Type.DAILY.value -> Intent("daily")
                                                         Game.Type.WEEKLY.value -> Intent("weekly")
                                                         Game.Type.MONTHLY.value -> Intent("monthly")
                                                         else -> null
                                                     }
 
-                                                    intent?.let {
-                                                        intent.putExtra("action", Action.GAME_FINISHED)
-                                                        intent.putExtra("winner", true)
-                                                        broadcaster.sendBroadcast(intent)
+                                                    broadcastIntent?.let {
+                                                        broadcastIntent.putExtra("action", Action.GAME_FINISHED)
+                                                        broadcastIntent.putExtra("winner", true)
+                                                        broadcaster.sendBroadcast(broadcastIntent)
                                                     }
+
+                                                    val messageJson = data["message"]
+                                                    messageJson?.let {
+                                                        val messageBody = Gson().fromJson(messageJson, JsonObject::class.java).get(Preferences.instance.language).asString
+                                                        showNotification(messageBody)
+                                                    }
+
                                                 }
                                             }
                                         })
@@ -147,17 +207,22 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
                                         gameResult.position = -1
                                         gameResult.saveAsync()
 
-                                        val intent: Intent? = when (game.type) {
+                                        val broadcastIntent: Intent? = when (game.type) {
                                             Game.Type.DAILY.value -> Intent("daily")
                                             Game.Type.WEEKLY.value -> Intent("weekly")
                                             Game.Type.MONTHLY.value -> Intent("monthly")
                                             else -> null
                                         }
 
-                                        intent?.let {
-                                            intent.putExtra("action", Action.GAME_FINISHED)
-                                            intent.putExtra("winner", true)
-                                            broadcaster.sendBroadcast(intent)
+                                        broadcastIntent?.let {
+                                            broadcastIntent.putExtra("action", Action.GAME_FINISHED)
+                                            broadcastIntent.putExtra("winner", true)
+                                            broadcaster.sendBroadcast(broadcastIntent)
+                                        }
+
+                                        messageJson?.let {
+                                            val messageBody = Gson().fromJson(messageJson, JsonObject::class.java).get(Preferences.instance.language).asString
+                                            showNotification(messageBody)
                                         }
                                     }
                                 }
@@ -170,7 +235,12 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
     }
 
 
-    private fun notificationBuilder(messageBody: String): NotificationCompat.Builder {
+    private fun showNotification(messageBody: String) {
+
+        if (!App.isBackground) {
+            return
+        }
+
         val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
         val channelId = "${getString(R.string.app_name)}_chanel_id"
@@ -184,7 +254,10 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             notificationManager.createNotificationChannel(notificationChannel)
         }
 
-        return NotificationCompat.Builder(applicationContext, channelId)
+        val intent = Intent(applicationContext, MainActivity::class.java)
+        val pendingIntent = PendingIntent.getActivity(applicationContext, 0, intent, PendingIntent.FLAG_ONE_SHOT)
+
+        val notificationBuilder = NotificationCompat.Builder(applicationContext, channelId)
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setLargeIcon(BitmapFactory.decodeResource(resources, R.mipmap.ic_launcher))
                 .setContentTitle(getString(R.string.app_name))
@@ -192,7 +265,11 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
                 .setStyle(NotificationCompat.BigTextStyle().bigText(messageBody))
                 .setAutoCancel(true)
                 .setChannelId(channelId)
+                .setContentIntent(pendingIntent)
                 .setDefaults(Notification.DEFAULT_LIGHTS or Notification.DEFAULT_VIBRATE or Notification.DEFAULT_SOUND)
+
+
+        notificationManager.notify(Random().nextInt(), notificationBuilder.build())
     }
 
 }

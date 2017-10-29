@@ -115,7 +115,9 @@ class GameMonthlyFragment : GameBaseFragment() {
                 override fun onTick(millisUntilFinished: Long) {
                     val seconds = (millisUntilFinished / 1000) % 60
                     val minutes = (millisUntilFinished / (1000 * 60)) % 60
-                    calculateTimeTv.text = String.format("%02d : %02d", minutes, seconds)
+                    view?.let {
+                        calculateTimeTv.text = String.format("%02d : %02d", minutes, seconds)
+                    }
                 }
 
                 override fun onFinish() {

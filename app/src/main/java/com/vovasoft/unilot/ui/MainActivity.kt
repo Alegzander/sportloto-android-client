@@ -59,10 +59,23 @@ class MainActivity : AppCompatActivity() {
     }
 
 
+    override fun onResume() {
+        super.onResume()
+        App.isBackground = false
+    }
+
+
+    override fun onPause() {
+        super.onPause()
+        App.isBackground = true
+    }
+
+
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
-        Preferences.isLanguageChanged = true
-        super.recreate()
+        if (Preferences.isLanguageChanged) {
+            super.recreate()
+        }
     }
 
 

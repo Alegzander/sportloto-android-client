@@ -7,6 +7,8 @@ import android.widget.FrameLayout
 import com.vovasoft.unilot.R
 import com.vovasoft.unilot.repository.models.entities.Game
 import com.vovasoft.unilot.repository.models.entities.GameResult
+import com.vovasoft.unilot.ui.AppFragmentManager
+import com.vovasoft.unilot.ui.fragments.HistoryGameDetailsFragment
 import kotlinx.android.synthetic.main.dialog_view_looser.view.*
 
 /***************************************************************************
@@ -16,7 +18,7 @@ class LooserDialog(val context: Context, val game: Game, val result: GameResult)
 
     private val looserDialogView: LooserDialogView
     private var dialog: AlertDialog? = null
-
+    private var onHistoryListener: (()-> Unit)? = null
 
     init {
         looserDialogView = LooserDialogView(context)
@@ -30,6 +32,11 @@ class LooserDialog(val context: Context, val game: Game, val result: GameResult)
             result.deleteAsync()
         })
         dialog?.show()
+    }
+
+
+    fun setonHistoryListener(listener: (()-> Unit)) {
+        onHistoryListener = listener
     }
 
 
@@ -51,6 +58,10 @@ class LooserDialog(val context: Context, val game: Game, val result: GameResult)
         private fun setupViews() {
             closeBtn.setOnClickListener {
                 dismiss()
+            }
+
+            historyBtn.setOnClickListener {
+                onHistoryListener?.invoke()
             }
         }
 

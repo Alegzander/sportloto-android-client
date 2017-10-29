@@ -14,14 +14,14 @@
         android:theme="@style/AppTheme.NoActionBar">
 
         <service
-            android:name=".notifications.MyFirebaseMessagingService">
+            android:name=".notifications.NotificationMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT"/>
             </intent-filter>
         </service>
 
         <service
-            android:name=".notifications.MyFirebaseInstanceIDService">
+            android:name=".notifications.NotificationInstanceIDService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
             </intent-filter>

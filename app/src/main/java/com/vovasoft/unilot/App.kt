@@ -23,6 +23,8 @@ class App : Application() {
         lateinit var database: AppDatabase
             private set
 
+        var isBackground = true
+
         fun updateNotificationToken() {
             val webClient = WebClient()
             val request = TokenRegistrationRequest(FirebaseInstanceId.getInstance().token)

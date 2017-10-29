@@ -17,7 +17,7 @@ class WinnerDialog(val context: Context, val result: GameResult) {
 
     private val winnerDialogView: WinnerDialogView
     private var dialog: AlertDialog? = null
-
+    private var onHistoryListener: (()-> Unit)? = null
 
     init {
         winnerDialogView = WinnerDialogView(context)
@@ -31,6 +31,11 @@ class WinnerDialog(val context: Context, val result: GameResult) {
             result.deleteAsync()
         })
         dialog?.show()
+    }
+
+
+    fun setonHistoryListener(listener: (()-> Unit)) {
+        onHistoryListener = listener
     }
 
 
@@ -58,6 +63,10 @@ class WinnerDialog(val context: Context, val result: GameResult) {
             placeTv.text = context.getString(R.string.you_take_place_d).format(result.position)
             prizeTv.text = "%.3f".format(result.prize)
             prizeFialtTv.text = "US $%.2f".format(result.prizeFiat)
+
+            historyBtn.setOnClickListener {
+                onHistoryListener?.invoke()
+            }
         }
 
     }

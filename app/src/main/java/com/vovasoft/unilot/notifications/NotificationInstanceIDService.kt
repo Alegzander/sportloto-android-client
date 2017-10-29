@@ -7,7 +7,7 @@ import com.google.firebase.iid.FirebaseInstanceIdService
 /***************************************************************************
  * Created by arseniy on 15/09/2017.
  ****************************************************************************/
-class MyFirebaseInstanceIDService : FirebaseInstanceIdService() {
+class NotificationInstanceIDService : FirebaseInstanceIdService() {
     private val TAG = "InstanceIDService"
 
     override fun onTokenRefresh() {

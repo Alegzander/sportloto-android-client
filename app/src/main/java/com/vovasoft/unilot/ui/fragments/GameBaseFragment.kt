@@ -4,12 +4,15 @@ import android.arch.lifecycle.ViewModelProviders
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.os.Bundle
 import android.os.CountDownTimer
-import com.vovasoft.unilot.notifications.MyFirebaseMessagingService
+import android.view.View
+import com.vovasoft.unilot.notifications.NotificationMessagingService
 import com.vovasoft.unilot.repository.RepositoryCallback
 import com.vovasoft.unilot.repository.models.GsonModel
 import com.vovasoft.unilot.repository.models.entities.Game
 import com.vovasoft.unilot.repository.models.entities.GameResult
+import com.vovasoft.unilot.ui.AppFragmentManager
 import com.vovasoft.unilot.ui.dialogs.LooserDialog
 import com.vovasoft.unilot.ui.dialogs.WinnerDialog
 import com.vovasoft.unilot.view_models.GamesVM
@@ -20,8 +23,7 @@ import com.vovasoft.unilot.view_models.GamesVM
 abstract class GameBaseFragment : BaseFragment() {
 
 
-    protected val gamesVM: GamesVM
-        get() = ViewModelProviders.of(activity).get(GamesVM::class.java)
+    protected lateinit var gamesVM: GamesVM
 
     protected var game: Game? = null
 
@@ -31,16 +33,16 @@ abstract class GameBaseFragment : BaseFragment() {
     protected val messageReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             intent?.let {
-                val action = intent.getSerializableExtra("action") as MyFirebaseMessagingService.Action
+                val action = intent.getSerializableExtra("action") as NotificationMessagingService.Action
                 when (action) {
-                    MyFirebaseMessagingService.Action.GAME_UPDATED -> {
+                    NotificationMessagingService.Action.GAME_UPDATED -> {
                         game = GsonModel.fromJson(intent.getStringExtra("game_updated"), Game::class.java)
                         game?.saveAsync()
                         countDown?.cancel()
                         setupViews()
                     }
 
-                    MyFirebaseMessagingService.Action.GAME_FINISHED -> {
+                    NotificationMessagingService.Action.GAME_FINISHED -> {
                         showResultDialog()
                     }
                 }
@@ -48,6 +50,29 @@ abstract class GameBaseFragment : BaseFragment() {
         }
     }
 
+
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        gamesVM = ViewModelProviders.of(activity).get(GamesVM::class.java)
+    }
+
+
+    override fun onResume() {
+        super.onResume()
+        showResultDialog()
+    }
+
+
+    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
+        super.setUserVisibleHint(isVisibleToUser)
+        showResultDialog()
+    }
+
+
+    override fun onPause() {
+        super.onPause()
+        countDown?.cancel()
+    }
 
     protected abstract fun setupViews()
 
@@ -62,10 +87,22 @@ abstract class GameBaseFragment : BaseFragment() {
                                 data?.let {
                                     if (it.type == game?.type) {
                                         if (result.position!! > 0) {
-                                            WinnerDialog(context, result).show()
+                                            val dialog = WinnerDialog(context, result)
+                                            dialog.setonHistoryListener {
+                                                gamesVM.selectedHistoryGame = game
+                                                AppFragmentManager.instance.openFragment(HistoryGameDetailsFragment(), true)
+                                                dialog.dismiss()
+                                            }
+                                            dialog.show()
                                         }
                                         else {
-                                            LooserDialog(context, it, result).show()
+                                            val dialog = LooserDialog(context, it, result)
+                                            dialog.setonHistoryListener {
+                                                gamesVM.selectedHistoryGame = game
+                                                AppFragmentManager.instance.openFragment(HistoryGameDetailsFragment(), true)
+                                                dialog.dismiss()
+                                            }
+                                            dialog.show()
                                         }
                                     }
                                 }
@@ -75,18 +112,6 @@ abstract class GameBaseFragment : BaseFragment() {
                 }
             })
         }
-    }
-
-
-    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
-        super.setUserVisibleHint(isVisibleToUser)
-        showResultDialog()
-    }
-
-
-    override fun onPause() {
-        super.onPause()
-        countDown?.cancel()
     }
 
 }

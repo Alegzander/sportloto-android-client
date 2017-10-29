@@ -78,6 +78,7 @@ class SettingsFragment : BaseFragment() {
 
     private fun changeLanguage(language: String) {
         if (Preferences.instance.language != language) {
+            Preferences.isLanguageChanged = true
             Preferences.instance.language = language
             val intent = activity.intent
             AppFragmentManager.instance.clearBackStack()

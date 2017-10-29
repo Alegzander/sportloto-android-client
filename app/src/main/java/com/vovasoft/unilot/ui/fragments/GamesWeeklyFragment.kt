@@ -116,7 +116,9 @@ class GamesWeeklyFragment : GameBaseFragment() {
                 override fun onTick(millisUntilFinished: Long) {
                     val seconds = (millisUntilFinished / 1000) % 60
                     val minutes = (millisUntilFinished / (1000 * 60)) % 60
-                    calculateTimeTv.text = String.format("%02d : %02d", minutes, seconds)
+                    view?.let {
+                        calculateTimeTv.text = String.format("%02d : %02d", minutes, seconds)
+                    }
                 }
 
                 override fun onFinish() {
@@ -140,11 +142,12 @@ class GamesWeeklyFragment : GameBaseFragment() {
                     val minutes = (millisUntilFinished / (1000 * 60)) % 60
                     val hours = (millisUntilFinished / (1000 * 60 * 60)) % 24
                     val days = (millisUntilFinished / (1000 * 60 * 60 * 24))
-
-                    timeTv.text = String.format("%02d : %02d : %02d", days, hours, minutes)
-
                     val progress = ((millisUntilFinished * 100) / (game.endTime() - game.startTime())).toInt()
-                    timeProgress?.setProgress(progress)
+
+                    view?.let {
+                        timeTv.text = String.format("%02d : %02d : %02d", days, hours, minutes)
+                        timeProgress?.setProgress(progress)
+                    }
                 }
 
                 override fun onFinish() {

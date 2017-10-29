@@ -30,13 +30,13 @@ abstract class BaseFragment : Fragment() {
     }
 
 
-    val activity : MainActivity
-        get() = super.getActivity() as MainActivity
+    lateinit var activity : MainActivity
 
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         isCreated = true
+        activity = super.getActivity() as MainActivity
     }
 
 
