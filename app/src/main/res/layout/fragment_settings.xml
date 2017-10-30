@@ -220,17 +220,17 @@
                 android:layout_height="0.5dp"
                 android:background="@color/colorDarkGray" />
 
-            <com.vovasoft.unilot.ui.widgets.CheckButton
-                android:id="@+id/deSwitch"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:btnText="@string/deutsch"
-                android:padding="16dp" />
+            <!--<com.vovasoft.unilot.ui.widgets.CheckButton-->
+                <!--android:id="@+id/deSwitch"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--app:btnText="@string/deutsch"-->
+                <!--android:padding="16dp" />-->
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:background="@color/colorDarkGray" />
+            <!--<View-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="0.5dp"-->
+                <!--android:background="@color/colorDarkGray" />-->
 
         </LinearLayout>
     </ScrollView>

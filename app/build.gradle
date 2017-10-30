@@ -12,7 +12,7 @@ android {
         minSdkVersion 16
         targetSdkVersion 26
         versionCode 100
-        versionName "1.0.0"
+        versionName "1.2.0"
         vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
@@ -29,6 +29,9 @@ android {
     androidExtensions {
         experimental = true
         defaultCacheImplementation = "none"
+    }
+    lintOptions {
+        disable 'MissingTranslation'
     }
 }
 

@@ -3,6 +3,8 @@
     <string name="client_id">PccTjiTN7xXU9PCJRiAzYA2frgKUSEl0scJMTzFb</string>
     <string name="client_secret">2HIDVZRBWIDWUVMnlgH76K6pA3g5vPuAygnTm5P4IbvTkQMymFVCejMRoOkiZkadenWUsiM5OPP8mhREYytAxtzym9ejKj5LVG37z3mgbtrlJ1nMuv3s14sx60AuwwO1</string>
     <string name="grant_type">client_credentials</string>
+    <string name="presentation_url">https://unilot.io//static/files/UNILOT_RUS.pdf</string>
+    <string name="ok">OK</string>
     <string name="daily">Дневная</string>
     <string name="weekly">Недельная</string>
     <string name="monthly_bonus">Бонусная</string>
@@ -13,13 +15,14 @@
     <string name="weekly_lottery">Недельная лотерея</string>
     <string name="bonus_draw">Бонусный розыгрыш</string>
     <string name="days">Дней</string>
+    <string name="mutable_days">Дн</string>
     <string name="hours">Часов</string>
     <string name="minutes">Минут</string>
     <string name="sec">Сек</string>
     <string name="games_history">История розыгрышей</string>
     <string name="statistic">Статистика</string>
     <string name="how_it_works">Как это работает</string>
-    <string name="white_paper">White paper</string>
+    <string name="white_paper">Презентация</string>
     <string name="settings">Настройки</string>
     <string name="be_aware">Оставайтесь в курсе</string>
     <string name="blockchain_based_lottery">Blockchain based lottery</string>
@@ -31,7 +34,7 @@
     <string name="no_bonus_games">Бонусных игр нет</string>
     <string name="eth">Eth</string>
     <string name="participate">Принять участие</string>
-    <string name="participate_price">0,005 Eth</string>
+    <string name="participate_price">0,01 Eth</string>
     <string name="top_places">Призовые места</string>
     <string name="winner_announcement">До объявления\nпобедителя:</string>
     <string name="you_are_not_in_participants_list">Вас пока нет в списке участников</string>
@@ -50,7 +53,7 @@
     <string name="total_prize_fund">Общий призовой фонд</string>
     <string name="daily_lottery_unilot">Ежедневная лотерея Unilot</string>
     <string name="weekly_lottery_unilot">Еженедельная лотерея Unilot</string>
-    <string name="participation_rules">Чтобы принять участие в ежедневной лотерее вам необходимо перечислить 0,05 Eth на кошелек, который вы получите нажав на кнопку ниже</string>
+    <string name="participation_rules">Чтобы принять участие в ежедневной лотерее вам необходимо перечислить 0,01 Eth на кошелек, который вы получите нажав на кнопку ниже</string>
     <string name="lottery_ends_in">Лоттерея заканчивается через</string>
     <string name="copy_wallet_number">Скопировать номер кошелька</string>
     <string name="wallet_number_has_been_copied">Номер кошелька был скопирован</string>
@@ -64,9 +67,13 @@
     <string name="you_won">Вы победили!</string>
     <string name="you_take_place_d" formatted="false">Вы заняли %d место\nи выиграли:</string>
     <string name="game_history">История розыгрыша</string>
-    <string name="system_selecting_winner">Система выбирает победителя</string>
+    <string name="system_selecting_winner">Система\nвыбирает победителей</string>
     <string name="copy_transaction_number">Скопировать номер транзакции</string>
     <string name="results_of_daily_drawing">Итоги дневной лотереи</string>
+    <string name="results_of_weekly_drawing">Итоги недельной лотереи</string>
+    <string name="results_of_monthly_drawing">Итоги бонусной лотереи</string>
     <string name="unfortunately_you_are_lose">К сожалению, вас нет в список победителей</string>
     <string name="you_automatically_participate_in_bonus_drawing_that_will_run_in">Вы автоматически становитесь участником бонусного розыгрыша, который состоится через:</string>
+    <string name="how_does_it_works">Как это работает?</string>
+    <string name="how_does_it_works_text">1. Выберите тип розыгрыша: Дневная, Недельная.\n2. Оплатите стоимость билета.\n3. Ожидайте результат.\n\nСистема сама случайным образом выбирает пользователей, между которыми разделит призовой фонд розыгрыша.\n\nВо время розыгрыша вы можете ознакомиться с количеством призовых мест и суммой призовых в соответствующем разделе приложения: Дневная, Недельная, Бонусная. Списки постоянно изменяются в зависимости от количества участников.\n\nВсе пользователи, которые не стали победителями в Дневных и Недельных розыгрышах, в течении месяца автоматически становятся участниками Бонусного Ежемесячного розыгрыша бесплатно!</string>
 </resources>

@@ -1,5 +1,6 @@
 package com.vovasoft.unilot.ui.fragments
 
+import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -97,6 +98,11 @@ abstract class GameBaseFragment : BaseFragment() {
                                         }
                                         else {
                                             val dialog = LooserDialog(context, it, result)
+                                            gamesVM.getMonthlyGame().observe(this@GameBaseFragment, Observer { bonusGame ->
+                                                bonusGame?.let {
+                                                    dialog.setDays(it.endTime())
+                                                }
+                                            })
                                             dialog.setonHistoryListener {
                                                 gamesVM.selectedHistoryGame = game
                                                 AppFragmentManager.instance.openFragment(HistoryGameDetailsFragment(), true)

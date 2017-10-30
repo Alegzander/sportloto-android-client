@@ -31,33 +31,38 @@
             android:padding="16dp"
             app:srcCompat="@drawable/ic_x_black" />
 
-        <TextView
+        <android.support.v7.widget.AppCompatTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:fontFamily="@font/roboto_light"
             android:gravity="center"
+            android:paddingEnd="16dp"
+            android:paddingStart="16dp"
             android:text="@string/congratulations"
             android:textColor="@color/colorBlack"
             android:textSize="20sp" />
 
-        <TextView
+        <android.support.v7.widget.AppCompatTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto_medium"
             android:gravity="center"
+            android:paddingEnd="16dp"
+            android:paddingStart="16dp"
             android:text="@string/you_won"
             android:textColor="@color/colorBlack"
             android:textSize="36sp" />
 
-        <TextView
+        <android.support.v7.widget.AppCompatTextView
             android:id="@+id/placeTv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:fontFamily="@font/roboto_light"
             android:gravity="center"
-            android:text="@string/you_take_place_d"
+            android:paddingEnd="16dp"
+            android:paddingStart="16dp"
             android:textColor="@color/colorBlack"
             android:textSize="18sp" />
 
@@ -68,7 +73,7 @@
             android:gravity="center"
             android:orientation="horizontal">
 
-            <TextView
+            <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/prizeTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -76,9 +81,18 @@
                 android:text="21,725"
                 android:textColor="@color/colorDarkOrange"
                 android:textSize="64sp" />
+
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/ethereumImg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
+                app:srcCompat="@drawable/ic_ethereum_dark_orange" />
+
         </LinearLayout>
 
-        <TextView
+        <android.support.v7.widget.AppCompatTextView
             android:id="@+id/prizeFialtTv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -88,7 +102,7 @@
             android:textColor="@color/colorDarkOrange"
             android:textSize="26sp" />
 
-        <TextView
+        <android.support.v7.widget.AppCompatTextView
             android:id="@+id/historyBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -103,7 +117,5 @@
             android:text="@string/game_history"
             android:textColor="@color/colorWhite"
             android:textSize="20sp" />
-
-
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

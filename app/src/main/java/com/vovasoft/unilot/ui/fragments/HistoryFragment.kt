@@ -20,11 +20,9 @@ import kotlinx.android.synthetic.main.fragment_history.*
  ****************************************************************************/
 class HistoryFragment : BaseFragment() {
 
-    private val appVM: AppVM
-        get() = ViewModelProviders.of(activity).get(AppVM::class.java)
+    private lateinit var appVM: AppVM
 
-    private val gamesVM: GamesVM
-        get() = ViewModelProviders.of(activity).get(GamesVM::class.java)
+    private lateinit var gamesVM: GamesVM
 
     private val adapter = HistoryRecyclerAdapter()
 
@@ -36,6 +34,8 @@ class HistoryFragment : BaseFragment() {
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        appVM = ViewModelProviders.of(activity).get(AppVM::class.java)
+        gamesVM = ViewModelProviders.of(activity).get(GamesVM::class.java)
         lockDrawerMode(true)
         setupViews()
         observeData()

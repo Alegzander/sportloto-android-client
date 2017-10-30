@@ -4,39 +4,48 @@ import android.annotation.SuppressLint
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
+import android.net.ConnectivityManager
+import android.net.Uri
 import android.os.Bundle
+import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.inputmethod.InputMethodManager
 import com.google.firebase.iid.FirebaseInstanceId
 import com.vovasoft.unilot.App
 import com.vovasoft.unilot.R
+import com.vovasoft.unilot.components.NetworkStateReceiver
 import com.vovasoft.unilot.components.Preferences
+import com.vovasoft.unilot.components.daysPlural
 import com.vovasoft.unilot.ui.fragments.BaseFragment
 import com.vovasoft.unilot.ui.fragments.HistoryFragment
 import com.vovasoft.unilot.ui.fragments.MainPagerFragment
 import com.vovasoft.unilot.ui.fragments.SettingsFragment
-import com.vovasoft.unilot.view_models.AppVM
 import com.vovasoft.unilot.view_models.GamesVM
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.navigation_drawer_layout.*
 
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), NetworkStateReceiver.ReceiverCallback {
 
-    private val gamesVM: GamesVM
-        get() = ViewModelProviders.of(this).get(GamesVM::class.java)
+    private lateinit var gamesVM: GamesVM
 
-    private val appVM: AppVM
-        get() = ViewModelProviders.of(this).get(AppVM::class.java)
-
+    private lateinit var networkStateReceiver: NetworkStateReceiver
 
     override fun onCreate(savedInstanceState: Bundle?) {
         Preferences.updateLanguage()
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        gamesVM = ViewModelProviders.of(this).get(GamesVM::class.java)
+
+        networkStateReceiver = NetworkStateReceiver(this)
+        val filter = IntentFilter()
+        filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION)
+        registerReceiver(networkStateReceiver, filter)
 
         AppFragmentManager.instance.registerFragmentManager(supportFragmentManager)
 
@@ -54,14 +63,13 @@ class MainActivity : AppCompatActivity() {
         else {
             AppFragmentManager.instance.openFragment(MainPagerFragment())
         }
-
-        gamesVM.updateGamesList()
     }
 
 
     override fun onResume() {
         super.onResume()
         App.isBackground = false
+        gamesVM.updateGamesList()
     }
 
 
@@ -75,6 +83,13 @@ class MainActivity : AppCompatActivity() {
         super.onNewIntent(intent)
         if (Preferences.isLanguageChanged) {
             super.recreate()
+        }
+    }
+
+
+    override fun networkStateChanged(isOnline: Boolean) {
+        if (isOnline) {
+            gamesVM.updateGamesList()
         }
     }
 
@@ -93,16 +108,48 @@ class MainActivity : AppCompatActivity() {
         }
 
         infoBtn.setOnClickListener {
+            AlertDialog.Builder(this)
+                    .setTitle(R.string.how_does_it_works)
+                    .setMessage(R.string.how_does_it_works_text)
+                    .setPositiveButton(R.string.ok) { dialog, _ -> dialog.dismiss() }
+                    .create().show()
             drawerLayout.closeDrawers()
         }
 
         whitepaperBtn.setOnClickListener {
+            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.presentation_url)))
+            startActivity(browserIntent)
             drawerLayout.closeDrawers()
         }
 
         settingsBtn.setOnClickListener {
             drawerLayout.closeDrawers()
             AppFragmentManager.instance.openFragment(SettingsFragment(), true)
+        }
+
+        soonBtn.setOnClickListener {
+            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://unilot.io/ru/"))
+            startActivity(browserIntent)
+        }
+
+        facebookBtn.setOnClickListener {
+            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/unilot.io/"))
+            startActivity(browserIntent)
+        }
+
+        telecgramBtn.setOnClickListener {
+            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://t.me/unilot_channel/"))
+            startActivity(browserIntent)
+        }
+
+        redditBtn.setOnClickListener {
+            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.reddit.com/user/unilot_lottery/"))
+            startActivity(browserIntent)
+        }
+
+        twitterBtn.setOnClickListener {
+            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://twitter.com/unilot_lottery/"))
+            startActivity(browserIntent)
         }
 
     }
@@ -124,6 +171,12 @@ class MainActivity : AppCompatActivity() {
             val fragment = AppFragmentManager.instance.currentFragment as BaseFragment
             fragment.onBackPressed()
         }
+    }
+
+
+    override fun onDestroy() {
+        unregisterReceiver(networkStateReceiver)
+        super.onDestroy()
     }
 
 }

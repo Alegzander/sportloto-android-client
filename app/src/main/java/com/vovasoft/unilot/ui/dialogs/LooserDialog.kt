@@ -5,10 +5,10 @@ import android.support.v7.app.AlertDialog
 import android.util.AttributeSet
 import android.widget.FrameLayout
 import com.vovasoft.unilot.R
+import com.vovasoft.unilot.components.daysPlural
+import com.vovasoft.unilot.components.toTextHumanDate
 import com.vovasoft.unilot.repository.models.entities.Game
 import com.vovasoft.unilot.repository.models.entities.GameResult
-import com.vovasoft.unilot.ui.AppFragmentManager
-import com.vovasoft.unilot.ui.fragments.HistoryGameDetailsFragment
 import kotlinx.android.synthetic.main.dialog_view_looser.view.*
 
 /***************************************************************************
@@ -32,6 +32,11 @@ class LooserDialog(val context: Context, val game: Game, val result: GameResult)
             result.deleteAsync()
         })
         dialog?.show()
+    }
+
+
+    fun setDays(time: Long) {
+        looserDialogView.setDays(time)
     }
 
 
@@ -60,9 +65,24 @@ class LooserDialog(val context: Context, val game: Game, val result: GameResult)
                 dismiss()
             }
 
+            (when (game.type) {
+                Game.Type.DAILY.value -> resultTv.setText(R.string.results_of_daily_drawing)
+                Game.Type.WEEKLY.value -> resultTv.setText(R.string.results_of_weekly_drawing)
+                Game.Type.MONTHLY.value -> resultTv.setText(R.string.results_of_monthly_drawing)
+            })
+
+            dateTv.text = game.endTime().toTextHumanDate()
+
             historyBtn.setOnClickListener {
                 onHistoryListener?.invoke()
             }
+        }
+
+
+        fun setDays(time: Long) {
+            val days = (time - System.currentTimeMillis()) / (1000 * 60 * 60 * 24)
+            daysTv.text = "%02d".format(days)
+            mutableDaysTv.text = daysPlural(context, days.toInt(), context.getString(R.string.mutable_days))
         }
 
     }

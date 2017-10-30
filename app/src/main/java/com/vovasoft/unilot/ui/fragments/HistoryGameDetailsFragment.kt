@@ -28,8 +28,7 @@ import java.util.regex.Pattern
  ****************************************************************************/
 class HistoryGameDetailsFragment : BaseFragment(), SearchView.OnQueryTextListener {
 
-    private val gamesVM: GamesVM
-        get() = ViewModelProviders.of(activity).get(GamesVM::class.java)
+    private lateinit var gamesVM: GamesVM
 
     private var hasCameraPermission = false
 
@@ -49,6 +48,8 @@ class HistoryGameDetailsFragment : BaseFragment(), SearchView.OnQueryTextListene
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        gamesVM = ViewModelProviders.of(activity).get(GamesVM::class.java)
+
         lockDrawerMode(true)
         game = gamesVM.selectedHistoryGame
         setupViews()

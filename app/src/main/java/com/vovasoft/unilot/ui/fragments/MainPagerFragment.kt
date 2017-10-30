@@ -8,6 +8,7 @@ import android.os.Handler
 import android.support.v4.content.ContextCompat
 import android.support.v4.view.GravityCompat
 import android.support.v4.view.ViewPager
+import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -38,8 +39,7 @@ class MainPagerFragment : BaseFragment() {
         }
     }
 
-    private val appVM: AppVM
-        get() = ViewModelProviders.of(activity).get(AppVM::class.java)
+    private lateinit var appVM: AppVM
 
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -49,6 +49,7 @@ class MainPagerFragment : BaseFragment() {
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        appVM = ViewModelProviders.of(activity).get(AppVM::class.java)
         drawerBtn.setOnClickListener { activity.drawerLayout.openDrawer(GravityCompat.START) }
         setupPager()
         observeData()
@@ -68,6 +69,15 @@ class MainPagerFragment : BaseFragment() {
 
 
     private fun setupPager() {
+
+        infoBtn.setOnClickListener {
+            AlertDialog.Builder(context)
+                    .setTitle(R.string.how_does_it_works)
+                    .setMessage(R.string.how_does_it_works_text)
+                    .setPositiveButton(R.string.ok) { dialog, _ -> dialog.dismiss() }
+                    .create().show()
+        }
+
         val pagerAdapter = MainPagerAdapter(childFragmentManager)
         pager.adapter = pagerAdapter
 

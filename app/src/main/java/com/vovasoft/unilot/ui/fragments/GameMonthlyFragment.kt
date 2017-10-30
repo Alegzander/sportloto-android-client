@@ -9,6 +9,7 @@ import android.graphics.Typeface
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.support.v4.content.LocalBroadcastManager
+import android.support.v7.app.AlertDialog
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -16,6 +17,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.robinhood.ticker.TickerUtils
 import com.vovasoft.unilot.R
+import com.vovasoft.unilot.components.daysPlural
 import com.vovasoft.unilot.repository.models.entities.Game
 import com.vovasoft.unilot.ui.dialogs.TopPlacesDialog
 import kotlinx.android.synthetic.main.fragment_game_monthly.*
@@ -139,9 +141,14 @@ class GameMonthlyFragment : GameBaseFragment() {
             daysBoard.setCharacterList(TickerUtils.getDefaultListForUSCurrency())
             daysBoard.typeface = Typeface.create("sans-serif-light", Typeface.NORMAL)
             daysBoard.setText("%02d".format(days), true)
+            mutableDaysTv.text = daysPlural(context, days.toInt(), getString(R.string.mutable_days))
 
             infoBtn.setOnClickListener {
-
+                AlertDialog.Builder(context)
+                        .setTitle(R.string.how_does_it_works)
+                        .setMessage(R.string.how_does_it_works_text)
+                        .setPositiveButton(R.string.ok) { dialog, _ -> dialog.dismiss() }
+                        .create().show()
             }
         }
     }

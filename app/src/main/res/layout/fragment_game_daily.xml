@@ -90,7 +90,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/ic_ethereum" />
+                    app:srcCompat="@drawable/ic_ethereum_orange" />
 
                 <android.support.v7.widget.AppCompatTextView
                     android:id="@+id/eth"
@@ -339,16 +339,16 @@
             android:visibility="gone"
             android:weightSum="100">
 
-            <TextView
+            <android.support.v7.widget.AppCompatTextView
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="30"
+                android:layout_weight="35"
                 android:gravity="center"
                 android:text="@string/system_selecting_winner"
                 android:textColor="@color/colorWhite"
-                android:textSize="25sp" />
+                android:textSize="24sp" />
 
-            <TextView
+            <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/calculateTimeTv"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
@@ -358,7 +358,7 @@
                 android:textColor="@color/colorWhite"
                 android:textSize="34sp" />
 
-            <TextView
+            <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/walletTv"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
@@ -396,7 +396,7 @@
                     android:includeFontPadding="false"
                     android:text="@string/copy_transaction_number"
                     android:textColor="@color/colorWhite"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     app:fontFamily="@font/roboto"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"

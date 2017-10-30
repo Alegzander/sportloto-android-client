@@ -38,7 +38,6 @@ class SettingsFragment : BaseFragment() {
         when (Preferences.instance.language) {
             "en" -> enSwitch.isChecked = true
             "ru" -> ruSwitch.isChecked = true
-            "de" -> deSwitch.isChecked = true
         }
 
         dailySwitch.setOnCheckedChangeListener { _, isChecked ->
@@ -56,23 +55,21 @@ class SettingsFragment : BaseFragment() {
         enSwitch.setOnCheckListener {
             enSwitch.isChecked = true
             ruSwitch.isChecked = false
-            deSwitch.isChecked = false
             changeLanguage("en")
         }
 
         ruSwitch.setOnCheckListener {
             enSwitch.isChecked = false
             ruSwitch.isChecked = true
-            deSwitch.isChecked = false
             changeLanguage("ru")
         }
 
-        deSwitch.setOnCheckListener {
-            enSwitch.isChecked = false
-            ruSwitch.isChecked = false
-            deSwitch.isChecked = true
-            changeLanguage("de")
-        }
+//        deSwitch.setOnCheckListener {
+//            enSwitch.isChecked = false
+//            ruSwitch.isChecked = false
+//            deSwitch.isChecked = true
+//            changeLanguage("de")
+//        }
     }
 
 

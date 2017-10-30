@@ -39,21 +39,23 @@
         android:id="@+id/titleTv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:fontFamily="@font/roboto_medium"
         android:gravity="center"
+        android:paddingEnd="16dp"
+        android:paddingStart="16dp"
         android:text="@string/weekly_lottery_unilot"
         android:textColor="@color/colorBlack"
-        android:textSize="22sp" />
+        android:textSize="22sp"
+        app:fontFamily="@font/roboto_medium" />
 
     <android.support.v7.widget.AppCompatTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:fontFamily="@font/roboto_light"
         android:gravity="center"
         android:paddingEnd="16dp"
         android:paddingStart="16dp"
         android:text="@string/participation_rules"
-        android:textSize="15sp" />
+        android:textSize="15sp"
+        app:fontFamily="@font/roboto_light" />
 
 
     <View

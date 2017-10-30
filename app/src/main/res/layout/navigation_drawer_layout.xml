@@ -178,7 +178,8 @@
             android:layout_marginTop="18dp"
             android:background="@color/colorDarkGray" />
 
-        <ImageView
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/soonBtn"
             android:layout_width="match_parent"
             android:layout_height="120dp"
             android:scaleType="fitStart"

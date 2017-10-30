@@ -29,9 +29,7 @@ import org.jetbrains.anko.uiThread
  ****************************************************************************/
 class ProfileFragment : BaseFragment() {
 
-    private val gamesVM: GamesVM
-        get() = ViewModelProviders.of(activity).get(GamesVM::class.java)
-
+    private lateinit var gamesVM: GamesVM
 
     private val walletsAdapter = WalletsRecyclerAdapter()
     private var hasCameraPermission = false
@@ -44,6 +42,8 @@ class ProfileFragment : BaseFragment() {
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        gamesVM = ViewModelProviders.of(activity).get(GamesVM::class.java)
+
         hasCameraPermission = checkSelfPermission(context, ZxingReader.CAMERA_PERMISSION) == PackageManager.PERMISSION_GRANTED
         setupViews()
         observeData()

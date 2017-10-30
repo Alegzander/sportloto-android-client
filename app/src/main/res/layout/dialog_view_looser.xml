@@ -21,63 +21,84 @@
             android:padding="16dp"
             app:srcCompat="@drawable/ic_x_black" />
 
-        <TextView
+        <android.support.v7.widget.AppCompatTextView
             android:id="@+id/resultTv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:fontFamily="@font/roboto_medium"
             android:gravity="center"
-            android:text="@string/results_of_daily_drawing"
+            android:paddingEnd="16dp"
+            android:paddingStart="16dp"
             android:textColor="@color/colorBlack"
             android:textSize="24sp" />
 
-        <TextView
+        <android.support.v7.widget.AppCompatTextView
             android:id="@+id/dateTv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto_light"
             android:gravity="center"
+            android:paddingEnd="16dp"
+            android:paddingStart="16dp"
             android:textColor="@color/colorBlack"
             android:textSize="15sp" />
 
-        <TextView
+        <android.support.v7.widget.AppCompatTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:fontFamily="@font/roboto"
             android:gravity="center"
+            android:paddingEnd="16dp"
+            android:paddingStart="16dp"
             android:text="@string/unfortunately_you_are_lose"
             android:textColor="@color/colorBlack"
             android:textSize="18sp" />
 
-        <TextView
+        <android.support.v7.widget.AppCompatTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:fontFamily="@font/roboto_light"
             android:gravity="center"
+            android:paddingEnd="16dp"
+            android:paddingStart="16dp"
             android:text="@string/you_automatically_participate_in_bonus_drawing_that_will_run_in"
             android:textColor="@color/colorDarkGray"
             android:textSize="18sp" />
 
-        <LinearLayout
+        <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:gravity="center"
             android:orientation="horizontal">
 
-            <TextView
+            <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/daysTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto"
                 android:textColor="@color/colorBlack"
-                android:textSize="80sp" />
-        </LinearLayout>
+                android:textSize="80sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
-        <TextView
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/mutableDaysTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorBlack"
+                android:textSize="18sp"
+                app:fontFamily="@font/roboto_light"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/daysTv"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </android.support.constraint.ConstraintLayout>
+
+        <android.support.v7.widget.AppCompatTextView
             android:id="@+id/historyBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -92,7 +113,5 @@
             android:text="@string/game_history"
             android:textColor="@color/colorBlack"
             android:textSize="20sp" />
-
-
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
