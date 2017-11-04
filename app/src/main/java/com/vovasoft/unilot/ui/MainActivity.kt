@@ -17,7 +17,6 @@ import com.vovasoft.unilot.App
 import com.vovasoft.unilot.R
 import com.vovasoft.unilot.components.NetworkStateReceiver
 import com.vovasoft.unilot.components.Preferences
-import com.vovasoft.unilot.components.daysPlural
 import com.vovasoft.unilot.ui.fragments.BaseFragment
 import com.vovasoft.unilot.ui.fragments.HistoryFragment
 import com.vovasoft.unilot.ui.fragments.MainPagerFragment
@@ -25,6 +24,10 @@ import com.vovasoft.unilot.ui.fragments.SettingsFragment
 import com.vovasoft.unilot.view_models.GamesVM
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.navigation_drawer_layout.*
+import com.crashlytics.android.Crashlytics
+import io.fabric.sdk.android.Fabric
+
+
 
 
 
@@ -36,8 +39,8 @@ class MainActivity : AppCompatActivity(), NetworkStateReceiver.ReceiverCallback 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         Preferences.updateLanguage()
-
         super.onCreate(savedInstanceState)
+        Fabric.with(this, Crashlytics())
         setContentView(R.layout.activity_main)
 
         gamesVM = ViewModelProviders.of(this).get(GamesVM::class.java)
@@ -109,8 +112,8 @@ class MainActivity : AppCompatActivity(), NetworkStateReceiver.ReceiverCallback 
 
         infoBtn.setOnClickListener {
             AlertDialog.Builder(this)
-                    .setTitle(R.string.how_does_it_works)
-                    .setMessage(R.string.how_does_it_works_text)
+                    .setTitle(R.string.how_does_it_work)
+                    .setMessage(R.string.how_does_it_work_text)
                     .setPositiveButton(R.string.ok) { dialog, _ -> dialog.dismiss() }
                     .create().show()
             drawerLayout.closeDrawers()

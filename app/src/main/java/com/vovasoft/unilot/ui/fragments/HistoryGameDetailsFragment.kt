@@ -66,6 +66,7 @@ class HistoryGameDetailsFragment : BaseFragment(), SearchView.OnQueryTextListene
                     winnersData?.let {
                         this.winners.clear()
                         this.winners.addAll(it)
+                        winnersTv.text = it.size.toString()
                     }
                     refreshSearch()
                 })
@@ -109,7 +110,7 @@ class HistoryGameDetailsFragment : BaseFragment(), SearchView.OnQueryTextListene
 
     private fun refreshSearch() {
         adapter.dataSet = winners.filter { winner ->
-            winner.wallet?.contains(Regex(Pattern.quote(searchValue))) == true
+            winner.wallet?.toLowerCase()?.contains(Regex(Pattern.quote(searchValue.toLowerCase()))) == true
         }.toMutableList()
     }
 

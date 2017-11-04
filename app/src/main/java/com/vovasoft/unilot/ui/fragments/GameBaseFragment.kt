@@ -38,7 +38,6 @@ abstract class GameBaseFragment : BaseFragment() {
                 when (action) {
                     NotificationMessagingService.Action.GAME_UPDATED -> {
                         game = GsonModel.fromJson(intent.getStringExtra("game_updated"), Game::class.java)
-                        game?.saveAsync()
                         countDown?.cancel()
                         setupViews()
                     }
@@ -90,7 +89,7 @@ abstract class GameBaseFragment : BaseFragment() {
                                         if (result.position!! > 0) {
                                             val dialog = WinnerDialog(context, result)
                                             dialog.setonHistoryListener {
-                                                gamesVM.selectedHistoryGame = game
+                                                gamesVM.selectedHistoryGame = data
                                                 AppFragmentManager.instance.openFragment(HistoryGameDetailsFragment(), true)
                                                 dialog.dismiss()
                                             }
@@ -104,7 +103,7 @@ abstract class GameBaseFragment : BaseFragment() {
                                                 }
                                             })
                                             dialog.setonHistoryListener {
-                                                gamesVM.selectedHistoryGame = game
+                                                gamesVM.selectedHistoryGame = data
                                                 AppFragmentManager.instance.openFragment(HistoryGameDetailsFragment(), true)
                                                 dialog.dismiss()
                                             }

@@ -145,8 +145,8 @@ class GameMonthlyFragment : GameBaseFragment() {
 
             infoBtn.setOnClickListener {
                 AlertDialog.Builder(context)
-                        .setTitle(R.string.how_does_it_works)
-                        .setMessage(R.string.how_does_it_works_text)
+                        .setTitle(R.string.how_does_it_work)
+                        .setMessage(R.string.how_does_it_work_text)
                         .setPositiveButton(R.string.ok) { dialog, _ -> dialog.dismiss() }
                         .create().show()
             }

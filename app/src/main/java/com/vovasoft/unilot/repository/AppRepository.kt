@@ -50,6 +50,24 @@ class AppRepository {
     }
 
 
+    fun getRemoteGamesHistory(callback: RepositoryCallback<List<Game>?>) {
+        webClient.webservice.gamesArchived().enqueue(object : Callback<List<Game>> {
+            override fun onResponse(call: Call<List<Game>>?, response: Response<List<Game>>?) {
+                doAsync {
+                    response?.body()?.let { games ->
+                        App.database.gamesDao().insertAll(games)
+                    }
+                }
+                callback.done(response?.body())
+            }
+
+            override fun onFailure(call: Call<List<Game>>?, t: Throwable?) {
+                callback.done(null)
+            }
+        })
+    }
+
+
     fun getGamesHistory(callback: RepositoryCallback<List<Game>?>) {
         doAsync {
             val games = App.database.gamesDao().getGames()
@@ -58,6 +76,20 @@ class AppRepository {
                 callback.done(games)
             }
         }
+    }
+
+
+    fun getRemoteGameById(id: Int, callback: RepositoryCallback<Game?>) {
+        webClient.webservice.gameById(id).enqueue(object : Callback<Game> {
+            override fun onResponse(call: Call<Game>?, response: Response<Game>?) {
+                callback.done(response?.body())
+                response?.body()?.saveAsync()
+            }
+
+            override fun onFailure(call: Call<Game>?, t: Throwable?) {
+                callback.done(null)
+            }
+        })
     }
 
 

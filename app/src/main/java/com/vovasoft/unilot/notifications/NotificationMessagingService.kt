@@ -27,6 +27,7 @@ import com.vovasoft.unilot.repository.models.pure.Result
 import com.vovasoft.unilot.repository.models.pure.Winner
 import com.vovasoft.unilot.ui.MainActivity
 import java.io.Serializable
+import java.lang.Exception
 import java.util.*
 
 
@@ -64,14 +65,58 @@ class NotificationMessagingService : FirebaseMessagingService() {
     }
 
     override fun onMessageReceived(remoteMessage: RemoteMessage?) {
-        remoteMessage?.also {
-            if (remoteMessage.data.isNotEmpty()) {
-                Log.e("Notification", remoteMessage.data.toString())
-                val action = remoteMessage.data["action"]?.let { Action.from(it) }
-                when (action) {
-                    Action.GAME_UPDATED -> gameUpdatedAction(remoteMessage.data)
-                    Action.GAME_FINISHED -> gameFinishedAction(remoteMessage.data)
-                    Action.GAME_UNPUBLISHED -> gameUnpublishedAction(remoteMessage.data)
+        try {
+            remoteMessage?.also {
+                if (remoteMessage.data.isNotEmpty()) {
+                    Log.e("Notification", remoteMessage.data.toString())
+                    val action = remoteMessage.data["action"]?.let { Action.from(it) }
+                    when (action) {
+                        Action.GAME_STARTED -> gameStartedAction(remoteMessage.data)
+                        Action.GAME_UPDATED -> gameUpdatedAction(remoteMessage.data)
+                        Action.GAME_FINISHED -> gameFinishedAction(remoteMessage.data)
+                        Action.GAME_UNPUBLISHED -> gameUnpublishedAction(remoteMessage.data)
+                    }
+                }
+            }
+        }
+        catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
+
+    private fun gameStartedAction(data: Map<String, String>) {
+        val jsonData = data["data"]
+        val messageJson = data["message"]
+
+        jsonData?.let {
+            val game = GsonModel.fromJson(jsonData, Game::class.java)
+            val broadcastIntent: Intent? = when (game.type) {
+                Game.Type.DAILY.value -> Intent("daily")
+                Game.Type.WEEKLY.value -> Intent("weekly")
+                Game.Type.MONTHLY.value -> Intent("monthly")
+                else -> null
+            }
+
+            broadcastIntent?.let {
+                game.saveAsync()
+                broadcastIntent.putExtra("action", Action.GAME_UPDATED)
+                broadcastIntent.putExtra("game_updated", jsonData)
+                broadcaster.sendBroadcast(broadcastIntent)
+            }
+
+            messageJson?.let {
+                if (game.type == Game.Type.DAILY.value && Preferences.instance.dayLotteryNotify) {
+                    val messageBody = Gson().fromJson(messageJson, JsonObject::class.java)?.get(Preferences.instance.language)?.asString
+                    showNotification(messageBody)
+                }
+                else if (game.type == Game.Type.WEEKLY.value && Preferences.instance.weekLotteryNotify) {
+                    val messageBody = Gson().fromJson(messageJson, JsonObject::class.java)?.get(Preferences.instance.language)?.asString
+                    showNotification(messageBody)
+                }
+                else if (game.type == Game.Type.MONTHLY.value && Preferences.instance.monthLotteryNotify) {
+                    val messageBody = Gson().fromJson(messageJson, JsonObject::class.java)?.get(Preferences.instance.language)?.asString
+                    showNotification(messageBody)
                 }
             }
         }
@@ -92,6 +137,7 @@ class NotificationMessagingService : FirebaseMessagingService() {
             }
 
             broadcastIntent?.let {
+                game.saveAsync()
                 broadcastIntent.putExtra("action", Action.GAME_UPDATED)
                 broadcastIntent.putExtra("game_updated", jsonData)
                 broadcaster.sendBroadcast(broadcastIntent)
@@ -99,15 +145,15 @@ class NotificationMessagingService : FirebaseMessagingService() {
 
             messageJson?.let {
                 if (game.type == Game.Type.DAILY.value && Preferences.instance.dayLotteryNotify) {
-                    val messageBody = Gson().fromJson(messageJson, JsonObject::class.java).get(Preferences.instance.language).asString
+                    val messageBody = Gson().fromJson(messageJson, JsonObject::class.java)?.get(Preferences.instance.language)?.asString
                     showNotification(messageBody)
                 }
                 else if (game.type == Game.Type.WEEKLY.value && Preferences.instance.weekLotteryNotify) {
-                    val messageBody = Gson().fromJson(messageJson, JsonObject::class.java).get(Preferences.instance.language).asString
+                    val messageBody = Gson().fromJson(messageJson, JsonObject::class.java)?.get(Preferences.instance.language)?.asString
                     showNotification(messageBody)
                 }
                 else if (game.type == Game.Type.MONTHLY.value && Preferences.instance.monthLotteryNotify) {
-                    val messageBody = Gson().fromJson(messageJson, JsonObject::class.java).get(Preferences.instance.language).asString
+                    val messageBody = Gson().fromJson(messageJson, JsonObject::class.java)?.get(Preferences.instance.language)?.asString
                     showNotification(messageBody)
                 }
             }
@@ -120,41 +166,35 @@ class NotificationMessagingService : FirebaseMessagingService() {
         val messageJson = data["message"]
 
         jsonData?.let {
-            val gameId = Gson().fromJson(jsonData, JsonObject::class.java).get("id").asInt
+            val game = GsonModel.fromJson(jsonData, Game::class.java)
+            val broadcastIntent: Intent? = when (game.type) {
+                Game.Type.DAILY.value -> Intent("daily")
+                Game.Type.WEEKLY.value -> Intent("weekly")
+                Game.Type.MONTHLY.value -> Intent("monthly")
+                else -> null
+            }
 
-            appRepo.getGameById(gameId, object : RepositoryCallback<Game?> {
-                override fun done(game: Game?) {
-                    game?.let {
-                        val broadcastIntent: Intent? = when (game.type) {
-                            Game.Type.DAILY.value -> Intent("daily")
-                            Game.Type.WEEKLY.value -> Intent("weekly")
-                            Game.Type.MONTHLY.value -> Intent("monthly")
-                            else -> null
-                        }
+            broadcastIntent?.let {
+                game.saveAsync()
+                broadcastIntent.putExtra("action", Action.GAME_UPDATED)
+                broadcastIntent.putExtra("game_updated", jsonData)
+                broadcaster.sendBroadcast(broadcastIntent)
+            }
 
-                        broadcastIntent?.let {
-                            broadcastIntent.putExtra("action", Action.GAME_UPDATED)
-                            broadcastIntent.putExtra("game_updated", game.toJson())
-                            broadcaster.sendBroadcast(broadcastIntent)
-                        }
-
-                        messageJson?.let {
-                            if (game.type == Game.Type.DAILY.value && Preferences.instance.dayLotteryNotify) {
-                                val messageBody = Gson().fromJson(messageJson, JsonObject::class.java).get(Preferences.instance.language).asString
-                                showNotification(messageBody)
-                            }
-                            else if (game.type == Game.Type.WEEKLY.value && Preferences.instance.weekLotteryNotify) {
-                                val messageBody = Gson().fromJson(messageJson, JsonObject::class.java).get(Preferences.instance.language).asString
-                                showNotification(messageBody)
-                            }
-                            else if (game.type == Game.Type.MONTHLY.value && Preferences.instance.monthLotteryNotify) {
-                                val messageBody = Gson().fromJson(messageJson, JsonObject::class.java).get(Preferences.instance.language).asString
-                                showNotification(messageBody)
-                            }
-                        }
-                    }
+            messageJson?.let {
+                if (game.type == Game.Type.DAILY.value && Preferences.instance.dayLotteryNotify) {
+                    val messageBody = Gson().fromJson(messageJson, JsonObject::class.java)?.get(Preferences.instance.language)?.asString
+                    showNotification(messageBody)
                 }
-            })
+                else if (game.type == Game.Type.WEEKLY.value && Preferences.instance.weekLotteryNotify) {
+                    val messageBody = Gson().fromJson(messageJson, JsonObject::class.java)?.get(Preferences.instance.language)?.asString
+                    showNotification(messageBody)
+                }
+                else if (game.type == Game.Type.MONTHLY.value && Preferences.instance.monthLotteryNotify) {
+                    val messageBody = Gson().fromJson(messageJson, JsonObject::class.java)?.get(Preferences.instance.language)?.asString
+                    showNotification(messageBody)
+                }
+            }
         }
     }
 
@@ -167,14 +207,14 @@ class NotificationMessagingService : FirebaseMessagingService() {
             val result = GsonModel.fromJson(jsonData, Result::class.java)
             result.gameId?.let { gameId ->
 
-                appRepo.getGameById(gameId, object : RepositoryCallback<Game?> {
+                appRepo.getRemoteGameById(gameId, object : RepositoryCallback<Game?> {
                     override fun done(game: Game?) {
                         game?.let {
                             appRepo.getWalletsNumbers(object : RepositoryCallback<List<String>?> {
                                 override fun done(wallets: List<String>?) {
                                     var isWinner = false
                                     wallets?.forEach {
-                                        if (result.winners.contains(it)) {
+                                        if (result.winners.contains(it.toLowerCase())) {
                                             isWinner = true
                                         }
                                     }
@@ -185,7 +225,7 @@ class NotificationMessagingService : FirebaseMessagingService() {
                                                 winnersData?.let { winners ->
                                                     wallets?.forEach { wallet ->
                                                         winners.forEach { winner ->
-                                                            if (wallet == winner.wallet) {
+                                                            if (wallet.toLowerCase() == winner.wallet?.toLowerCase()) {
                                                                 val gameResult = GameResult()
                                                                 gameResult.gameId = gameId
                                                                 gameResult.address = winner.wallet
@@ -210,18 +250,17 @@ class NotificationMessagingService : FirebaseMessagingService() {
                                                         broadcaster.sendBroadcast(broadcastIntent)
                                                     }
 
-                                                    val messageJson = data["message"]
                                                     messageJson?.let {
                                                         if (game.type == Game.Type.DAILY.value && Preferences.instance.dayLotteryNotify) {
-                                                            val messageBody = Gson().fromJson(messageJson, JsonObject::class.java).get(Preferences.instance.language).asString
+                                                            val messageBody = Gson().fromJson(messageJson, JsonObject::class.java)?.get(Preferences.instance.language)?.asString
                                                             showNotification(messageBody)
                                                         }
                                                         else if (game.type == Game.Type.WEEKLY.value && Preferences.instance.weekLotteryNotify) {
-                                                            val messageBody = Gson().fromJson(messageJson, JsonObject::class.java).get(Preferences.instance.language).asString
+                                                            val messageBody = Gson().fromJson(messageJson, JsonObject::class.java)?.get(Preferences.instance.language)?.asString
                                                             showNotification(messageBody)
                                                         }
                                                         else if (game.type == Game.Type.MONTHLY.value && Preferences.instance.monthLotteryNotify) {
-                                                            val messageBody = Gson().fromJson(messageJson, JsonObject::class.java).get(Preferences.instance.language).asString
+                                                            val messageBody = Gson().fromJson(messageJson, JsonObject::class.java)?.get(Preferences.instance.language)?.asString
                                                             showNotification(messageBody)
                                                         }
                                                     }
@@ -252,15 +291,15 @@ class NotificationMessagingService : FirebaseMessagingService() {
 
                                         messageJson?.let {
                                             if (game.type == Game.Type.DAILY.value && Preferences.instance.dayLotteryNotify) {
-                                                val messageBody = Gson().fromJson(messageJson, JsonObject::class.java).get(Preferences.instance.language).asString
+                                                val messageBody = Gson().fromJson(messageJson, JsonObject::class.java)?.get(Preferences.instance.language)?.asString
                                                 showNotification(messageBody)
                                             }
                                             else if (game.type == Game.Type.WEEKLY.value && Preferences.instance.weekLotteryNotify) {
-                                                val messageBody = Gson().fromJson(messageJson, JsonObject::class.java).get(Preferences.instance.language).asString
+                                                val messageBody = Gson().fromJson(messageJson, JsonObject::class.java)?.get(Preferences.instance.language)?.asString
                                                 showNotification(messageBody)
                                             }
                                             else if (game.type == Game.Type.MONTHLY.value && Preferences.instance.monthLotteryNotify) {
-                                                val messageBody = Gson().fromJson(messageJson, JsonObject::class.java).get(Preferences.instance.language).asString
+                                                val messageBody = Gson().fromJson(messageJson, JsonObject::class.java)?.get(Preferences.instance.language)?.asString
                                                 showNotification(messageBody)
                                             }
                                         }
@@ -275,7 +314,7 @@ class NotificationMessagingService : FirebaseMessagingService() {
     }
 
 
-    private fun showNotification(messageBody: String) {
+    private fun showNotification(messageBody: String?) {
 
         if (!App.isBackground) {
             return

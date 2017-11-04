@@ -34,7 +34,6 @@
     <string name="no_bonus_games">Бонусных игр нет</string>
     <string name="eth">Eth</string>
     <string name="participate">Принять участие</string>
-    <string name="participate_price">0,01 Eth</string>
     <string name="top_places">Призовые места</string>
     <string name="winner_announcement">До объявления\nпобедителя:</string>
     <string name="you_are_not_in_participants_list">Вас пока нет в списке участников</string>
@@ -43,7 +42,7 @@
     <string name="about_daily_lottery">Дневной лотерее</string>
     <string name="about_weekly_lottery">Недельной лотерее</string>
     <string name="about_bonus_draw">Бонусном розыгрыше</string>
-    <string name="language_selection">Вбор языка</string>
+    <string name="language_selection">Выбор языка</string>
     <string name="submit">Подтвердить</string>
     <string name="cancel">Отменить</string>
     <string name="wallet_number">Номер кошелька</string>
@@ -53,7 +52,7 @@
     <string name="total_prize_fund">Общий призовой фонд</string>
     <string name="daily_lottery_unilot">Ежедневная лотерея Unilot</string>
     <string name="weekly_lottery_unilot">Еженедельная лотерея Unilot</string>
-    <string name="participation_rules">Чтобы принять участие в ежедневной лотерее вам необходимо перечислить 0,01 Eth на кошелек, который вы получите нажав на кнопку ниже</string>
+    <string name="participation_rules" formatted="false">Чтобы принять участие в ежедневной лотерее вам необходимо перечислить %.3f Eth на кошелек, который вы получите нажав на кнопку ниже</string>
     <string name="lottery_ends_in">Лоттерея заканчивается через</string>
     <string name="copy_wallet_number">Скопировать номер кошелька</string>
     <string name="wallet_number_has_been_copied">Номер кошелька был скопирован</string>
@@ -74,6 +73,6 @@
     <string name="results_of_monthly_drawing">Итоги бонусной лотереи</string>
     <string name="unfortunately_you_are_lose">К сожалению, вас нет в список победителей</string>
     <string name="you_automatically_participate_in_bonus_drawing_that_will_run_in">Вы автоматически становитесь участником бонусного розыгрыша, который состоится через:</string>
-    <string name="how_does_it_works">Как это работает?</string>
-    <string name="how_does_it_works_text">1. Выберите тип розыгрыша: Дневная, Недельная.\n2. Оплатите стоимость билета.\n3. Ожидайте результат.\n\nСистема сама случайным образом выбирает пользователей, между которыми разделит призовой фонд розыгрыша.\n\nВо время розыгрыша вы можете ознакомиться с количеством призовых мест и суммой призовых в соответствующем разделе приложения: Дневная, Недельная, Бонусная. Списки постоянно изменяются в зависимости от количества участников.\n\nВсе пользователи, которые не стали победителями в Дневных и Недельных розыгрышах, в течении месяца автоматически становятся участниками Бонусного Ежемесячного розыгрыша бесплатно!</string>
+    <string name="how_does_it_work">Как это работает?</string>
+    <string name="how_does_it_work_text">1. Выберите тип розыгрыша: Дневная, Недельная.\n2. Оплатите стоимость билета.\n3. Ожидайте результат.\n\nСистема сама случайным образом выбирает пользователей, между которыми разделит призовой фонд розыгрыша.\n\nВо время розыгрыша вы можете ознакомиться с количеством призовых мест и суммой призовых в соответствующем разделе приложения: Дневная, Недельная, Бонусная. Списки постоянно изменяются в зависимости от количества участников.\n\nВсе пользователи, которые не стали победителями в Дневных и Недельных розыгрышах, в течении месяца автоматически становятся участниками Бонусного Ежемесячного розыгрыша бесплатно!</string>
 </resources>

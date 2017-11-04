@@ -157,6 +157,7 @@ class GameDailyFragment : GameBaseFragment() {
             }
             countDown?.start()
 
+            betTv.text = "%.2f Eth".format(game.betAmount)
 
             participateBtn.setOnClickListener {
                 val dialog = ParticipateDialog(context, game)

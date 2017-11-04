@@ -49,7 +49,7 @@ class GamesVM : ViewModel() {
 
 
     fun getGamesHistory() : LiveData<List<Game>> {
-        appRepo.getGamesHistory(object : RepositoryCallback<List<Game>?> {
+        appRepo.getRemoteGamesHistory(object : RepositoryCallback<List<Game>?> {
             override fun done(data: List<Game>?) {
                 gamesHistoryLiveData.value = data
             }

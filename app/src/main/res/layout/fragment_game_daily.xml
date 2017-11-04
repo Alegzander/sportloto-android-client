@@ -301,12 +301,12 @@
                     android:layout_marginTop="8dp"
                     android:background="@color/colorWhite"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/textView8"
+                    app:layout_constraintEnd_toStartOf="@+id/betTv"
                     app:layout_constraintStart_toEndOf="@+id/textView3"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <android.support.v7.widget.AppCompatTextView
-                    android:id="@+id/textView8"
+                    android:id="@+id/betTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
@@ -314,7 +314,6 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
                     android:includeFontPadding="false"
-                    android:text="@string/participate_price"
                     android:textColor="@color/colorWhite"
                     android:textSize="14sp"
                     app:fontFamily="@font/roboto_light"

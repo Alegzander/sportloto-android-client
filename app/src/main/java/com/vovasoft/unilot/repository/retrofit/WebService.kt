@@ -24,6 +24,12 @@ interface WebService {
     @GET("api/v1/games")
     fun games(): Call<List<Game>>
 
+    @GET("api/v1/games/archived")
+    fun gamesArchived(): Call<List<Game>>
+
+    @GET("api/v1/games/{id}")
+    fun gameById(@Path("id") id: Int): Call<Game>
+
     @GET("api/v1/games/{id}/winners")
     fun winners(@Path("id") id: Int): Call<List<Winner>>
 }

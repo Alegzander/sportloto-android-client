@@ -58,6 +58,8 @@ class ParticipateDialog(val context: Context, val game: Game) {
 
             walletTv.text = game.smartContractId
 
+            participateTv.text = context.getString(R.string.participation_rules).format(game.betAmount)
+
             copyBtn.setOnClickListener {
                 val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
                 val clip = ClipData.newPlainText("wallet", walletTv.text)

@@ -48,12 +48,12 @@
         app:fontFamily="@font/roboto_medium" />
 
     <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/participateTv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:paddingEnd="16dp"
         android:paddingStart="16dp"
-        android:text="@string/participation_rules"
         android:textSize="15sp"
         app:fontFamily="@font/roboto_light" />
 

@@ -37,6 +37,14 @@ data class Game(@SerializedName("id")
                 @ColumnInfo(name = "prize_amount_fiat")
                 var prizeAmountFiat: Float? = null,
 
+                @SerializedName("bet_amount")
+                @ColumnInfo(name = "bet_amount")
+                var betAmount: Float? = null,
+
+                @SerializedName("bet_amount_fiat")
+                @ColumnInfo(name = "bet_amount_fiat")
+                var betAmountFiat: Float? = null,
+
                 @SerializedName("num_players")
                 @ColumnInfo(name = "num_players")
                 var playersNum: Int? = null,
@@ -119,6 +127,7 @@ data class Game(@SerializedName("id")
         startedAt?.let {
             val calendar = Calendar.getInstance().clone() as Calendar
             val formatter = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault())
+            formatter.timeZone = TimeZone.getTimeZone("UTC")
             calendar.time = formatter.parse(it)
             return calendar.timeInMillis
         }
@@ -130,6 +139,7 @@ data class Game(@SerializedName("id")
         endingAt?.let {
             val calendar = Calendar.getInstance().clone() as Calendar
             val formatter = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault())
+            formatter.timeZone = TimeZone.getTimeZone("UTC")
             calendar.time = formatter.parse(it)
             return calendar.timeInMillis
         }

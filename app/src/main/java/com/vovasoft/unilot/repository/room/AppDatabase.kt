@@ -13,7 +13,7 @@ import com.vovasoft.unilot.repository.room.dao.WalletsDao
  * Created by arseniy on 14/09/2017.
  ****************************************************************************/
 @Database(entities = arrayOf(Game::class, Wallet::class, GameResult::class),
-        version = 2,
+        version = 3,
         exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun gamesDao(): GamesDao

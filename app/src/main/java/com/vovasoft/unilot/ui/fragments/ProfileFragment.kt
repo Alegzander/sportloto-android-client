@@ -101,7 +101,7 @@ class ProfileFragment : BaseFragment() {
     private fun addWallet() {
         if (walletEt.text.toString().isNotEmpty()) {
             val wallet = Wallet()
-            wallet.number = walletEt.text.toString()
+            wallet.number = walletEt.text.toString().trim()
             doAsync {
                 wallet.save()
                 uiThread {
