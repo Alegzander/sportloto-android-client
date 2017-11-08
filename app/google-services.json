@@ -10,6 +10,40 @@
       "client_info": {
         "mobilesdk_app_id": "1:745749654900:android:97eab8a7d429fd6a",
         "android_client_info": {
+          "package_name": "com.vovasoft.sportloto"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "745749654900-b84jvj1nh1f4o5rq5u38do8vaofm0t42.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCSpRCy0exFUD1OqdbQ1nI7Pr_EVIwn9zY"
+        },
+        {
+          "current_key": "AIzaSyCuJaxnsrE7D-jlS5fh0eKDiM0DiVpbaCQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:745749654900:android:18c2c26ce889571d",
+        "android_client_info": {
           "package_name": "com.vovasoft.unilot"
         }
       },
@@ -22,6 +56,9 @@
       "api_key": [
         {
           "current_key": "AIzaSyCSpRCy0exFUD1OqdbQ1nI7Pr_EVIwn9zY"
+        },
+        {
+          "current_key": "AIzaSyCuJaxnsrE7D-jlS5fh0eKDiM0DiVpbaCQ"
         }
       ],
       "services": {
