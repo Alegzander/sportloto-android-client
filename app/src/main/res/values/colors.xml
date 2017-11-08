@@ -17,5 +17,6 @@
     <color name="colorWarmGray">#848484</color>
     <color name="colorGreen">#70e995</color>
     <color name="colorBlue">#3666f1</color>
+    <color name="colorRed">#ff4747</color>
 
 </resources>

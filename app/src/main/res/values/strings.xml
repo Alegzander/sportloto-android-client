@@ -75,4 +75,19 @@
     <string name="you_automatically_participate_in_bonus_drawing_that_will_run_in">You automatically participate in Bonus drawing that will:</string>
     <string name="how_does_it_work">How does it work?</string>
     <string name="how_does_it_work_text">1. Select the type: Daily, Weekly\n2. Pay the ticket cost\n3. Wait for the result\n\nThe system is choosing the winners who split the jackpot randomly.\n\nDuring the drawings you can always check the number of prize-winning places and the jackpot amount in the relevant section: Daily, Weekly, Bonus. Lists are constantly changing depending on the number of participants.\n\nAll the users who lost in Daily and Weekly drawings will automatically become participants of the Bonus Monthly Draw for free.</string>
+    <string name="after_pay_rules">Return to the app and register your wallet after payment</string>
+    <string name="wallet_not_found">Since you have not registered your wallet, your status is unknown.\nCheck the history of the drawing</string>
+    <string name="drawing_from">Drawing from:</string>
+    <string name="jackpot">JACKPOT</string>
+    <string name="participants">PARTICIPANTS</string>
+    <string name="winners">WINNERS</string>
+    <string name="place">Place</string>
+    <string name="wallet">Wallet</string>
+    <string name="drawing_history">History\nof your drawings</string>
+    <string name="type_date">Type and Date</string>
+    <string name="status">Status</string>
+    <string name="prize">Prize</string>
+    <string name="in_progress">In progress</string>
+    <string name="move">go to</string>
+    <string name="finished">Finished</string>
 </resources>

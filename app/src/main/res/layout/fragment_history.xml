@@ -17,7 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="История\nваших розыгрышей"
+            android:text="@string/drawing_history"
             android:textColor="@android:color/black"
             android:textSize="20sp"
             app:fontFamily="@font/roboto_bold"
@@ -52,7 +52,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Тип и дата"
+            android:text="@string/type_date"
             android:textColor="@color/colorGray"
             app:fontFamily="@font/roboto" />
 
@@ -60,7 +60,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Статус"
+            android:text="@string/status"
             android:textColor="@color/colorGray"
             app:fontFamily="@font/roboto" />
 
@@ -68,7 +68,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Выигрыш"
+            android:text="@string/prize"
             android:textColor="@color/colorGray"
             app:fontFamily="@font/roboto" />
     </LinearLayout>

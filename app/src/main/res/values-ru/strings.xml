@@ -25,7 +25,7 @@
     <string name="white_paper">Презентация</string>
     <string name="settings">Настройки</string>
     <string name="be_aware">Оставайтесь в курсе</string>
-    <string name="blockchain_based_lottery">Blockchain based lottery</string>
+    <string name="blockchain_based_lottery">Блокчейн-лотерея</string>
     <string name="english">English</string>
     <string name="russian">Русский</string>
     <string name="deutsch">Deutsch</string>
@@ -75,4 +75,19 @@
     <string name="you_automatically_participate_in_bonus_drawing_that_will_run_in">Вы автоматически становитесь участником бонусного розыгрыша, который состоится через:</string>
     <string name="how_does_it_work">Как это работает?</string>
     <string name="how_does_it_work_text">1. Выберите тип розыгрыша: Дневная, Недельная.\n2. Оплатите стоимость билета.\n3. Ожидайте результат.\n\nСистема сама случайным образом выбирает пользователей, между которыми разделит призовой фонд розыгрыша.\n\nВо время розыгрыша вы можете ознакомиться с количеством призовых мест и суммой призовых в соответствующем разделе приложения: Дневная, Недельная, Бонусная. Списки постоянно изменяются в зависимости от количества участников.\n\nВсе пользователи, которые не стали победителями в Дневных и Недельных розыгрышах, в течении месяца автоматически становятся участниками Бонусного Ежемесячного розыгрыша бесплатно!</string>
+    <string name="after_pay_rules">После оплаты вернитесь в приложение и зарегистрируйте свой кошелек</string>
+    <string name="wallet_not_found">Так как вы не зарегистрировали ваш кошелек, ваш статус незвестен.\nпроверьте историю розыгрыша</string>
+    <string name="drawing_from">Розыгрыш от:</string>
+    <string name="jackpot">ДЖЕКРОТ</string>
+    <string name="participants">УЧАСТНИКОВ</string>
+    <string name="winners">ПОБЕДИТЕЛЕЙ</string>
+    <string name="place">Место</string>
+    <string name="wallet">Кошелек</string>
+    <string name="drawing_history">История ваших розыгрышей</string>
+    <string name="type_date">Тип и дата</string>
+    <string name="status">Статус</string>
+    <string name="prize">Выигрыш</string>
+    <string name="in_progress">В процессе</string>
+    <string name="move">перейти</string>
+    <string name="finished">Завершен</string>
 </resources>

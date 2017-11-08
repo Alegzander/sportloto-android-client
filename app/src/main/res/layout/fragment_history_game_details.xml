@@ -51,7 +51,7 @@
                     android:layout_marginLeft="8dp"
                     android:layout_marginStart="8dp"
                     android:fontFamily="@font/roboto"
-                    android:text="Розыгрыш от:"
+                    android:text="@string/drawing_from"
                     android:textColor="@color/colorWhite"
                     android:textSize="15sp" />
 
@@ -80,7 +80,7 @@
                     android:layout_weight="1"
                     android:fontFamily="@font/roboto"
                     android:gravity="center"
-                    android:text="ДЖЕКРОТ"
+                    android:text="@string/jackpot"
                     android:textColor="@color/colorWhite"
                     android:textSize="12sp" />
 
@@ -90,7 +90,7 @@
                     android:layout_weight="1"
                     android:fontFamily="@font/roboto"
                     android:gravity="center"
-                    android:text="УЧАСТНИКОВ"
+                    android:text="@string/participants"
                     android:textColor="@color/colorWhite"
                     android:textSize="12sp" />
 
@@ -100,7 +100,7 @@
                     android:layout_weight="1"
                     android:fontFamily="@font/roboto"
                     android:gravity="center"
-                    android:text="ПОБЕДИТЕЛЕЙ"
+                    android:text="@string/winners"
                     android:textColor="@color/colorWhite"
                     android:textSize="12sp" />
             </LinearLayout>
@@ -213,7 +213,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="Место"
+            android:text="@string/place"
             android:textColor="@color/colorGray"
             app:fontFamily="@font/roboto" />
 
@@ -222,7 +222,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="3"
             android:gravity="center"
-            android:text="Кошелек"
+            android:text="@string/wallet"
             android:textColor="@color/colorGray"
             app:fontFamily="@font/roboto" />
 

@@ -36,13 +36,13 @@ class HistoryViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView), Vi
 
         when (game.status) {
             Game.Status.PUBLISHED.value -> {
-                statusTv?.text = "В процессе"
+                statusTv?.text = itemView.context.getString(R.string.in_progress)
                 prizeTv?.setTextColor(ContextCompat.getColor(itemView.context, R.color.colorBlue))
-                prizeTv?.text = "перейти"
+                prizeTv?.text = itemView.context.getString(R.string.move)
             }
             Game.Status.FINISHED.value -> {
-                statusTv?.text = "Завершен"
-                prizeTv?.text = "нет" //TODO if {winner} then {prize} else no
+                statusTv?.text = itemView.context.getString(R.string.finished)
+                prizeTv?.text = "" //TODO if {winner} then {prize} else no
             }
         }
     }

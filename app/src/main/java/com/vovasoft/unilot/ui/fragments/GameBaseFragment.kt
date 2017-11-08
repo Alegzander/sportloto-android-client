@@ -37,7 +37,7 @@ abstract class GameBaseFragment : BaseFragment() {
                 val action = intent.getSerializableExtra("action") as NotificationMessagingService.Action
                 when (action) {
                     NotificationMessagingService.Action.GAME_UPDATED -> {
-                        game = GsonModel.fromJson(intent.getStringExtra("game_updated"), Game::class.java)
+                        game = GsonModel.fromJson(intent.getStringExtra("data"), Game::class.java)
                         countDown?.cancel()
                         setupViews()
                     }

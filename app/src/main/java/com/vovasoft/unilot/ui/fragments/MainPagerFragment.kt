@@ -9,9 +9,11 @@ import android.support.v4.content.ContextCompat
 import android.support.v4.view.GravityCompat
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AlertDialog
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ScrollView
 import com.vovasoft.unilot.R
 import com.vovasoft.unilot.ui.pager_adapters.MainPagerAdapter
 import com.vovasoft.unilot.view_models.AppVM
@@ -51,6 +53,10 @@ class MainPagerFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         appVM = ViewModelProviders.of(activity).get(AppVM::class.java)
         drawerBtn.setOnClickListener { activity.drawerLayout.openDrawer(GravityCompat.START) }
+    }
+
+    override fun onResume() {
+        super.onResume()
         setupPager()
         observeData()
     }
@@ -91,7 +97,7 @@ class MainPagerFragment : BaseFragment() {
 
         pager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
-                val x = ((pager.width * position + positionOffsetPixels) * computeFactor()).toInt()
+                val x = ((pager.width * (pager.adapter.count - 1 - position) - positionOffsetPixels) * computeFactor()).toInt()
                 scrollView.scrollTo(x, 0)
             }
 
@@ -105,7 +111,7 @@ class MainPagerFragment : BaseFragment() {
             }
 
             private fun computeFactor(): Float {
-                return (backgroundImg.width - pager.width) / (pager.width * (pager.adapter.count - 1)).toFloat()
+                return (backgroundImg.measuredWidth - pager.width) / (pager.width * (pager.adapter.count - 1)).toFloat()
             }
         })
 

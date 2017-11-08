@@ -25,6 +25,8 @@ import com.vovasoft.unilot.view_models.GamesVM
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.navigation_drawer_layout.*
 import com.crashlytics.android.Crashlytics
+import com.vovasoft.unilot.repository.models.entities.Game
+import com.vovasoft.unilot.view_models.AppVM
 import io.fabric.sdk.android.Fabric
 
 
@@ -32,6 +34,8 @@ import io.fabric.sdk.android.Fabric
 
 
 class MainActivity : AppCompatActivity(), NetworkStateReceiver.ReceiverCallback {
+
+    private lateinit var appVM: AppVM
 
     private lateinit var gamesVM: GamesVM
 
@@ -42,6 +46,8 @@ class MainActivity : AppCompatActivity(), NetworkStateReceiver.ReceiverCallback 
         super.onCreate(savedInstanceState)
         Fabric.with(this, Crashlytics())
         setContentView(R.layout.activity_main)
+
+        appVM = ViewModelProviders.of(this).get(AppVM::class.java)
 
         gamesVM = ViewModelProviders.of(this).get(GamesVM::class.java)
 
@@ -86,6 +92,15 @@ class MainActivity : AppCompatActivity(), NetworkStateReceiver.ReceiverCallback 
         super.onNewIntent(intent)
         if (Preferences.isLanguageChanged) {
             super.recreate()
+        }
+
+        val intentData = intent.getSerializableExtra("data") as HashMap<*, *>?
+        intentData?.get("type")?.let {
+            when (Game.Type.from(it as Int)) {
+                Game.Type.DAILY -> appVM.selectedPage.value = MainPagerFragment.Page.DAY.value
+                Game.Type.WEEKLY -> appVM.selectedPage.value = MainPagerFragment.Page.WEEK.value
+                Game.Type.MONTHLY -> appVM.selectedPage.value = MainPagerFragment.Page.MONTH.value
+            }
         }
     }
 
