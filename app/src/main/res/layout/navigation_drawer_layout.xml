@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/view_dark_background">
@@ -35,7 +36,7 @@
             android:layout_marginTop="18dp"
             android:background="@color/colorDarkGray" />
 
-        <LinearLayout
+        <android.support.constraint.ConstraintLayout
             android:id="@+id/historyBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -44,21 +45,46 @@
             android:paddingTop="4dp">
 
             <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/appCompatImageView2"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_history" />
 
             <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/markerLabel"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/view_oval_red"
+                android:fontFamily="@font/roboto"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:textColor="@color/colorWhite"
+                android:textSize="12sp"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toStartOf="@+id/appCompatTextView"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginRight="8dp" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/appCompatTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="18dp"
                 android:layout_marginStart="18dp"
                 android:text="@string/games_history"
                 android:textColor="@color/colorWhite"
                 android:textSize="18sp"
-                app:fontFamily="@font/roboto_light" />
-        </LinearLayout>
+                app:fontFamily="@font/roboto_light"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/appCompatImageView2"
+                android:layout_marginLeft="18dp" />
+        </android.support.constraint.ConstraintLayout>
 
         <LinearLayout
             android:id="@+id/statisticBtn"

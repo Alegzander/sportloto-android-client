@@ -1,18 +1,18 @@
 package com.vovasoft.unilot.ui.dialogs
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.support.v7.app.AlertDialog
 import android.util.AttributeSet
 import android.widget.FrameLayout
 import com.vovasoft.unilot.R
-import com.vovasoft.unilot.repository.models.entities.GameResult
-import kotlinx.android.synthetic.main.dialog_view_winner.view.*
+import com.vovasoft.unilot.components.toTextHumanDate
+import com.vovasoft.unilot.repository.models.entities.Game
+import kotlinx.android.synthetic.main.dialog_view_unknown_status.view.*
 
 /***************************************************************************
- * Created by arseniy on 22/10/2017.
+ * Created by arseniy on 08/11/2017.
  ****************************************************************************/
-class WinnerDialog(val context: Context, val result: GameResult) {
+class UnknownStatusDialog(val context: Context, val game: Game) {
 
     private val winnerDialogView: WinnerDialogView
     private var dialog: AlertDialog? = null
@@ -34,7 +34,7 @@ class WinnerDialog(val context: Context, val result: GameResult) {
     }
 
 
-    fun setonHistoryListener(listener: (()-> Unit)) {
+    fun setOnHistoryListener(listener: (()-> Unit)) {
         onHistoryListener = listener
     }
 
@@ -54,20 +54,23 @@ class WinnerDialog(val context: Context, val result: GameResult) {
         : FrameLayout(context, attrs, defStyleAttr) {
 
         init {
-            inflate(context, R.layout.dialog_view_winner, this)
+            inflate(context, R.layout.dialog_view_unknown_status, this)
             setupViews()
         }
 
 
-        @SuppressLint("SetTextI18n")
         private fun setupViews() {
             closeBtn.setOnClickListener {
                 dismiss()
             }
 
-            placeTv.text = context.getString(R.string.you_take_place_d).format(result.position)
-            prizeTv.text = "%.3f".format(result.prize)
-            prizeFialtTv.text = "US $%.2f".format(result.prizeFiat)
+            (when (game.type) {
+                Game.Type.DAILY.value -> resultTv.setText(R.string.results_of_daily_drawing)
+                Game.Type.WEEKLY.value -> resultTv.setText(R.string.results_of_weekly_drawing)
+                Game.Type.MONTHLY.value -> resultTv.setText(R.string.results_of_monthly_drawing)
+            })
+
+            dateTv.text = game.endTime().toTextHumanDate()
 
             historyBtn.setOnClickListener {
                 onHistoryListener?.invoke()

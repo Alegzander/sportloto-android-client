@@ -5,4 +5,4 @@ package com.vovasoft.unilot.repository
  ****************************************************************************/
 interface RepositoryCallback<in T> {
     fun done(data: T? = null)
-}
+}   

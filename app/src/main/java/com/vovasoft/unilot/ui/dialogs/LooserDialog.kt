@@ -8,17 +8,17 @@ import com.vovasoft.unilot.R
 import com.vovasoft.unilot.components.daysPlural
 import com.vovasoft.unilot.components.toTextHumanDate
 import com.vovasoft.unilot.repository.models.entities.Game
-import com.vovasoft.unilot.repository.models.entities.GameResult
 import kotlinx.android.synthetic.main.dialog_view_looser.view.*
 
 /***************************************************************************
  * Created by arseniy on 22/10/2017.
  ****************************************************************************/
-class LooserDialog(val context: Context, val game: Game, val result: GameResult) {
+class LooserDialog(val context: Context, val game: Game) {
 
     private val looserDialogView: LooserDialogView
     private var dialog: AlertDialog? = null
     private var onHistoryListener: (()-> Unit)? = null
+    private var onDismissListener: (()-> Unit)? = null
 
     init {
         looserDialogView = LooserDialogView(context)
@@ -29,7 +29,7 @@ class LooserDialog(val context: Context, val game: Game, val result: GameResult)
         val builder = AlertDialog.Builder(context).setView(looserDialogView)
         dialog = builder.create()
         dialog?.setOnDismissListener({
-            result.deleteAsync()
+            onDismissListener?.invoke()
         })
         dialog?.show()
     }
@@ -42,6 +42,11 @@ class LooserDialog(val context: Context, val game: Game, val result: GameResult)
 
     fun setonHistoryListener(listener: (()-> Unit)) {
         onHistoryListener = listener
+    }
+
+
+    fun setOnDismissListener(listener: (()-> Unit)) {
+        onDismissListener = listener
     }
 
 

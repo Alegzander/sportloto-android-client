@@ -17,17 +17,21 @@ android {
         applicationId "com.vovasoft.unilot"
         minSdkVersion 16
         targetSdkVersion 26
-        versionCode 132
-        versionName "1.3.2"
+        versionCode 143
+        versionName "1.4.3"
         vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
         debug {
             buildConfigField "String", "BASE_API", "\"https://dev.unilot.io/\""
+            buildConfigField "String", "CLIENT_ID", "\"PccTjiTN7xXU9PCJRiAzYA2frgKUSEl0scJMTzFb\""
+            buildConfigField "String", "CLIENT_SECRET", "\"2HIDVZRBWIDWUVMnlgH76K6pA3g5vPuAygnTm5P4IbvTkQMymFVCejMRoOkiZkadenWUsiM5OPP8mhREYytAxtzym9ejKj5LVG37z3mgbtrlJ1nMuv3s14sx60AuwwO1\""
         }
 
         release {
-            buildConfigField "String", "BASE_API", "\"https://dev.unilot.io/\""
+            buildConfigField "String", "BASE_API", "\"https://api.unilot.io/\""
+            buildConfigField "String", "CLIENT_ID", "\"kwxbsoeg94f4Slp2mZrTvCw1DekHkpzcbdIThStB\""
+            buildConfigField "String", "CLIENT_SECRET", "\"Qg7ifO6fGYRAe2NYOFgliPpPZcNSuf6x2QsqOXKH962zDeMxZratPgsh5lNSdIsRsVmDJg8ZlWN1OCxV79GBHVcGrgkQqeVeosb9MbpxGOmwkzRRUokM8By86HmdLNgH\""
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
@@ -58,12 +62,11 @@ dependencies {
 
     implementation 'org.jetbrains.anko:anko-appcompat-v7-coroutines:0.10.1'
 
-    implementation 'android.arch.lifecycle:runtime:1.0.0'
-    implementation 'android.arch.lifecycle:extensions:1.0.0-alpha9-1'
-    kapt 'android.arch.lifecycle:compiler:1.0.0-alpha9-1'
+    implementation 'android.arch.lifecycle:extensions:1.0.0'
+    kapt 'android.arch.lifecycle:compiler:1.0.0'
 
-    implementation 'android.arch.persistence.room:runtime:1.0.0-alpha9-1'
-    kapt 'android.arch.persistence.room:compiler:1.0.0-alpha9-1'
+    implementation 'android.arch.persistence.room:runtime:1.0.0'
+    kapt 'android.arch.persistence.room:compiler:1.0.0'
 
     implementation 'com.squareup.okhttp:okhttp:2.4.0'
     implementation 'com.squareup.retrofit2:retrofit:2.3.0'

@@ -134,43 +134,55 @@ class NotificationMessagingService : FirebaseMessagingService() {
                 appRepo.getRemoteGameById(gameId, object : RepositoryCallback<Game?> {
                     override fun done(game: Game?) {
                         game?.let {
+                            game.saveAsync()
                             appRepo.getWalletsNumbers(object : RepositoryCallback<List<String>?> {
                                 override fun done(wallets: List<String>?) {
-                                    var isWinner = false
-                                    wallets?.forEach {
-                                        if (result.winners.contains(it.toLowerCase())) {
-                                            isWinner = true
+                                    if (wallets.orEmpty().isNotEmpty()) {
+                                        var isWinner = false
+                                        wallets?.forEach {
+                                            if (result.winners.contains(it.toLowerCase())) {
+                                                isWinner = true
+                                            }
                                         }
-                                    }
 
-                                    if (isWinner) {
-                                        appRepo.getRemoteWinners(gameId, object : RepositoryCallback<List<Winner>?> {
-                                            override fun done(winnersData: List<Winner>?) {
-                                                winnersData?.let { winners ->
-                                                    wallets?.forEach { wallet ->
-                                                        winners.forEach { winner ->
-                                                            if (wallet.toLowerCase() == winner.wallet?.toLowerCase()) {
-                                                                val gameResult = GameResult()
-                                                                gameResult.gameId = gameId
-                                                                gameResult.address = winner.wallet
-                                                                gameResult.position = winner.position
-                                                                gameResult.prize = winner.prize
-                                                                gameResult.prizeFiat = winner.prizeFiat
-                                                                gameResult.saveAsync()
+                                        if (isWinner) {
+                                            appRepo.getRemoteWinners(gameId, object : RepositoryCallback<List<Winner>?> {
+                                                override fun done(winnersData: List<Winner>?) {
+                                                    winnersData?.let { winners ->
+                                                        wallets?.forEach { wallet ->
+                                                            winners.forEach { winner ->
+                                                                if (wallet.toLowerCase() == winner.wallet?.toLowerCase()) {
+                                                                    val gameResult = GameResult()
+                                                                    gameResult.gameId = gameId
+                                                                    gameResult.address = winner.wallet
+                                                                    gameResult.position = winner.position
+                                                                    gameResult.prize = winner.prize
+                                                                    gameResult.prizeFiat = winner.prizeFiat
+                                                                    gameResult.saveAsync()
+                                                                }
                                                             }
                                                         }
-                                                    }
 
-                                                    sendBroadcastIntent(game.type, Action.GAME_FINISHED, null)
-                                                    showNotification(messageJson, game.type, true)
+                                                        sendBroadcastIntent(game.type, Action.GAME_FINISHED, null)
+                                                        showNotification(messageJson, game.type, true)
+                                                    }
                                                 }
-                                            }
-                                        })
+                                            })
+                                        }
+                                        else {
+                                            val gameResult = GameResult()
+                                            gameResult.gameId = gameId
+                                            gameResult.position = 0
+                                            gameResult.saveAsync()
+
+                                            sendBroadcastIntent(game.type, Action.GAME_FINISHED, null)
+                                            showNotification(messageJson, game.type, true)
+                                        }
+
                                     }
                                     else {
                                         val gameResult = GameResult()
                                         gameResult.gameId = gameId
-                                        gameResult.address = null
                                         gameResult.position = -1
                                         gameResult.saveAsync()
 

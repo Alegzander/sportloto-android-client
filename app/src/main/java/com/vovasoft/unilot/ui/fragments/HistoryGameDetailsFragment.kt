@@ -59,6 +59,12 @@ class HistoryGameDetailsFragment : BaseFragment(), SearchView.OnQueryTextListene
 
     private fun observeData() {
         showLoading(true)
+        gamesVM.getWallets().observe(this, Observer { wallets ->
+            wallets?.let {
+                adapter.wallets = it.toMutableList()
+            }
+        })
+
         game?.let {
             it.id?.let {
                 gamesVM.getWinners(it).observe(this, Observer { winnersData ->
@@ -71,7 +77,6 @@ class HistoryGameDetailsFragment : BaseFragment(), SearchView.OnQueryTextListene
                     refreshSearch()
                 })
             }
-
         }
     }
 

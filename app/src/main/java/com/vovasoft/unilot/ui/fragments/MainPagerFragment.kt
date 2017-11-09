@@ -53,11 +53,11 @@ class MainPagerFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         appVM = ViewModelProviders.of(activity).get(AppVM::class.java)
         drawerBtn.setOnClickListener { activity.drawerLayout.openDrawer(GravityCompat.START) }
+        setupPager()
     }
 
     override fun onResume() {
         super.onResume()
-        setupPager()
         observeData()
     }
 

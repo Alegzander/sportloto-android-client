@@ -11,6 +11,7 @@ import org.jetbrains.anko.uiThread
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.*
 
 /***************************************************************************
  * Created by arseniy on 14/09/2017.
@@ -123,11 +124,11 @@ class AppRepository {
     }
 
 
-    fun getResults(callback: RepositoryCallback<List<GameResult>>) {
+    fun getResults(callback: RepositoryCallback<Queue<GameResult>>) {
         doAsync {
             val results = App.database.gameResultsDao().getGameResults()
             uiThread {
-                callback.done(results)
+                callback.done(LinkedList<GameResult>(results))
             }
         }
     }

@@ -12,6 +12,7 @@ import com.vovasoft.unilot.repository.models.entities.Wallet
 import com.vovasoft.unilot.repository.models.pure.Winner
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
+import java.util.*
 
 /***************************************************************************
  * Created by arseniy on 14/09/2017.
@@ -125,9 +126,9 @@ class GamesVM : ViewModel() {
     }
 
 
-    fun getResults(callback: RepositoryCallback<List<GameResult>>) {
-        appRepo.getResults(object : RepositoryCallback<List<GameResult>> {
-            override fun done(data: List<GameResult>?) {
+    fun getResults(callback: RepositoryCallback<Queue<GameResult>>) {
+        appRepo.getResults(object : RepositoryCallback<Queue<GameResult>> {
+            override fun done(data: Queue<GameResult>?) {
                 callback.done(data)
             }
         })

@@ -35,7 +35,11 @@ data class GameResult(@PrimaryKey(autoGenerate = true) @ColumnInfo(name = "id")
 
                       @SerializedName("prize_amount_fiat")
                       @ColumnInfo(name = "prize_amount_fiat")
-                      var prizeFiat: Float? = null
+                      var prizeFiat: Float? = null,
+
+                      @SerializedName("show")
+                      @ColumnInfo(name = "show")
+                      var show: Boolean? = true
 ) : GsonModel() {
 
 

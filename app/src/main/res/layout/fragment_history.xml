@@ -52,6 +52,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:gravity="center"
             android:text="@string/type_date"
             android:textColor="@color/colorGray"
             app:fontFamily="@font/roboto" />
@@ -60,6 +61,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:gravity="center"
             android:text="@string/status"
             android:textColor="@color/colorGray"
             app:fontFamily="@font/roboto" />
@@ -68,6 +70,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:gravity="center"
             android:text="@string/prize"
             android:textColor="@color/colorGray"
             app:fontFamily="@font/roboto" />

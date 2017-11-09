@@ -36,8 +36,8 @@ class TokenAuthenticator : Authenticator {
 
         val webservice = retrofit.create(WebService::class.java)
         val authorizationModel = webservice.authorize(AuthorizationRequest(
-                App.instance.getString(R.string.client_id),
-                App.instance.getString(R.string.client_secret),
+                BuildConfig.CLIENT_ID,
+                BuildConfig.CLIENT_SECRET,
                 App.instance.getString(R.string.grant_type))).execute().body()
 
         authorizationModel?.let {

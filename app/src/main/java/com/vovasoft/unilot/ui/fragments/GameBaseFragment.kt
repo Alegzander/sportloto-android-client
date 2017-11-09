@@ -7,6 +7,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.util.Log
 import android.view.View
 import com.vovasoft.unilot.notifications.NotificationMessagingService
 import com.vovasoft.unilot.repository.RepositoryCallback
@@ -15,8 +16,10 @@ import com.vovasoft.unilot.repository.models.entities.Game
 import com.vovasoft.unilot.repository.models.entities.GameResult
 import com.vovasoft.unilot.ui.AppFragmentManager
 import com.vovasoft.unilot.ui.dialogs.LooserDialog
+import com.vovasoft.unilot.ui.dialogs.UnknownStatusDialog
 import com.vovasoft.unilot.ui.dialogs.WinnerDialog
 import com.vovasoft.unilot.view_models.GamesVM
+import java.util.*
 
 /***************************************************************************
  * Created by arseniy on 29/10/2017.
@@ -29,6 +32,8 @@ abstract class GameBaseFragment : BaseFragment() {
     protected var game: Game? = null
 
     protected var countDown: CountDownTimer? = null
+
+    private var allowDialogs: Boolean = true
 
 
     protected val messageReceiver = object : BroadcastReceiver() {
@@ -43,7 +48,7 @@ abstract class GameBaseFragment : BaseFragment() {
                     }
 
                     NotificationMessagingService.Action.GAME_FINISHED -> {
-                        showResultDialog()
+                        fetchGameResults()
                     }
                 }
             }
@@ -59,13 +64,13 @@ abstract class GameBaseFragment : BaseFragment() {
 
     override fun onResume() {
         super.onResume()
-        showResultDialog()
+        fetchGameResults()
     }
 
 
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
         super.setUserVisibleHint(isVisibleToUser)
-        showResultDialog()
+        fetchGameResults()
     }
 
 
@@ -74,49 +79,106 @@ abstract class GameBaseFragment : BaseFragment() {
         countDown?.cancel()
     }
 
+
     protected abstract fun setupViews()
 
 
-    protected fun showResultDialog() {
-        if (isOnScreen && isCreated) {
-            gamesVM.getResults(object: RepositoryCallback<List<GameResult>> {
-                override fun done(results: List<GameResult>?) {
-                    results?.forEach { result ->
-                        gamesVM.getGameById(result.gameId!!, object : RepositoryCallback<Game?> {
-                            override fun done(data: Game?) {
-                                data?.let {
-                                    if (it.type == game?.type) {
-                                        if (result.position!! > 0) {
-                                            val dialog = WinnerDialog(context, result)
-                                            dialog.setonHistoryListener {
-                                                gamesVM.selectedHistoryGame = data
-                                                AppFragmentManager.instance.openFragment(HistoryGameDetailsFragment(), true)
-                                                dialog.dismiss()
-                                            }
-                                            dialog.show()
-                                        }
-                                        else {
-                                            val dialog = LooserDialog(context, it, result)
-                                            gamesVM.getMonthlyGame().observe(this@GameBaseFragment, Observer { bonusGame ->
-                                                bonusGame?.let {
-                                                    dialog.setDays(it.endTime())
-                                                }
-                                            })
-                                            dialog.setonHistoryListener {
-                                                gamesVM.selectedHistoryGame = data
-                                                AppFragmentManager.instance.openFragment(HistoryGameDetailsFragment(), true)
-                                                dialog.dismiss()
-                                            }
-                                            dialog.show()
-                                        }
-                                    }
-                                }
-                            }
-                        })
+    private fun fetchGameResults() {
+        if (isOnScreen && isCreated && allowDialogs) {
+            allowDialogs = false
+            gamesVM.getResults(object: RepositoryCallback<Queue<GameResult>> {
+                override fun done(data: Queue<GameResult>?) {
+                    data?.let { queue ->
+                        proceedGameResult(queue)
                     }
                 }
             })
         }
+    }
+
+
+    private fun proceedGameResult(results: Queue<GameResult>) {
+        val result = results.poll()
+        if (result == null) {
+            allowDialogs = true
+        }
+        else {
+            showResultDialog(result, { next ->
+                result.deleteAsync()
+                if (next) {
+                    proceedGameResult(results)
+                }
+                else {
+                    results.forEach { result ->
+                        result.show = false
+                        result.saveAsync()
+                    }
+                    allowDialogs = true
+                }
+            })
+        }
+    }
+
+
+    private fun showResultDialog(result: GameResult, resultCallback: (Boolean) -> Unit) {
+        gamesVM.getGameById(result.gameId!!, object : RepositoryCallback<Game?> {
+            override fun done(data: Game?) {
+                data?.let {
+                    if (it.type == data.type) {
+                        var showNext = true
+                        when {
+                            result.position!! > 0 -> {
+                                val dialog = WinnerDialog(context, result)
+                                dialog.setOnDismissListener {
+                                    resultCallback(showNext)
+                                }
+
+                                dialog.setonHistoryListener {
+                                    showNext = false
+                                    gamesVM.selectedHistoryGame = data
+                                    AppFragmentManager.instance.openFragment(HistoryGameDetailsFragment(), true)
+                                    dialog.dismiss()
+                                }
+                                dialog.show()
+                            }
+                            result.position!! == 0 -> {
+                                val dialog = LooserDialog(context, it)
+                                dialog.setOnDismissListener {
+                                    resultCallback(showNext)
+                                }
+
+                                gamesVM.getMonthlyGame().observe(this@GameBaseFragment, Observer { bonusGame ->
+                                    bonusGame?.let {
+                                        dialog.setDays(it.endTime())
+                                    }
+                                })
+                                dialog.setonHistoryListener {
+                                    showNext = false
+                                    gamesVM.selectedHistoryGame = data
+                                    AppFragmentManager.instance.openFragment(HistoryGameDetailsFragment(), true)
+                                    dialog.dismiss()
+                                }
+                                dialog.show()
+                            }
+                            else -> {
+                                val dialog = UnknownStatusDialog(context, it)
+                                dialog.setOnDismissListener {
+                                    resultCallback(showNext)
+                                }
+
+                                dialog.setOnHistoryListener {
+                                    showNext = false
+                                    gamesVM.selectedHistoryGame = data
+                                    AppFragmentManager.instance.openFragment(HistoryGameDetailsFragment(), true)
+                                    dialog.dismiss()
+                                }
+                                dialog.show()
+                            }
+                        }
+                    }
+                }
+            }
+        })
     }
 
 }

@@ -1,7 +1,5 @@
 <resources>
     <string name="app_name">Unilot</string>
-    <string name="client_id">PccTjiTN7xXU9PCJRiAzYA2frgKUSEl0scJMTzFb</string>
-    <string name="client_secret">2HIDVZRBWIDWUVMnlgH76K6pA3g5vPuAygnTm5P4IbvTkQMymFVCejMRoOkiZkadenWUsiM5OPP8mhREYytAxtzym9ejKj5LVG37z3mgbtrlJ1nMuv3s14sx60AuwwO1</string>
     <string name="grant_type">client_credentials</string>
     <string name="presentation_url">https://unilot.io//static/files/UNILOT_ENG.pdf</string>
     <string name="ok">OK</string>
@@ -88,6 +86,7 @@
     <string name="status">Status</string>
     <string name="prize">Prize</string>
     <string name="in_progress">In progress</string>
-    <string name="move">go to</string>
+    <string name="move">Go to</string>
+    <string name="details">Details</string>
     <string name="finished">Finished</string>
 </resources>
