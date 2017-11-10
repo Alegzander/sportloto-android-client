@@ -142,7 +142,7 @@ class GameDailyFragment : GameBaseFragment() {
                 override fun onTick(millisUntilFinished: Long) {
                     val seconds = (millisUntilFinished / 1000) % 60
                     val minutes = (millisUntilFinished / (1000 * 60)) % 60
-                    val hours = (millisUntilFinished / (1000 * 60 * 60)) % 24
+                    val hours = (millisUntilFinished / (1000 * 60 * 60))
                     val progress = ((millisUntilFinished * 100) / (game.endTime() - game.startTime())).toInt()
 
                     view?.let {
