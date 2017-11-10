@@ -7,11 +7,13 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
+import android.support.v4.content.LocalBroadcastManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.SearchView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.vovasoft.unilot.App
 import com.vovasoft.unilot.R
 import com.vovasoft.unilot.components.toHumanDate
 import com.vovasoft.unilot.repository.models.entities.Game
@@ -21,6 +23,8 @@ import com.vovasoft.unilot.ui.recycler_adapters.DetailsHistoryRecyclerAdapter
 import com.vovasoft.unilot.ui.widgets.ZxingReader
 import com.vovasoft.unilot.view_models.GamesVM
 import kotlinx.android.synthetic.main.fragment_history_game_details.*
+import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.uiThread
 import java.util.regex.Pattern
 
 /***************************************************************************
@@ -66,13 +70,22 @@ class HistoryGameDetailsFragment : BaseFragment(), SearchView.OnQueryTextListene
         })
 
         game?.let {
-            it.id?.let {
-                gamesVM.getWinners(it).observe(this, Observer { winnersData ->
+            it.id?.let { id ->
+                gamesVM.getWinners(id).observe(this, Observer { winnersData ->
                     showLoading(false)
                     winnersData?.let {
                         this.winners.clear()
                         this.winners.addAll(it)
                         winnersTv.text = it.size.toString()
+
+                        doAsync {
+                            App.database.gameResultsDao().deleteGameResultByGameId(id)
+                            uiThread {
+                                val broadcaster = LocalBroadcastManager.getInstance(context)
+                                val broadcastIntent = Intent("news")
+                                broadcaster.sendBroadcast(broadcastIntent)
+                            }
+                        }
                     }
                     refreshSearch()
                 })

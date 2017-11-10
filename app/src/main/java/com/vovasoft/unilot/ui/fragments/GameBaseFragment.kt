@@ -7,7 +7,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.util.Log
+import android.support.v4.content.LocalBroadcastManager
 import android.view.View
 import com.vovasoft.unilot.notifications.NotificationMessagingService
 import com.vovasoft.unilot.repository.RepositoryCallback
@@ -35,6 +35,8 @@ abstract class GameBaseFragment : BaseFragment() {
 
     private var allowDialogs: Boolean = true
 
+    private lateinit var broadcaster: LocalBroadcastManager
+
 
     protected val messageReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
@@ -58,6 +60,7 @@ abstract class GameBaseFragment : BaseFragment() {
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        broadcaster = LocalBroadcastManager.getInstance(context)
         gamesVM = ViewModelProviders.of(activity).get(GamesVM::class.java)
     }
 
@@ -86,7 +89,7 @@ abstract class GameBaseFragment : BaseFragment() {
     private fun fetchGameResults() {
         if (isOnScreen && isCreated && allowDialogs) {
             allowDialogs = false
-            gamesVM.getResults(object: RepositoryCallback<Queue<GameResult>> {
+            gamesVM.getNewResults(object: RepositoryCallback<Queue<GameResult>> {
                 override fun done(data: Queue<GameResult>?) {
                     data?.let { queue ->
                         proceedGameResult(queue)
@@ -130,20 +133,22 @@ abstract class GameBaseFragment : BaseFragment() {
                             result.position!! > 0 -> {
                                 val dialog = WinnerDialog(context, result)
                                 dialog.setOnDismissListener {
+                                    sendNewsCountBroadcastIntent()
                                     resultCallback(showNext)
                                 }
 
                                 dialog.setonHistoryListener {
                                     showNext = false
                                     gamesVM.selectedHistoryGame = data
-                                    AppFragmentManager.instance.openFragment(HistoryGameDetailsFragment(), true)
                                     dialog.dismiss()
+                                    AppFragmentManager.instance.openFragment(HistoryGameDetailsFragment(), true)
                                 }
                                 dialog.show()
                             }
                             result.position!! == 0 -> {
                                 val dialog = LooserDialog(context, it)
                                 dialog.setOnDismissListener {
+                                    sendNewsCountBroadcastIntent()
                                     resultCallback(showNext)
                                 }
 
@@ -155,22 +160,23 @@ abstract class GameBaseFragment : BaseFragment() {
                                 dialog.setonHistoryListener {
                                     showNext = false
                                     gamesVM.selectedHistoryGame = data
-                                    AppFragmentManager.instance.openFragment(HistoryGameDetailsFragment(), true)
                                     dialog.dismiss()
+                                    AppFragmentManager.instance.openFragment(HistoryGameDetailsFragment(), true)
                                 }
                                 dialog.show()
                             }
                             else -> {
                                 val dialog = UnknownStatusDialog(context, it)
                                 dialog.setOnDismissListener {
+                                    sendNewsCountBroadcastIntent()
                                     resultCallback(showNext)
                                 }
 
                                 dialog.setOnHistoryListener {
                                     showNext = false
                                     gamesVM.selectedHistoryGame = data
-                                    AppFragmentManager.instance.openFragment(HistoryGameDetailsFragment(), true)
                                     dialog.dismiss()
+                                    AppFragmentManager.instance.openFragment(HistoryGameDetailsFragment(), true)
                                 }
                                 dialog.show()
                             }
@@ -179,6 +185,12 @@ abstract class GameBaseFragment : BaseFragment() {
                 }
             }
         })
+    }
+
+
+    private fun sendNewsCountBroadcastIntent() {
+        val broadcastIntent = Intent("news")
+        broadcaster.sendBroadcast(broadcastIntent)
     }
 
 }

@@ -8,7 +8,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.vovasoft.unilot.R
+import com.vovasoft.unilot.repository.RepositoryCallback
 import com.vovasoft.unilot.repository.models.entities.Game
+import com.vovasoft.unilot.repository.models.entities.GameResult
 import com.vovasoft.unilot.ui.AppFragmentManager
 import com.vovasoft.unilot.ui.recycler_adapters.HistoryRecyclerAdapter
 import com.vovasoft.unilot.view_models.AppVM
@@ -44,6 +46,15 @@ class HistoryFragment : BaseFragment() {
 
     private fun observeData() {
         showLoading(true)
+
+        gamesVM.getAllResults(object: RepositoryCallback<List<GameResult>> {
+            override fun done(data: List<GameResult>?) {
+                data?.let { list ->
+                    adapter.results = list.toMutableList()
+                }
+            }
+        })
+
         gamesVM.getGamesHistory().observe(this, Observer { games ->
             showLoading(false)
             games?.let {

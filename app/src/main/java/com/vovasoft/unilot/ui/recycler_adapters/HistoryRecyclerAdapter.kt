@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.vovasoft.unilot.R
 import com.vovasoft.unilot.repository.models.entities.Game
+import com.vovasoft.unilot.repository.models.entities.GameResult
 import com.vovasoft.unilot.ui.view_holders.HistoryViewHolder
 
 /***************************************************************************
@@ -32,6 +33,14 @@ class HistoryRecyclerAdapter : RecyclerView.Adapter<HistoryViewHolder>() {
 
 
     var dataSet = mutableListOf<Game>()
+        set(value) {
+            field.clear()
+            field.addAll(value)
+            notifyDataSetChanged()
+        }
+
+
+    var results = mutableListOf<GameResult>()
         set(value) {
             field.clear()
             field.addAll(value)
@@ -71,7 +80,7 @@ class HistoryRecyclerAdapter : RecyclerView.Adapter<HistoryViewHolder>() {
 
 
     override fun onBindViewHolder(holder: HistoryViewHolder?, position: Int) {
-        holder?.setData(dataSet[position])
+        holder?.setData(dataSet[position], results)
         holder?.setOnItemClickListener { onItemClick?.invoke(dataSet[position]) }
     }
 

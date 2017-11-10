@@ -2,21 +2,28 @@ package com.vovasoft.unilot.ui.fragments
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.graphics.PorterDuff
 import android.os.Bundle
 import android.os.Handler
 import android.support.v4.content.ContextCompat
+import android.support.v4.content.LocalBroadcastManager
 import android.support.v4.view.GravityCompat
 import android.support.v4.view.ViewPager
+import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.app.AlertDialog
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ScrollView
 import com.vovasoft.unilot.R
+import com.vovasoft.unilot.repository.RepositoryCallback
+import com.vovasoft.unilot.repository.models.entities.GameResult
 import com.vovasoft.unilot.ui.pager_adapters.MainPagerAdapter
 import com.vovasoft.unilot.view_models.AppVM
+import com.vovasoft.unilot.view_models.GamesVM
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_main_pager.*
 
@@ -24,7 +31,7 @@ import kotlinx.android.synthetic.main.fragment_main_pager.*
 /***************************************************************************
  * Created by arseniy on 15/09/2017.
  ****************************************************************************/
-class MainPagerFragment : BaseFragment() {
+class MainPagerFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
 
     enum class Page(val value: Int) {
         DAY(0), WEEK(1), MONTH(2), PROFILE(3);
@@ -43,6 +50,8 @@ class MainPagerFragment : BaseFragment() {
 
     private lateinit var appVM: AppVM
 
+    private lateinit var gamesVM: GamesVM
+
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater!!.inflate(R.layout.fragment_main_pager, container, false)
@@ -52,16 +61,64 @@ class MainPagerFragment : BaseFragment() {
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         appVM = ViewModelProviders.of(activity).get(AppVM::class.java)
+        gamesVM = ViewModelProviders.of(activity).get(GamesVM::class.java)
         drawerBtn.setOnClickListener { activity.drawerLayout.openDrawer(GravityCompat.START) }
         setupPager()
     }
 
-    override fun onResume() {
-        super.onResume()
-        observeData()
+
+    private val newsReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            updateMarkers()
+        }
     }
 
+
+    override fun onStart() {
+        super.onStart()
+        LocalBroadcastManager.getInstance(context).registerReceiver(newsReceiver, IntentFilter("news"))
+    }
+
+
+    override fun onStop() {
+        super.onStop()
+        LocalBroadcastManager.getInstance(context).unregisterReceiver(newsReceiver)
+    }
+
+
+    private fun updateMarkers() {
+        gamesVM.getAllResults(object: RepositoryCallback<List<GameResult>> {
+            override fun done(data: List<GameResult>?) {
+                data?.let { list ->
+                    if (list.isNotEmpty()) {
+                        markerLabel.text = list.size.toString()
+                        markerLabel.visibility = View.VISIBLE
+                    }
+                    else {
+                        markerLabel.visibility = View.INVISIBLE
+                    }
+                }
+            }
+        })
+    }
+
+
+    override fun onResume() {
+        super.onResume()
+
+        refreshLayout.setOnRefreshListener(this)
+        refreshLayout.isRefreshing = true
+
+        observeData()
+        updateMarkers()
+    }
+
+
     private fun observeData() {
+        gamesVM.getGamesList().observe(this, Observer {
+            refreshLayout.isRefreshing = false
+        })
+
         appVM.selectedPage.observe(this, Observer {
             for (i in 0..tabs.tabCount) {
                 val tab = tabs.getTabAt(i)
@@ -75,6 +132,7 @@ class MainPagerFragment : BaseFragment() {
 
 
     private fun setupPager() {
+        refreshLayout.setColorSchemeResources(R.color.colorAccent)
 
         infoBtn.setOnClickListener {
             AlertDialog.Builder(context)
@@ -107,19 +165,30 @@ class MainPagerFragment : BaseFragment() {
             }
 
             override fun onPageScrollStateChanged(state: Int) {
-
+                enableDisableSwipeRefresh( state == ViewPager.SCROLL_STATE_IDLE )
             }
 
             private fun computeFactor(): Float {
                 return (backgroundImg.measuredWidth - pager.width) / (pager.width * (pager.adapter.count - 1)).toFloat()
             }
+
+            private fun enableDisableSwipeRefresh(enable: Boolean) {
+                refreshLayout?.isEnabled = enable
+            }
+
         })
+
 
         Handler().post {
             view?.let {
                 pager.setCurrentItem(position, false)
             }
         }
+    }
+
+
+    override fun onRefresh() {
+        gamesVM.updateGamesList()
     }
 
 }

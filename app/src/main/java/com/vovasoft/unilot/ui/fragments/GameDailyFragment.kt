@@ -166,9 +166,4 @@ class GameDailyFragment : GameBaseFragment() {
         }
     }
 
-
-    override fun showLoading(show: Boolean) {
-        progressBar.visibility = if (show) View.VISIBLE else View.INVISIBLE
-    }
-
 }

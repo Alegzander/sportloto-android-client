@@ -9,13 +9,13 @@ import com.vovasoft.unilot.repository.models.entities.Wallet
  ****************************************************************************/
 @Dao
 interface WalletsDao {
-    @Query("SELECT * FROM wallets")
+    @Query("SELECT * FROM results")
     fun getWallets(): List<Wallet>
 
-    @Query("SELECT number FROM wallets")
+    @Query("SELECT number FROM results")
     fun getWalletsNumbers(): List<String>
 
-    @Query("SELECT * FROM wallets WHERE number = :arg0 LIMIT 1")
+    @Query("SELECT * FROM results WHERE number = :arg0 LIMIT 1")
     fun getWalletByNumber(number: String): Wallet
 
     @Insert(onConflict= OnConflictStrategy.REPLACE)
@@ -27,6 +27,6 @@ interface WalletsDao {
     @Delete
     fun delete(wallet: Wallet)
 
-    @Query("DELETE FROM wallets")
+    @Query("DELETE FROM results")
     fun deleteAll()
 }

@@ -8,6 +8,7 @@ import android.view.View
 import com.vovasoft.unilot.R
 import com.vovasoft.unilot.components.toHumanDate
 import com.vovasoft.unilot.repository.models.entities.Game
+import com.vovasoft.unilot.repository.models.entities.GameResult
 
 /***************************************************************************
  * Created by arseniy on 21/10/2017.
@@ -18,6 +19,7 @@ class HistoryViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView), Vi
     private val dateTv = itemView?.findViewById<AppCompatTextView>(R.id.dateTv)
     private val statusTv = itemView?.findViewById<AppCompatTextView>(R.id.statusTv)
     private val prizeTv = itemView?.findViewById<AppCompatTextView>(R.id.prizeTv)
+    private val markerView = itemView?.findViewById<View>(R.id.markerView)
 
     private var onItemClick: (() -> Unit)? = null
 
@@ -25,11 +27,15 @@ class HistoryViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView), Vi
         itemView?.setOnClickListener(this)
     }
 
-    fun setData(game: Game) {
+    fun setData(game: Game, results: List<GameResult>) {
         when (game.type) {
             Game.Type.DAILY.value -> iconImg?.setImageResource(R.drawable.ic_day_gray)
             Game.Type.WEEKLY.value -> iconImg?.setImageResource(R.drawable.ic_week_gray)
             Game.Type.MONTHLY.value -> iconImg?.setImageResource(R.drawable.ic_month_gray)
+        }
+
+        if (results.any { it.gameId == game.id }) {
+            markerView?.visibility = View.VISIBLE
         }
 
         dateTv?.text = game.endTime().toHumanDate()
@@ -37,6 +43,7 @@ class HistoryViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView), Vi
         when (game.status) {
             Game.Status.PUBLISHED.value -> {
                 statusTv?.text = itemView.context.getString(R.string.in_progress)
+                prizeTv?.setTextColor(ContextCompat.getColor(itemView.context, R.color.colorGreen))
                 prizeTv?.text = itemView.context.getString(R.string.move)
             }
             Game.Status.FINISHED.value -> {

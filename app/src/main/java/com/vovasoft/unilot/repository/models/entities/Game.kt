@@ -5,11 +5,8 @@ import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import com.vovasoft.unilot.App
-import com.vovasoft.unilot.repository.RepositoryCallback
 import com.vovasoft.unilot.repository.models.GsonModel
 import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.uiThread
-import java.io.Serializable
 import java.text.SimpleDateFormat
 import java.util.*
 

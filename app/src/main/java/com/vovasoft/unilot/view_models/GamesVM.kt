@@ -3,15 +3,12 @@ package com.vovasoft.unilot.view_models
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
-import com.vovasoft.unilot.App
 import com.vovasoft.unilot.repository.AppRepository
 import com.vovasoft.unilot.repository.RepositoryCallback
 import com.vovasoft.unilot.repository.models.entities.Game
 import com.vovasoft.unilot.repository.models.entities.GameResult
 import com.vovasoft.unilot.repository.models.entities.Wallet
 import com.vovasoft.unilot.repository.models.pure.Winner
-import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.uiThread
 import java.util.*
 
 /***************************************************************************
@@ -126,9 +123,18 @@ class GamesVM : ViewModel() {
     }
 
 
-    fun getResults(callback: RepositoryCallback<Queue<GameResult>>) {
-        appRepo.getResults(object : RepositoryCallback<Queue<GameResult>> {
+    fun getNewResults(callback: RepositoryCallback<Queue<GameResult>>) {
+        appRepo.getNewResults(object : RepositoryCallback<Queue<GameResult>> {
             override fun done(data: Queue<GameResult>?) {
+                callback.done(data)
+            }
+        })
+    }
+
+
+    fun getAllResults(callback: RepositoryCallback<List<GameResult>>) {
+        appRepo.getAllResults(object : RepositoryCallback<List<GameResult>> {
+            override fun done(data: List<GameResult>?) {
                 callback.done(data)
             }
         })
@@ -142,6 +148,5 @@ class GamesVM : ViewModel() {
             }
         })
     }
-
 
 }

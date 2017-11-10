@@ -1,36 +1,40 @@
 package com.vovasoft.unilot.ui
 
 import android.annotation.SuppressLint
+import android.app.NotificationManager
 import android.arch.lifecycle.ViewModelProviders
+import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.net.ConnectivityManager
 import android.net.Uri
 import android.os.Bundle
+import android.support.v4.content.LocalBroadcastManager
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
+import android.view.View
 import android.view.inputmethod.InputMethodManager
+import com.crashlytics.android.Crashlytics
 import com.google.firebase.iid.FirebaseInstanceId
 import com.vovasoft.unilot.App
 import com.vovasoft.unilot.R
 import com.vovasoft.unilot.components.NetworkStateReceiver
 import com.vovasoft.unilot.components.Preferences
+import com.vovasoft.unilot.repository.RepositoryCallback
+import com.vovasoft.unilot.repository.models.entities.Game
+import com.vovasoft.unilot.repository.models.entities.GameResult
 import com.vovasoft.unilot.ui.fragments.BaseFragment
 import com.vovasoft.unilot.ui.fragments.HistoryFragment
 import com.vovasoft.unilot.ui.fragments.MainPagerFragment
 import com.vovasoft.unilot.ui.fragments.SettingsFragment
+import com.vovasoft.unilot.view_models.AppVM
 import com.vovasoft.unilot.view_models.GamesVM
+import io.fabric.sdk.android.Fabric
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.navigation_drawer_layout.*
-import com.crashlytics.android.Crashlytics
-import com.vovasoft.unilot.repository.models.entities.Game
-import com.vovasoft.unilot.view_models.AppVM
-import io.fabric.sdk.android.Fabric
-
-
-
+import java.util.*
 
 
 class MainActivity : AppCompatActivity(), NetworkStateReceiver.ReceiverCallback {
@@ -75,10 +79,49 @@ class MainActivity : AppCompatActivity(), NetworkStateReceiver.ReceiverCallback 
     }
 
 
+    private val newsReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            updateMarkers()
+        }
+    }
+
+
+    override fun onStart() {
+        super.onStart()
+        LocalBroadcastManager.getInstance(this).registerReceiver(newsReceiver, IntentFilter("news"))
+    }
+
+
+    override fun onStop() {
+        super.onStop()
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(newsReceiver)
+    }
+
+
+    private fun updateMarkers() {
+        gamesVM.getAllResults(object: RepositoryCallback<List<GameResult>> {
+            override fun done(data: List<GameResult>?) {
+                data?.let { list ->
+                    if (list.isNotEmpty()) {
+                        drawerMarkerLabel.text = list.size.toString()
+                        drawerMarkerLabel.visibility = View.VISIBLE
+                    }
+                    else {
+                        drawerMarkerLabel.visibility = View.INVISIBLE
+                    }
+                }
+            }
+        })
+    }
+
+
     override fun onResume() {
         super.onResume()
         App.isBackground = false
         gamesVM.updateGamesList()
+        updateMarkers()
+        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        notificationManager.cancelAll()
     }
 
 

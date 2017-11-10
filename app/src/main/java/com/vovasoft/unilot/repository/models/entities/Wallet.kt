@@ -12,7 +12,7 @@ import org.jetbrains.anko.uiThread
 /***************************************************************************
  * Created by arseniy on 14/10/2017.
  ****************************************************************************/
-@Entity(tableName = "wallets")
+@Entity(tableName = "results")
 data class Wallet(@PrimaryKey(autoGenerate = true) @ColumnInfo(name = "id")
                   var id: Int? = null,
 

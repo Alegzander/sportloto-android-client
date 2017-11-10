@@ -93,11 +93,18 @@
 
         </android.support.constraint.ConstraintLayout>
 
-        <android.support.v4.view.ViewPager
-            android:id="@+id/pager"
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/refreshLayout"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1" />
+            android:layout_weight="1">
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/pager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        </android.support.v4.widget.SwipeRefreshLayout>
 
         <android.support.design.widget.TabLayout
             android:id="@+id/tabs"
@@ -132,6 +139,7 @@
                 android:icon="@drawable/ic_profile_gray"
                 android:text="@string/profile" />
         </android.support.design.widget.TabLayout>
+
     </LinearLayout>
 
 </FrameLayout>

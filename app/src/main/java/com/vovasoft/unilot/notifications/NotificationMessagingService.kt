@@ -5,18 +5,18 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
 import android.graphics.BitmapFactory
 import android.os.Build
 import android.support.v4.app.NotificationCompat
+import android.support.v4.content.LocalBroadcastManager
 import android.util.Log
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
-import com.vovasoft.unilot.R
-import android.support.v4.content.LocalBroadcastManager
-import android.content.Intent
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.vovasoft.unilot.App
+import com.vovasoft.unilot.R
 import com.vovasoft.unilot.components.Preferences
 import com.vovasoft.unilot.repository.AppRepository
 import com.vovasoft.unilot.repository.RepositoryCallback
@@ -164,6 +164,7 @@ class NotificationMessagingService : FirebaseMessagingService() {
                                                         }
 
                                                         sendBroadcastIntent(game.type, Action.GAME_FINISHED, null)
+                                                        sendNewsCountBroadcastIntent()
                                                         showNotification(messageJson, game.type, true)
                                                     }
                                                 }
@@ -176,6 +177,7 @@ class NotificationMessagingService : FirebaseMessagingService() {
                                             gameResult.saveAsync()
 
                                             sendBroadcastIntent(game.type, Action.GAME_FINISHED, null)
+                                            sendNewsCountBroadcastIntent()
                                             showNotification(messageJson, game.type, true)
                                         }
 
@@ -187,6 +189,7 @@ class NotificationMessagingService : FirebaseMessagingService() {
                                         gameResult.saveAsync()
 
                                         sendBroadcastIntent(game.type, Action.GAME_FINISHED, null)
+                                        sendNewsCountBroadcastIntent()
                                         showNotification(messageJson, game.type, true)
                                     }
                                 }
@@ -214,6 +217,12 @@ class NotificationMessagingService : FirebaseMessagingService() {
             }
             broadcaster.sendBroadcast(broadcastIntent)
         }
+    }
+
+
+    private fun sendNewsCountBroadcastIntent() {
+        val broadcastIntent = Intent("news")
+        broadcaster.sendBroadcast(broadcastIntent)
     }
 
 

@@ -124,11 +124,21 @@ class AppRepository {
     }
 
 
-    fun getResults(callback: RepositoryCallback<Queue<GameResult>>) {
+    fun getNewResults(callback: RepositoryCallback<Queue<GameResult>>) {
         doAsync {
-            val results = App.database.gameResultsDao().getGameResults()
+            val results = App.database.gameResultsDao().getGameResults(true)
             uiThread {
                 callback.done(LinkedList<GameResult>(results))
+            }
+        }
+    }
+
+
+    fun getAllResults(callback: RepositoryCallback<List<GameResult>>) {
+        doAsync {
+            val results = App.database.gameResultsDao().getAllGameResults()
+            uiThread {
+                callback.done(results)
             }
         }
     }

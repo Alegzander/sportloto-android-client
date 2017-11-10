@@ -30,6 +30,7 @@ class WebClient(api: API = WebClient.API.BASE) {
 
                     val request = original.newBuilder()
                             .header("Content-Type", "context/json")
+                            .header("Api-Version", BuildConfig.API_VERSION)
                             .header("Authorization", "Bearer ${Preferences.instance.token}")
                             .method(original.method(), original.body())
                             .build()
