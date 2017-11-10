@@ -1,5 +1,7 @@
 package com.vovasoft.unilot.repository
 
+import android.content.Intent
+import android.support.v4.content.LocalBroadcastManager
 import com.vovasoft.unilot.App
 import com.vovasoft.unilot.repository.models.entities.Game
 import com.vovasoft.unilot.repository.models.entities.GameResult
@@ -20,15 +22,30 @@ class AppRepository {
 
     private val webClient = WebClient()
 
+    private var broadcaster: LocalBroadcastManager = LocalBroadcastManager.getInstance(App.instance)
+
+
+    private fun showUpdateScreen() {
+        val broadcastIntent = Intent("update")
+        broadcaster.sendBroadcast(broadcastIntent)
+    }
+
+
     fun getRemoteGames(callback: RepositoryCallback<List<Game>?>) {
         webClient.webservice.games().enqueue(object : Callback<List<Game>> {
             override fun onResponse(call: Call<List<Game>>?, response: Response<List<Game>>?) {
-                doAsync {
-                    response?.body()?.let { games ->
-                        App.database.gamesDao().insertAll(games)
-                    }
+                if (response?.code() == 417) {
+                    callback.done(null)
+                    showUpdateScreen()
                 }
-                callback.done(response?.body())
+                else {
+                    doAsync {
+                        response?.body()?.let { games ->
+                            App.database.gamesDao().insertAll(games)
+                        }
+                    }
+                    callback.done(response?.body())
+                }
             }
 
             override fun onFailure(call: Call<List<Game>>?, t: Throwable?) {
@@ -41,7 +58,13 @@ class AppRepository {
     fun getRemoteWinners(id: Int, callback: RepositoryCallback<List<Winner>?>) {
         webClient.webservice.winners(id).enqueue(object : Callback<List<Winner>> {
             override fun onResponse(call: Call<List<Winner>>?, response: Response<List<Winner>>?) {
-                callback.done(response?.body())
+                if (response?.code() == 417) {
+                    callback.done(null)
+                    showUpdateScreen()
+                }
+                else {
+                    callback.done(response?.body())
+                }
             }
 
             override fun onFailure(call: Call<List<Winner>>?, t: Throwable?) {
@@ -54,12 +77,18 @@ class AppRepository {
     fun getRemoteGamesHistory(callback: RepositoryCallback<List<Game>?>) {
         webClient.webservice.gamesArchived().enqueue(object : Callback<List<Game>> {
             override fun onResponse(call: Call<List<Game>>?, response: Response<List<Game>>?) {
-                doAsync {
-                    response?.body()?.let { games ->
-                        App.database.gamesDao().insertAll(games)
-                    }
+                if (response?.code() == 417) {
+                    callback.done(null)
+                    showUpdateScreen()
                 }
-                callback.done(response?.body())
+                else {
+                    doAsync {
+                        response?.body()?.let { games ->
+                            App.database.gamesDao().insertAll(games)
+                        }
+                    }
+                    callback.done(response?.body())
+                }
             }
 
             override fun onFailure(call: Call<List<Game>>?, t: Throwable?) {
@@ -83,8 +112,14 @@ class AppRepository {
     fun getRemoteGameById(id: Int, callback: RepositoryCallback<Game?>) {
         webClient.webservice.gameById(id).enqueue(object : Callback<Game> {
             override fun onResponse(call: Call<Game>?, response: Response<Game>?) {
-                callback.done(response?.body())
-                response?.body()?.saveAsync()
+                if (response?.code() == 417) {
+                    callback.done(null)
+                    showUpdateScreen()
+                }
+                else {
+                    callback.done(response?.body())
+                    response?.body()?.saveAsync()
+                }
             }
 
             override fun onFailure(call: Call<Game>?, t: Throwable?) {

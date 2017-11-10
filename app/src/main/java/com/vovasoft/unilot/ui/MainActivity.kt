@@ -86,15 +86,26 @@ class MainActivity : AppCompatActivity(), NetworkStateReceiver.ReceiverCallback 
     }
 
 
+    private val updatesReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            val updateIntent = Intent(this@MainActivity, UpdateRequireActivity::class.java)
+            startActivity(updateIntent)
+            finish()
+        }
+    }
+
+
     override fun onStart() {
         super.onStart()
         LocalBroadcastManager.getInstance(this).registerReceiver(newsReceiver, IntentFilter("news"))
+        LocalBroadcastManager.getInstance(this).registerReceiver(updatesReceiver, IntentFilter("update"))
     }
 
 
     override fun onStop() {
         super.onStop()
         LocalBroadcastManager.getInstance(this).unregisterReceiver(newsReceiver)
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(updatesReceiver)
     }
 
 
