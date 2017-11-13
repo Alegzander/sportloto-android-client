@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.widget.DrawerLayout
 import android.view.View
-import com.vovasoft.unilot.ui.MainActivity
+import com.vovasoft.unilot.ui.activities.MainActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 /***************************************************************************

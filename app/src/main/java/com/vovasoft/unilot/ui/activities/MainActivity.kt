@@ -1,4 +1,4 @@
-package com.vovasoft.unilot.ui
+package com.vovasoft.unilot.ui.activities
 
 import android.annotation.SuppressLint
 import android.app.NotificationManager
@@ -25,6 +25,7 @@ import com.vovasoft.unilot.components.Preferences
 import com.vovasoft.unilot.repository.RepositoryCallback
 import com.vovasoft.unilot.repository.models.entities.Game
 import com.vovasoft.unilot.repository.models.entities.GameResult
+import com.vovasoft.unilot.ui.AppFragmentManager
 import com.vovasoft.unilot.ui.fragments.BaseFragment
 import com.vovasoft.unilot.ui.fragments.HistoryFragment
 import com.vovasoft.unilot.ui.fragments.MainPagerFragment
@@ -200,7 +201,7 @@ class MainActivity : AppCompatActivity(), NetworkStateReceiver.ReceiverCallback 
         }
 
         soonBtn.setOnClickListener {
-            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://unilot.io/ru/"))
+            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.unilot_url)))
             startActivity(browserIntent)
         }
 

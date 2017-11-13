@@ -56,7 +56,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="32dp"
                 android:scaleType="fitCenter"
-                android:visibility="invisible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/infoBtn"
                 app:layout_constraintStart_toEndOf="@+id/drawerBtn"

@@ -25,7 +25,7 @@ import com.vovasoft.unilot.repository.models.entities.Game
 import com.vovasoft.unilot.repository.models.entities.GameResult
 import com.vovasoft.unilot.repository.models.pure.Result
 import com.vovasoft.unilot.repository.models.pure.Winner
-import com.vovasoft.unilot.ui.MainActivity
+import com.vovasoft.unilot.ui.activities.MainActivity
 import java.io.Serializable
 import java.lang.Exception
 import java.util.*

@@ -58,8 +58,6 @@ class ParticipateDialog(val context: Context, val game: Game) {
 
             walletTv.text = game.smartContractId
 
-            participateTv.text = context.getString(R.string.participation_rules).format(game.betAmount)
-
             copyBtn.setOnClickListener {
                 val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
                 val clip = ClipData.newPlainText("wallet", walletTv.text)
@@ -69,6 +67,8 @@ class ParticipateDialog(val context: Context, val game: Game) {
 
             when (game.type) {
                 Game.Type.DAILY.value -> {
+                    participateTv.text = context.getString(R.string.participation_rules_daily).format(game.betAmount)
+
                     var timeLeft = "00:00:00"
                     countDown = object : CountDownTimer(game.endTime() - System.currentTimeMillis(), 1000) {
                         override fun onTick(millisUntilFinished: Long) {
@@ -88,6 +88,8 @@ class ParticipateDialog(val context: Context, val game: Game) {
 
                 }
                 Game.Type.WEEKLY.value -> {
+                    participateTv.text = context.getString(R.string.participation_rules_weekly).format(game.betAmount)
+
                     var timeLeft = "00:00:00"
                     countDown = object : CountDownTimer(game.endTime() - System.currentTimeMillis(), 60000) {
                         override fun onTick(millisUntilFinished: Long) {

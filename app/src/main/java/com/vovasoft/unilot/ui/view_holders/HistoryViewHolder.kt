@@ -37,6 +37,9 @@ class HistoryViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView), Vi
         if (results.any { it.gameId == game.id }) {
             markerView?.visibility = View.VISIBLE
         }
+        else {
+            markerView?.visibility = View.INVISIBLE
+        }
 
         dateTv?.text = game.endTime().toHumanDate()
 

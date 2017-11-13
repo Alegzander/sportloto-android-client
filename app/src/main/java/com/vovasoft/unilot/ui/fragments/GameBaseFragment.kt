@@ -65,12 +65,6 @@ abstract class GameBaseFragment : BaseFragment() {
     }
 
 
-    override fun onResume() {
-        super.onResume()
-        fetchGameResults()
-    }
-
-
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
         super.setUserVisibleHint(isVisibleToUser)
         fetchGameResults()

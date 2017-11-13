@@ -14,13 +14,13 @@ import android.support.v4.content.LocalBroadcastManager
 import android.support.v4.view.GravityCompat
 import android.support.v4.view.ViewPager
 import android.support.v4.widget.SwipeRefreshLayout
-import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.vovasoft.unilot.R
 import com.vovasoft.unilot.repository.RepositoryCallback
 import com.vovasoft.unilot.repository.models.entities.GameResult
+import com.vovasoft.unilot.ui.activities.TutorialActivity
 import com.vovasoft.unilot.ui.pager_adapters.MainPagerAdapter
 import com.vovasoft.unilot.view_models.AppVM
 import com.vovasoft.unilot.view_models.GamesVM
@@ -111,6 +111,7 @@ class MainPagerFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
 
         observeData()
         updateMarkers()
+        refreshPager()
     }
 
 
@@ -135,17 +136,13 @@ class MainPagerFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
         refreshLayout.setColorSchemeResources(R.color.colorAccent)
 
         infoBtn.setOnClickListener {
-            AlertDialog.Builder(context)
-                    .setTitle(R.string.how_does_it_work)
-                    .setMessage(R.string.how_does_it_work_text)
-                    .setPositiveButton(R.string.ok) { dialog, _ -> dialog.dismiss() }
-                    .create().show()
+            val updateIntent = Intent(context, TutorialActivity::class.java)
+            startActivity(updateIntent)
         }
 
         val pagerAdapter = MainPagerAdapter(childFragmentManager)
-        pager.adapter = pagerAdapter
 
-        val position = appVM.selectedPage.value!!
+        pager.adapter = pagerAdapter
 
         tabs.setupWithViewPager(pager)
         tabs.getTabAt(Page.DAY.value)?.setText(R.string.daily)?.setIcon(R.drawable.ic_day_gray)
@@ -177,11 +174,14 @@ class MainPagerFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
             }
 
         })
+    }
 
 
+    private fun refreshPager() {
+        val position = appVM.selectedPage.value!!
         Handler().post {
             view?.let {
-                pager.setCurrentItem(position, false)
+                pager?.setCurrentItem(position, false)
             }
         }
     }

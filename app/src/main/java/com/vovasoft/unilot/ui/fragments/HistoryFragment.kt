@@ -44,6 +44,12 @@ class HistoryFragment : BaseFragment() {
     }
 
 
+    override fun onResume() {
+        super.onResume()
+        recyclerView?.adapter?.notifyDataSetChanged()
+    }
+
+
     private fun observeData() {
         showLoading(true)
 
