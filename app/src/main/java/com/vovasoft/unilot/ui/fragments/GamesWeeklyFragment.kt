@@ -160,6 +160,11 @@ class GamesWeeklyFragment : GameBaseFragment() {
 
             participateBtn.setOnClickListener {
                 val dialog = ParticipateDialog(context, game)
+                gamesVM.getWallets().observe(this, Observer { wallets ->
+                    wallets?.let {
+                        dialog.hideWarning(wallets.isNotEmpty())
+                    }
+                })
                 dialog.show()
             }
         }

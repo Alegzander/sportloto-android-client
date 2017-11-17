@@ -93,4 +93,5 @@
     <string name="finished">Завершен</string>
     <string name="outdated">Данная версия Unilot устарела. Пожалуйста, обновите приложение.</string>
     <string name="goto_googleplay">Перейти в Google Play</string>
+    <string name="all">Все</string>
 </resources>

@@ -6,6 +6,7 @@ import android.content.Context
 import android.os.CountDownTimer
 import android.support.v7.app.AlertDialog
 import android.util.AttributeSet
+import android.view.View
 import android.widget.FrameLayout
 import android.widget.Toast
 import com.vovasoft.unilot.R
@@ -38,6 +39,10 @@ class ParticipateDialog(val context: Context, val game: Game) {
         dialog?.dismiss()
     }
 
+
+    fun hideWarning(hide: Boolean) {
+        participateDialogView.hideWarning(hide)
+    }
 
 
     inner class ParticipateDialogView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0)
@@ -108,6 +113,13 @@ class ParticipateDialog(val context: Context, val game: Game) {
                     countDown?.start()
 
                 }
+            }
+        }
+
+
+        fun hideWarning(hide: Boolean) {
+            if (hide) {
+                warningTv.visibility = View.GONE
             }
         }
 

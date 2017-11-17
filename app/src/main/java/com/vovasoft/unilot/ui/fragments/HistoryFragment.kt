@@ -3,6 +3,7 @@ package com.vovasoft.unilot.ui.fragments
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
+import android.support.design.widget.TabLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
@@ -27,6 +28,8 @@ class HistoryFragment : BaseFragment() {
     private lateinit var gamesVM: GamesVM
 
     private val adapter = HistoryRecyclerAdapter()
+
+    private val history = mutableListOf<Game>()
 
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -64,7 +67,9 @@ class HistoryFragment : BaseFragment() {
         gamesVM.getGamesHistory().observe(this, Observer { games ->
             showLoading(false)
             games?.let {
-                adapter.dataSet = games.toMutableList()
+                history.clear()
+                history.addAll(games)
+                adapter.dataSet = history
             }
         })
     }
@@ -91,6 +96,27 @@ class HistoryFragment : BaseFragment() {
                 AppFragmentManager.instance.openFragment(HistoryGameDetailsFragment(), true)
             }
         }
+
+
+        filterTabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+
+            }
+
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                when (tab?.position) {
+                    0 -> adapter.dataSet = history
+                    1 -> adapter.dataSet = history.filter { it.type == Game.Type.DAILY.value }.toMutableList()
+                    2 -> adapter.dataSet = history.filter { it.type == Game.Type.WEEKLY.value }.toMutableList()
+                    3 -> adapter.dataSet = history.filter { it.type == Game.Type.MONTHLY.value }.toMutableList()
+                }
+            }
+
+        })
     }
 
 
