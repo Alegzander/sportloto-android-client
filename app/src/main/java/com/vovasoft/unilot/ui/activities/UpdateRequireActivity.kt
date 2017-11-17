@@ -1,12 +1,12 @@
 package com.vovasoft.unilot.ui.activities
 
 import android.content.ActivityNotFoundException
-import android.support.v7.app.AppCompatActivity
-import android.os.Bundle
-import com.vovasoft.unilot.R
-import kotlinx.android.synthetic.main.activity_update_require.*
 import android.content.Intent
 import android.net.Uri
+import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
+import com.vovasoft.unilot.R
+import kotlinx.android.synthetic.main.activity_update_require.*
 
 
 class UpdateRequireActivity : AppCompatActivity() {

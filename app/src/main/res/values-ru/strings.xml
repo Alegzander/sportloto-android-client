@@ -2,6 +2,7 @@
     <string name="app_name">Unilot</string>
     <string name="grant_type">client_credentials</string>
     <string name="presentation_url">https://unilot.io//static/files/UNILOT_RUS.pdf</string>
+    <string name="faq_url">https://dev.unilot.io/ru/mobile/faq</string>
     <string name="unilot_url">https://unilot.io/ru/</string>
     <string name="ok">OK</string>
     <string name="daily">Дневная</string>
@@ -20,7 +21,8 @@
     <string name="sec">секунды</string>
     <string name="games_history">История розыгрышей</string>
     <string name="statistic">Статистика</string>
-    <string name="how_it_works">Как это работает:</string>
+    <string name="how_it_works">Как это работает?</string>
+    <string name="faq">ЧАВО</string>
     <string name="white_paper">Презентация</string>
     <string name="settings">Настройки</string>
     <string name="be_aware">Оставайтесь в курсе:</string>
@@ -94,4 +96,12 @@
     <string name="outdated">Данная версия Unilot устарела. Пожалуйста, обновите приложение.</string>
     <string name="goto_googleplay">Перейти в Google Play</string>
     <string name="all">Все</string>
+    <string name="tutorial_step_1">Чтобы принять участие в лотереях, сначала выберите тип: Дневная, Недельная. Нажмите на экране лотереи на кнопку “Принять участие”.</string>
+    <string name="tutorial_step_2">После этого появится адрес кошелька, на который нужно отправить средства для участия в розыгрыше. Скопируйте его.</string>
+    <string name="tutorial_step_3">Перейдите в ваш кошелек и отправьте указанную для участия в лотерее сумму на адрес кошелька, который вы скопировали.</string>
+    <string name="tutorial_step_4">Вернитесь в приложение, зайдите в Профиль и добавьте адрес кошелька, с которого произвели оплату. Теперь вы сможете получать уведомления.</string>
+    <string name="tutorial_step_5">Ожидайте результатов. Если вы не стали победителем в Дневной или Недельной лотереях, вы автоматически становитесь участником Бонусного розыгрыша.</string>
+    <string name="skip">Закрыть</string>
+    <string name="want_know_more">Хочу знать больше</string>
+    <string name="letsgo">Погнали!</string>
 </resources>

@@ -20,7 +20,7 @@ import android.view.ViewGroup
 import com.vovasoft.unilot.R
 import com.vovasoft.unilot.repository.RepositoryCallback
 import com.vovasoft.unilot.repository.models.entities.GameResult
-import com.vovasoft.unilot.ui.activities.TutorialActivity
+import com.vovasoft.unilot.ui.AppFragmentManager
 import com.vovasoft.unilot.ui.pager_adapters.MainPagerAdapter
 import com.vovasoft.unilot.view_models.AppVM
 import com.vovasoft.unilot.view_models.GamesVM
@@ -136,8 +136,7 @@ class MainPagerFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
         refreshLayout.setColorSchemeResources(R.color.colorAccent)
 
         infoBtn.setOnClickListener {
-            val updateIntent = Intent(context, TutorialActivity::class.java)
-            startActivity(updateIntent)
+            AppFragmentManager.instance.openFragment(TutorialFragment(), true)
         }
 
         val pagerAdapter = MainPagerAdapter(childFragmentManager)

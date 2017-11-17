@@ -2,6 +2,7 @@
     <string name="app_name">Unilot</string>
     <string name="grant_type">client_credentials</string>
     <string name="presentation_url">https://unilot.io//static/files/UNILOT_ENG.pdf</string>
+    <string name="faq_url">https://dev.unilot.io/en/mobile/faq</string>
     <string name="unilot_url">https://unilot.io/en/</string>
     <string name="ok">OK</string>
     <string name="daily">Daily</string>
@@ -20,7 +21,8 @@
     <string name="sec">Seconds</string>
     <string name="games_history">History of drawings</string>
     <string name="statistic">Statistics</string>
-    <string name="how_it_works">How it works</string>
+    <string name="how_it_works">How it works?</string>
+    <string name="faq">FAQ</string>
     <string name="white_paper">Presentation</string>
     <string name="settings">Settings</string>
     <string name="be_aware">Stay tuned:</string>
@@ -94,4 +96,12 @@
     <string name="outdated">Your version of Unilot is out of date. Please update it.</string>
     <string name="goto_googleplay">Go to Google Play</string>
     <string name="all">All</string>
+    <string name="tutorial_step_1">First choose the type of the drawings: Daily or Weekly. Then tap the button “Participate” to start.</string>
+    <string name="tutorial_step_2">Here is the wallet address you need to transfer the specified amount to. Please copy it.</string>
+    <string name="tutorial_step_3">Go to your wallet and transfer the necessary amount to the copied wallet address.</string>
+    <string name="tutorial_step_4">Return to the app, go to Profile and add your wallet address. Now you can get notifications about win or loss.</string>
+    <string name="tutorial_step_5">Wait for the results. If you loose in Daily or Weekly drawing, you will automatically become a participant of the Bonus Monthly Draw for free.</string>
+    <string name="skip">Skip</string>
+    <string name="want_know_more">Want to know more</string>
+    <string name="letsgo">Lets GO!</string>
 </resources>

@@ -87,19 +87,18 @@
         </android.support.constraint.ConstraintLayout>
 
         <LinearLayout
-            android:id="@+id/statisticBtn"
+            android:id="@+id/whitepaperBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:orientation="horizontal"
             android:paddingBottom="4dp"
-            android:paddingTop="4dp"
-            android:visibility="gone">
+            android:paddingTop="4dp">
 
             <android.support.v7.widget.AppCompatImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                app:srcCompat="@drawable/ic_statistic" />
+                app:srcCompat="@drawable/ic_whitepaper" />
 
             <android.support.v7.widget.AppCompatTextView
                 android:layout_width="wrap_content"
@@ -107,7 +106,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="18dp"
                 android:layout_marginStart="18dp"
-                android:text="@string/statistic"
+                android:text="@string/white_paper"
                 android:textColor="@color/colorWhite"
                 android:textSize="18sp"
                 app:fontFamily="@font/roboto_light" />
@@ -140,7 +139,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/whitepaperBtn"
+            android:id="@+id/faqBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -151,7 +150,7 @@
             <android.support.v7.widget.AppCompatImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                app:srcCompat="@drawable/ic_whitepaper" />
+                app:srcCompat="@drawable/ic_faq" />
 
             <android.support.v7.widget.AppCompatTextView
                 android:layout_width="wrap_content"
@@ -159,7 +158,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="18dp"
                 android:layout_marginStart="18dp"
-                android:text="@string/white_paper"
+                android:text="@string/faq"
                 android:textColor="@color/colorWhite"
                 android:textSize="18sp"
                 app:fontFamily="@font/roboto_light" />

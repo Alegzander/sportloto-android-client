@@ -34,6 +34,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".ui.activities.UpdateRequireActivity" />
+
         <activity android:name=".ui.widgets.ZxingReader" />
 
         <meta-data
@@ -43,8 +46,6 @@
             android:name="io.fabric.ApiKey"
             android:value="51cd3268f4d24ff7e7d42163352dfd7dea40cdcd" />
 
-        <activity android:name=".ui.activities.UpdateRequireActivity" />
-        <activity android:name=".ui.activities.TutorialActivity"></activity>
     </application>
 
 </manifest>

@@ -11,7 +11,6 @@ import android.net.ConnectivityManager
 import android.net.Uri
 import android.os.Bundle
 import android.support.v4.content.LocalBroadcastManager
-import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
@@ -26,10 +25,7 @@ import com.vovasoft.unilot.repository.RepositoryCallback
 import com.vovasoft.unilot.repository.models.entities.Game
 import com.vovasoft.unilot.repository.models.entities.GameResult
 import com.vovasoft.unilot.ui.AppFragmentManager
-import com.vovasoft.unilot.ui.fragments.BaseFragment
-import com.vovasoft.unilot.ui.fragments.HistoryFragment
-import com.vovasoft.unilot.ui.fragments.MainPagerFragment
-import com.vovasoft.unilot.ui.fragments.SettingsFragment
+import com.vovasoft.unilot.ui.fragments.*
 import com.vovasoft.unilot.view_models.AppVM
 import com.vovasoft.unilot.view_models.GamesVM
 import io.fabric.sdk.android.Fabric
@@ -76,6 +72,11 @@ class MainActivity : AppCompatActivity(), NetworkStateReceiver.ReceiverCallback 
         }
         else {
             AppFragmentManager.instance.openFragment(MainPagerFragment())
+        }
+
+        if (Preferences.instance.isFirstOpen) {
+            Preferences.instance.isFirstOpen = false
+            AppFragmentManager.instance.openFragment(TutorialFragment(), true)
         }
     }
 
@@ -130,8 +131,11 @@ class MainActivity : AppCompatActivity(), NetworkStateReceiver.ReceiverCallback 
     override fun onResume() {
         super.onResume()
         App.isBackground = false
+
         gamesVM.updateGamesList()
+
         updateMarkers()
+
         val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         notificationManager.cancelAll()
     }
@@ -176,17 +180,13 @@ class MainActivity : AppCompatActivity(), NetworkStateReceiver.ReceiverCallback 
             AppFragmentManager.instance.openFragment(HistoryFragment(), true)
         }
 
-        statisticBtn.setOnClickListener {
+        faqBtn.setOnClickListener {
             drawerLayout.closeDrawers()
+            AppFragmentManager.instance.openFragment(FAQFragment(), true)
         }
 
         infoBtn.setOnClickListener {
-            AlertDialog.Builder(this)
-                    .setTitle(R.string.how_does_it_work)
-                    .setMessage(R.string.how_does_it_work_text)
-                    .setPositiveButton(R.string.ok) { dialog, _ -> dialog.dismiss() }
-                    .create().show()
-            drawerLayout.closeDrawers()
+            AppFragmentManager.instance.openFragment(TutorialFragment(), true)
         }
 
         whitepaperBtn.setOnClickListener {

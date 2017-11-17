@@ -1,8 +1,8 @@
 package com.vovasoft.unilot.ui.pager_adapters
 
+import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
-import android.support.v4.app.Fragment
 import com.vovasoft.unilot.ui.fragments.TutorialPageFragment
 
 /***************************************************************************
@@ -11,11 +11,11 @@ import com.vovasoft.unilot.ui.fragments.TutorialPageFragment
 class TutorialPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
 
     private val fragments = arrayOf(
-            TutorialPageFragment(),
-            TutorialPageFragment(),
-            TutorialPageFragment(),
-            TutorialPageFragment(),
-            TutorialPageFragment()
+            TutorialPageFragment.newInstance(1),
+            TutorialPageFragment.newInstance(2),
+            TutorialPageFragment.newInstance(3),
+            TutorialPageFragment.newInstance(4),
+            TutorialPageFragment.newInstance(5)
     )
 
 

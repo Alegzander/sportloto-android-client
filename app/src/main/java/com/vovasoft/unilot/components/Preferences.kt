@@ -17,24 +17,31 @@ class Preferences private constructor() {
 
         var isLanguageChanged: Boolean = false
 
+
         fun updateLanguage() {
             val locale = Locale(Preferences.instance.language)
             Locale.setDefault(locale)
             val configuration = App.instance.resources.configuration
             configuration.locale = locale
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-//            baseContext.createConfigurationContext(configuration)
-//        }
-//        else {
-//            baseContext.resources.updateConfiguration(configuration, baseContext.resources.displayMetrics)
-//        }
             App.instance.resources.updateConfiguration(configuration, App.instance.resources.displayMetrics)
 
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+//                App.instance.createConfigurationContext(configuration)
+//            }
+//            else {
+//                App.instance.resources.updateConfiguration(configuration, App.instance.resources.displayMetrics)
+//            }
         }
 
     }
 
     private val sharedPreferences: SharedPreferences = App.instance.getSharedPreferences(Preferences::class.java.name, Context.MODE_PRIVATE)
+
+
+    var isFirstOpen: Boolean
+        set(value) = sharedPreferences.edit().putBoolean("is_first_open", value).apply()
+        get() = sharedPreferences.getBoolean("is_first_open", true)
+
 
     var token: String?
         set(value) = sharedPreferences.edit().putString("token", value).apply()
