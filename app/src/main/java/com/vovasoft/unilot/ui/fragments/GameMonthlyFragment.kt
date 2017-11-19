@@ -15,8 +15,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import com.crashlytics.android.answers.Answers
+import com.crashlytics.android.answers.CustomEvent
 import com.robinhood.ticker.TickerUtils
 import com.vovasoft.unilot.R
+import com.vovasoft.unilot.components.Preferences
 import com.vovasoft.unilot.components.daysPlural
 import com.vovasoft.unilot.repository.models.entities.Game
 import com.vovasoft.unilot.ui.dialogs.TopPlacesDialog
@@ -35,6 +38,13 @@ class GameMonthlyFragment : GameBaseFragment() {
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         observeData()
+    }
+
+
+    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
+        super.setUserVisibleHint(isVisibleToUser)
+        Answers.getInstance().logCustom(CustomEvent("EVENT_BONUS")
+                .putCustomAttribute("language", Preferences.instance.language))
     }
 
 
@@ -149,6 +159,9 @@ class GameMonthlyFragment : GameBaseFragment() {
                         .setMessage(R.string.how_does_it_work_text)
                         .setPositiveButton(R.string.ok) { dialog, _ -> dialog.dismiss() }
                         .create().show()
+
+                Answers.getInstance().logCustom(CustomEvent("EVENT_BONUS_HOWTO")
+                        .putCustomAttribute("language", Preferences.instance.language))
             }
         }
     }

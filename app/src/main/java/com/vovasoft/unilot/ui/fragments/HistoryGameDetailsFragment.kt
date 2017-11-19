@@ -100,9 +100,9 @@ class HistoryGameDetailsFragment : BaseFragment(), SearchView.OnQueryTextListene
         }
 
         when (game?.type) {
-            Game.Type.DAILY.value -> titleIcon.setImageResource(R.drawable.ic_day_selected)
-            Game.Type.WEEKLY.value -> titleIcon.setImageResource(R.drawable.ic_week_selected)
-            Game.Type.MONTHLY.value -> titleIcon.setImageResource(R.drawable.ic_month_selected)
+            Game.Type.DAILY.value -> titleIcon.setImageResource(R.drawable.ic_day_orange)
+            Game.Type.WEEKLY.value -> titleIcon.setImageResource(R.drawable.ic_week_orange)
+            Game.Type.MONTHLY.value -> titleIcon.setImageResource(R.drawable.ic_month_orange)
         }
 
         dateTv.text = game?.endTime().toHumanDate()

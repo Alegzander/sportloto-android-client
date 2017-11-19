@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.crashlytics.android.answers.Answers
+import com.crashlytics.android.answers.CustomEvent
 import com.vovasoft.unilot.R
 import com.vovasoft.unilot.components.Preferences
 import com.vovasoft.unilot.ui.AppFragmentManager
@@ -75,6 +77,9 @@ class SettingsFragment : BaseFragment() {
 
     private fun changeLanguage(language: String) {
         if (Preferences.instance.language != language) {
+            Answers.getInstance().logCustom(CustomEvent("EVENT_LANGUAGE_CHANGE")
+                    .putCustomAttribute("language", Preferences.instance.language))
+
             Preferences.isLanguageChanged = true
             Preferences.instance.language = language
             val intent = activity.intent

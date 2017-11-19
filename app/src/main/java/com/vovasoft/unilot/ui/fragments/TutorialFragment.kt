@@ -5,7 +5,10 @@ import android.support.v4.view.ViewPager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.crashlytics.android.answers.Answers
+import com.crashlytics.android.answers.CustomEvent
 import com.vovasoft.unilot.R
+import com.vovasoft.unilot.components.Preferences
 import com.vovasoft.unilot.ui.AppFragmentManager
 import com.vovasoft.unilot.ui.pager_adapters.TutorialPagerAdapter
 import kotlinx.android.synthetic.main.fragment_tutorial.*
@@ -51,14 +54,20 @@ class TutorialFragment : BaseFragment() {
 
         skipBtn.setOnClickListener {
             onBackPressed()
+            Answers.getInstance().logCustom(CustomEvent("EVENT_TUTORIAL_SKIP")
+                    .putCustomAttribute("language", Preferences.instance.language))
         }
 
         letsgoBtn.setOnClickListener {
             onBackPressed()
+            Answers.getInstance().logCustom(CustomEvent("EVENT_TUTORIAL_DONE")
+                    .putCustomAttribute("language", Preferences.instance.language))
         }
 
         knowMoreBtn.setOnClickListener {
             AppFragmentManager.instance.openFragment(FAQFragment(), true)
+            Answers.getInstance().logCustom(CustomEvent("EVENT_TUTORIAL_FAQ")
+                    .putCustomAttribute("language", Preferences.instance.language))
         }
 
     }

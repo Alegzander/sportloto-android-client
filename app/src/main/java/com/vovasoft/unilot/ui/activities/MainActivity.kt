@@ -16,6 +16,8 @@ import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import com.crashlytics.android.Crashlytics
+import com.crashlytics.android.answers.Answers
+import com.crashlytics.android.answers.CustomEvent
 import com.google.firebase.iid.FirebaseInstanceId
 import com.vovasoft.unilot.App
 import com.vovasoft.unilot.R
@@ -178,26 +180,36 @@ class MainActivity : AppCompatActivity(), NetworkStateReceiver.ReceiverCallback 
         historyBtn.setOnClickListener {
             drawerLayout.closeDrawers()
             AppFragmentManager.instance.openFragment(HistoryFragment(), true)
+            Answers.getInstance().logCustom(CustomEvent("EVENT_HISTORY_VIEW")
+                    .putCustomAttribute("language", Preferences.instance.language))
         }
 
         faqBtn.setOnClickListener {
             drawerLayout.closeDrawers()
             AppFragmentManager.instance.openFragment(FAQFragment(), true)
+            Answers.getInstance().logCustom(CustomEvent("EVENT_FAQ")
+                    .putCustomAttribute("language", Preferences.instance.language))
         }
 
         infoBtn.setOnClickListener {
             AppFragmentManager.instance.openFragment(TutorialFragment(), true)
+            Answers.getInstance().logCustom(CustomEvent("EVENT_TUTORIAL_VIEW")
+                    .putCustomAttribute("language", Preferences.instance.language))
         }
 
         whitepaperBtn.setOnClickListener {
             val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.presentation_url)))
             startActivity(browserIntent)
             drawerLayout.closeDrawers()
+            Answers.getInstance().logCustom(CustomEvent("EVENT_PRESENTATION")
+                    .putCustomAttribute("language", Preferences.instance.language))
         }
 
         settingsBtn.setOnClickListener {
             drawerLayout.closeDrawers()
             AppFragmentManager.instance.openFragment(SettingsFragment(), true)
+            Answers.getInstance().logCustom(CustomEvent("EVENT_SETTINGS")
+                    .putCustomAttribute("language", Preferences.instance.language))
         }
 
         soonBtn.setOnClickListener {
@@ -208,21 +220,29 @@ class MainActivity : AppCompatActivity(), NetworkStateReceiver.ReceiverCallback 
         facebookBtn.setOnClickListener {
             val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/unilot.io/"))
             startActivity(browserIntent)
+            Answers.getInstance().logCustom(CustomEvent("EVENT_FB")
+                    .putCustomAttribute("language", Preferences.instance.language))
         }
 
         telecgramBtn.setOnClickListener {
             val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://t.me/unilot_channel/"))
             startActivity(browserIntent)
+            Answers.getInstance().logCustom(CustomEvent("EVENT_TG")
+                    .putCustomAttribute("language", Preferences.instance.language))
         }
 
         redditBtn.setOnClickListener {
             val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.reddit.com/user/unilot_lottery/"))
             startActivity(browserIntent)
+            Answers.getInstance().logCustom(CustomEvent("EVENT_REDDIT")
+                    .putCustomAttribute("language", Preferences.instance.language))
         }
 
         twitterBtn.setOnClickListener {
             val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://twitter.com/unilot_lottery/"))
             startActivity(browserIntent)
+            Answers.getInstance().logCustom(CustomEvent("EVENT_TWITTER")
+                    .putCustomAttribute("language", Preferences.instance.language))
         }
 
     }

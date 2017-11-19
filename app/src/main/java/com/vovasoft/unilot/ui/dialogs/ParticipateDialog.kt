@@ -9,7 +9,10 @@ import android.util.AttributeSet
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.Toast
+import com.crashlytics.android.answers.Answers
+import com.crashlytics.android.answers.CustomEvent
 import com.vovasoft.unilot.R
+import com.vovasoft.unilot.components.Preferences
 import com.vovasoft.unilot.repository.models.entities.Game
 import kotlinx.android.synthetic.main.dialog_view_participate.view.*
 
@@ -68,6 +71,18 @@ class ParticipateDialog(val context: Context, val game: Game) {
                 val clip = ClipData.newPlainText("wallet", walletTv.text)
                 clipboard.primaryClip = clip
                 Toast.makeText(context, R.string.wallet_number_has_been_copied, Toast.LENGTH_SHORT).show()
+
+                when (game.type) {
+                    Game.Type.DAILY.value -> {
+                        Answers.getInstance().logCustom(CustomEvent("EVENT_DAILY_PARTICIPATE_COPY")
+                                .putCustomAttribute("language", Preferences.instance.language))
+                    }
+                    Game.Type.WEEKLY.value -> {
+                        Answers.getInstance().logCustom(CustomEvent("EVENT_WEEKLY_PARTICIPATE_COPY")
+                                .putCustomAttribute("language", Preferences.instance.language))
+                    }
+                }
+
             }
 
             when (game.type) {

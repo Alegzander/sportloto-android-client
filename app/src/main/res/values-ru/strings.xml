@@ -30,9 +30,9 @@
     <string name="english">English</string>
     <string name="russian">Русский</string>
     <string name="deutsch">Deutsch</string>
-    <string name="no_games_for_today">Сегодня нет розыгрышей</string>
-    <string name="no_weekly_games">На этой неделе розыгрышей нет</string>
-    <string name="no_bonus_games">Бонусных розыгрышей нет</string>
+    <string name="no_games_for_today">Сегодня розыгрыша нет</string>
+    <string name="no_weekly_games">На этой неделе розыгрыша нет</string>
+    <string name="no_bonus_games">Бонусного розыгрыша нет</string>
     <string name="eth">Eth</string>
     <string name="participate">Принять участие</string>
     <string name="top_places">Призовые места</string>

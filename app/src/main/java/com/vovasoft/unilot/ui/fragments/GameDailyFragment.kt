@@ -14,8 +14,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import com.crashlytics.android.answers.Answers
+import com.crashlytics.android.answers.CustomEvent
 import com.robinhood.ticker.TickerUtils
 import com.vovasoft.unilot.R
+import com.vovasoft.unilot.components.Preferences
 import com.vovasoft.unilot.repository.models.entities.Game
 import com.vovasoft.unilot.ui.dialogs.ParticipateDialog
 import com.vovasoft.unilot.ui.dialogs.TopPlacesDialog
@@ -35,6 +38,13 @@ class GameDailyFragment : GameBaseFragment() {
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         observeData()
+    }
+
+
+    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
+        super.setUserVisibleHint(isVisibleToUser)
+        Answers.getInstance().logCustom(CustomEvent("EVENT_DAILY")
+                .putCustomAttribute("language", Preferences.instance.language))
     }
 
 
@@ -167,6 +177,9 @@ class GameDailyFragment : GameBaseFragment() {
                     }
                 })
                 dialog.show()
+
+                Answers.getInstance().logCustom(CustomEvent("EVENT_DAILY_PARTICIPATE")
+                        .putCustomAttribute("language", Preferences.instance.language))
             }
         }
     }

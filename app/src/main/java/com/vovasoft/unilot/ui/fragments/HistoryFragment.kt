@@ -2,8 +2,10 @@ package com.vovasoft.unilot.ui.fragments
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.graphics.PorterDuff
 import android.os.Bundle
 import android.support.design.widget.TabLayout
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
@@ -69,9 +71,18 @@ class HistoryFragment : BaseFragment() {
             games?.let {
                 history.clear()
                 history.addAll(games)
-                adapter.dataSet = history
+                appVM.selectedHistoryFilter.value?.let {
+                    filterData(it)
+                }
             }
         })
+
+        appVM.selectedHistoryFilter.observe(this, Observer {
+            it?.let {
+                filterData(it)
+            }
+        })
+
     }
 
 
@@ -97,7 +108,6 @@ class HistoryFragment : BaseFragment() {
             }
         }
 
-
         filterTabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabReselected(tab: TabLayout.Tab?) {
 
@@ -108,15 +118,32 @@ class HistoryFragment : BaseFragment() {
             }
 
             override fun onTabSelected(tab: TabLayout.Tab?) {
-                when (tab?.position) {
+                appVM.selectedHistoryFilter.value = null
+                appVM.selectedHistoryFilter.value = tab?.position
+            }
+        })
+
+        appVM.selectedHistoryFilter.value?.let {
+            filterTabs.getTabAt(it)?.select()
+        }
+
+    }
+
+
+    private fun filterData(pos: Int) {
+        for (i in 0..filterTabs.tabCount) {
+            val tab = filterTabs.getTabAt(i)
+            tab?.icon?.setColorFilter(ContextCompat.getColor(context, R.color.colorLightGray), PorterDuff.Mode.SRC_IN)
+            if (i == pos) {
+                tab?.icon?.setColorFilter(ContextCompat.getColor(context, R.color.colorBlack), PorterDuff.Mode.SRC_IN)
+                when (pos) {
                     0 -> adapter.dataSet = history
                     1 -> adapter.dataSet = history.filter { it.type == Game.Type.DAILY.value }.toMutableList()
                     2 -> adapter.dataSet = history.filter { it.type == Game.Type.WEEKLY.value }.toMutableList()
                     3 -> adapter.dataSet = history.filter { it.type == Game.Type.MONTHLY.value }.toMutableList()
                 }
             }
-
-        })
+        }
     }
 
 

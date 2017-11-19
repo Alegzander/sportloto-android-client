@@ -107,7 +107,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:tabIndicatorHeight="0dp"
-        app:tabSelectedTextColor="@color/colorAccent"
+        app:tabSelectedTextColor="@color/colorBlack"
         app:tabTextAppearance="@style/PagerTabsStyle"
         app:tabTextColor="@color/colorLightGray">
 
@@ -115,24 +115,28 @@
             android:id="@+id/allTab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:icon="@drawable/ic_all_days_gray"
             android:text="@string/all" />
 
         <android.support.design.widget.TabItem
             android:id="@+id/dailyTab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:icon="@drawable/ic_day_gray"
             android:text="@string/daily" />
 
         <android.support.design.widget.TabItem
             android:id="@+id/weeklyTab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:icon="@drawable/ic_week_gray"
             android:text="@string/weekly" />
 
         <android.support.design.widget.TabItem
             android:id="@+id/bonusTab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:icon="@drawable/ic_month_gray"
             android:text="@string/monthly_bonus" />
     </android.support.design.widget.TabLayout>
 

@@ -17,7 +17,10 @@ import android.support.v4.widget.SwipeRefreshLayout
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.crashlytics.android.answers.Answers
+import com.crashlytics.android.answers.CustomEvent
 import com.vovasoft.unilot.R
+import com.vovasoft.unilot.components.Preferences
 import com.vovasoft.unilot.repository.RepositoryCallback
 import com.vovasoft.unilot.repository.models.entities.GameResult
 import com.vovasoft.unilot.ui.AppFragmentManager
@@ -137,6 +140,8 @@ class MainPagerFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
 
         infoBtn.setOnClickListener {
             AppFragmentManager.instance.openFragment(TutorialFragment(), true)
+            Answers.getInstance().logCustom(CustomEvent("EVENT_TUTORIAL_VIEW")
+                    .putCustomAttribute("language", Preferences.instance.language))
         }
 
         val pagerAdapter = MainPagerAdapter(childFragmentManager)

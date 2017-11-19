@@ -29,9 +29,9 @@ class HistoryViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView), Vi
 
     fun setData(game: Game, results: List<GameResult>) {
         when (game.type) {
-            Game.Type.DAILY.value -> iconImg?.setImageResource(R.drawable.ic_day_gray)
-            Game.Type.WEEKLY.value -> iconImg?.setImageResource(R.drawable.ic_week_gray)
-            Game.Type.MONTHLY.value -> iconImg?.setImageResource(R.drawable.ic_month_gray)
+            Game.Type.DAILY.value -> iconImg?.setImageResource(R.drawable.ic_day_history)
+            Game.Type.WEEKLY.value -> iconImg?.setImageResource(R.drawable.ic_week_history)
+            Game.Type.MONTHLY.value -> iconImg?.setImageResource(R.drawable.ic_month_history)
         }
 
         if (results.any { it.gameId == game.id }) {
@@ -51,6 +51,7 @@ class HistoryViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView), Vi
             }
             Game.Status.FINISHED.value -> {
                 statusTv?.text = itemView.context.getString(R.string.finished)
+                prizeTv?.setTextColor(ContextCompat.getColor(itemView.context, R.color.colorBlue))
                 prizeTv?.text = itemView.context.getString(R.string.details)
             }
         }

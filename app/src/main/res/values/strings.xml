@@ -30,9 +30,9 @@
     <string name="english">English</string>
     <string name="russian">Русский</string>
     <string name="deutsch">Deutsch</string>
-    <string name="no_games_for_today">There is no drawings for today</string>
-    <string name="no_weekly_games">There is no weekly drawings</string>
-    <string name="no_bonus_games">There is no bonus drawings</string>
+    <string name="no_games_for_today">There is no drawing for today</string>
+    <string name="no_weekly_games">There is no weekly drawing</string>
+    <string name="no_bonus_games">There is no bonus drawing</string>
     <string name="eth">Eth</string>
     <string name="participate">Participate</string>
     <string name="top_places">Top places</string>

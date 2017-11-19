@@ -43,7 +43,7 @@
                     android:id="@+id/titleIcon"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    app:srcCompat="@drawable/ic_day_selected" />
+                    app:srcCompat="@drawable/ic_day_orange" />
 
                 <android.support.v7.widget.AppCompatTextView
                     android:layout_width="wrap_content"

@@ -14,7 +14,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
+import com.crashlytics.android.answers.Answers
+import com.crashlytics.android.answers.CustomEvent
 import com.vovasoft.unilot.R
+import com.vovasoft.unilot.components.Preferences
 import com.vovasoft.unilot.repository.models.entities.Wallet
 import com.vovasoft.unilot.ui.recycler_adapters.WalletsRecyclerAdapter
 import com.vovasoft.unilot.ui.widgets.ZxingReader
@@ -47,6 +50,13 @@ class ProfileFragment : BaseFragment() {
         hasCameraPermission = checkSelfPermission(context, ZxingReader.CAMERA_PERMISSION) == PackageManager.PERMISSION_GRANTED
         setupViews()
         observeData()
+    }
+
+
+    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
+        super.setUserVisibleHint(isVisibleToUser)
+        Answers.getInstance().logCustom(CustomEvent("EVENT_PROFILE")
+                .putCustomAttribute("language", Preferences.instance.language))
     }
 
 
@@ -111,6 +121,9 @@ class ProfileFragment : BaseFragment() {
                     walletsAdapter.addWallet(wallet)
                 }
             }
+
+            Answers.getInstance().logCustom(CustomEvent("EVENT_WALLET_ADD")
+                    .putCustomAttribute("language", Preferences.instance.language))
         }
     }
 
