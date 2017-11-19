@@ -78,7 +78,7 @@ class SettingsFragment : BaseFragment() {
     private fun changeLanguage(language: String) {
         if (Preferences.instance.language != language) {
             Answers.getInstance().logCustom(CustomEvent("EVENT_LANGUAGE_CHANGE")
-                    .putCustomAttribute("language", Preferences.instance.language))
+                    .putCustomAttribute("language", language))
 
             Preferences.isLanguageChanged = true
             Preferences.instance.language = language
