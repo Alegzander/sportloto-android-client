@@ -16,25 +16,29 @@ import kotlinx.android.synthetic.main.fragment_faq.*
  ****************************************************************************/
 class FAQFragment : BaseFragment() {
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater!!.inflate(R.layout.fragment_faq, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_faq, container, false)
+    }
+
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        lockDrawerMode(true)
+        setupViews()
     }
 
 
     @SuppressLint("SetJavaScriptEnabled")
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        lockDrawerMode(true)
+    private fun setupViews() {
+        context?.let { context ->
+            backBtn.setOnClickListener {
+                onBackPressed()
+            }
 
-        backBtn.setOnClickListener {
-            onBackPressed()
+            webView.settings.javaScriptEnabled = true
+            webView.webViewClient = AppWebViewClients(context, progressBar)
+            webView.loadUrl(getString(R.string.faq_url))
         }
-
-        webView.settings.javaScriptEnabled = true
-
-        webView.webViewClient = AppWebViewClients(context, progressBar)
-
-        webView.loadUrl(getString(R.string.faq_url))
     }
 
 

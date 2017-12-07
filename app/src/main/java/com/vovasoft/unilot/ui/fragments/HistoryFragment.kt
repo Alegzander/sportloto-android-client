@@ -34,12 +34,12 @@ class HistoryFragment : BaseFragment() {
     private val history = mutableListOf<Game>()
 
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater!!.inflate(R.layout.fragment_history, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_history, container, false)
     }
 
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         appVM = ViewModelProviders.of(activity).get(AppVM::class.java)
         gamesVM = ViewModelProviders.of(activity).get(GamesVM::class.java)
@@ -131,16 +131,18 @@ class HistoryFragment : BaseFragment() {
 
 
     private fun filterData(pos: Int) {
-        for (i in 0..filterTabs.tabCount) {
-            val tab = filterTabs.getTabAt(i)
-            tab?.icon?.setColorFilter(ContextCompat.getColor(context, R.color.colorLightGray), PorterDuff.Mode.SRC_IN)
-            if (i == pos) {
-                tab?.icon?.setColorFilter(ContextCompat.getColor(context, R.color.colorBlack), PorterDuff.Mode.SRC_IN)
-                when (pos) {
-                    0 -> adapter.dataSet = history
-                    1 -> adapter.dataSet = history.filter { it.type == Game.Type.DAILY.value }.toMutableList()
-                    2 -> adapter.dataSet = history.filter { it.type == Game.Type.WEEKLY.value }.toMutableList()
-                    3 -> adapter.dataSet = history.filter { it.type == Game.Type.MONTHLY.value }.toMutableList()
+        context?.let { context ->
+            for (i in 0..filterTabs.tabCount) {
+                val tab = filterTabs.getTabAt(i)
+                tab?.icon?.setColorFilter(ContextCompat.getColor(context, R.color.colorLightGray), PorterDuff.Mode.SRC_IN)
+                if (i == pos) {
+                    tab?.icon?.setColorFilter(ContextCompat.getColor(context, R.color.colorBlack), PorterDuff.Mode.SRC_IN)
+                    when (pos) {
+                        0 -> adapter.dataSet = history
+                        1 -> adapter.dataSet = history.filter { it.type == Game.Type.DAILY.value }.toMutableList()
+                        2 -> adapter.dataSet = history.filter { it.type == Game.Type.WEEKLY.value }.toMutableList()
+                        3 -> adapter.dataSet = history.filter { it.type == Game.Type.MONTHLY.value }.toMutableList()
+                    }
                 }
             }
         }

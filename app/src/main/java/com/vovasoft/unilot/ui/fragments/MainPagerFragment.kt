@@ -56,12 +56,12 @@ class MainPagerFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
     private lateinit var gamesVM: GamesVM
 
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater!!.inflate(R.layout.fragment_main_pager, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_main_pager, container, false)
     }
 
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         appVM = ViewModelProviders.of(activity).get(AppVM::class.java)
         gamesVM = ViewModelProviders.of(activity).get(GamesVM::class.java)
@@ -79,13 +79,17 @@ class MainPagerFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
 
     override fun onStart() {
         super.onStart()
-        LocalBroadcastManager.getInstance(context).registerReceiver(newsReceiver, IntentFilter("news"))
+        context?.let { context ->
+            LocalBroadcastManager.getInstance(context).registerReceiver(newsReceiver, IntentFilter("news"))
+        }
     }
 
 
     override fun onStop() {
         super.onStop()
-        LocalBroadcastManager.getInstance(context).unregisterReceiver(newsReceiver)
+        context?.let { context ->
+            LocalBroadcastManager.getInstance(context).unregisterReceiver(newsReceiver)
+        }
     }
 
 
@@ -124,11 +128,13 @@ class MainPagerFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
         })
 
         appVM.selectedPage.observe(this, Observer {
-            for (i in 0..tabs.tabCount) {
-                val tab = tabs.getTabAt(i)
-                tab?.icon?.setColorFilter(ContextCompat.getColor(context, R.color.colorLightGray), PorterDuff.Mode.SRC_IN)
-                if (i == it) {
-                    tab?.icon?.setColorFilter(ContextCompat.getColor(context, R.color.colorOrange), PorterDuff.Mode.SRC_IN)
+            context?.let { context ->
+                for (i in 0..tabs.tabCount) {
+                    val tab = tabs.getTabAt(i)
+                    tab?.icon?.setColorFilter(ContextCompat.getColor(context, R.color.colorLightGray), PorterDuff.Mode.SRC_IN)
+                    if (i == it) {
+                        tab?.icon?.setColorFilter(ContextCompat.getColor(context, R.color.colorOrange), PorterDuff.Mode.SRC_IN)
+                    }
                 }
             }
         })
@@ -156,7 +162,7 @@ class MainPagerFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
 
         pager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
-                val x = ((pager.width * (pager.adapter.count - 1 - position) - positionOffsetPixels) * computeFactor()).toInt()
+                val x = ((pager.width * (pager.adapter!!.count - 1 - position) - positionOffsetPixels) * computeFactor()).toInt()
                 scrollView.scrollTo(x, 0)
             }
 
@@ -170,7 +176,7 @@ class MainPagerFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
             }
 
             private fun computeFactor(): Float {
-                return (backgroundImg.measuredWidth - pager.width) / (pager.width * (pager.adapter.count - 1)).toFloat()
+                return (backgroundImg.measuredWidth - pager.width) / (pager.width * (pager.adapter!!.count - 1)).toFloat()
             }
 
             private fun enableDisableSwipeRefresh(enable: Boolean) {

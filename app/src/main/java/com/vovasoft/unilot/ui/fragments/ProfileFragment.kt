@@ -38,16 +38,19 @@ class ProfileFragment : BaseFragment() {
     private var hasCameraPermission = false
 
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater!!.inflate(R.layout.fragment_profile, container, false)
     }
 
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         gamesVM = ViewModelProviders.of(activity).get(GamesVM::class.java)
 
-        hasCameraPermission = checkSelfPermission(context, ZxingReader.CAMERA_PERMISSION) == PackageManager.PERMISSION_GRANTED
+        context?.let { context ->
+            hasCameraPermission = checkSelfPermission(context, ZxingReader.CAMERA_PERMISSION) == PackageManager.PERMISSION_GRANTED
+        }
+
         setupViews()
         observeData()
     }
@@ -61,43 +64,44 @@ class ProfileFragment : BaseFragment() {
 
 
     private fun setupViews() {
+        context?.let { context ->
+            recyclerView.layoutManager = LinearLayoutManager(context)
+            recyclerView.adapter = walletsAdapter
 
-        recyclerView.layoutManager = LinearLayoutManager(context)
-        recyclerView.adapter = walletsAdapter
-
-        walletsAdapter.setOnDeleteListener { wallet ->
-            val dialog = AlertDialog.Builder(context)
-                    .setTitle(R.string.delete)
-                    .setMessage(R.string.delete_confirmation)
-                    .setNegativeButton(R.string.no, { dialog, _ ->
-                        dialog.dismiss()
-                    })
-                    .setPositiveButton(R.string.yes, {dialog, _ ->
-                        walletsAdapter.deleteWallet(wallet)
-                        dialog.dismiss()
-                    })
-                    .create()
-            dialog.show()
-        }
-
-        scanBtn.setOnClickListener {
-            if (hasCameraPermission) {
-                runQReader()
-            } else {
-                requestPermissions(listOf(ZxingReader.CAMERA_PERMISSION).toTypedArray(), ZxingReader.CAMERA_PERMISSION_CODE)
+            walletsAdapter.setOnDeleteListener { wallet ->
+                val dialog = AlertDialog.Builder(context)
+                        .setTitle(R.string.delete)
+                        .setMessage(R.string.delete_confirmation)
+                        .setNegativeButton(R.string.no, { dialog, _ ->
+                            dialog.dismiss()
+                        })
+                        .setPositiveButton(R.string.yes, {dialog, _ ->
+                            walletsAdapter.deleteWallet(wallet)
+                            dialog.dismiss()
+                        })
+                        .create()
+                dialog.show()
             }
-        }
 
-        walletEt.setOnEditorActionListener(TextView.OnEditorActionListener { _, actionId, _ ->
-            if (actionId == EditorInfo.IME_ACTION_DONE) {
+            scanBtn.setOnClickListener {
+                if (hasCameraPermission) {
+                    runQReader()
+                } else {
+                    requestPermissions(listOf(ZxingReader.CAMERA_PERMISSION).toTypedArray(), ZxingReader.CAMERA_PERMISSION_CODE)
+                }
+            }
+
+            walletEt.setOnEditorActionListener(TextView.OnEditorActionListener { _, actionId, _ ->
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    addWallet()
+                    return@OnEditorActionListener true
+                }
+                return@OnEditorActionListener false
+            })
+
+            addWalletBtn.setOnClickListener {
                 addWallet()
-                return@OnEditorActionListener true
             }
-            return@OnEditorActionListener false
-        })
-
-        addWalletBtn.setOnClickListener {
-            addWallet()
         }
     }
 
@@ -150,11 +154,13 @@ class ProfileFragment : BaseFragment() {
 
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
-        when (requestCode) {
-            ZxingReader.CAMERA_PERMISSION_CODE -> {
-                hasCameraPermission = checkSelfPermission(context, ZxingReader.CAMERA_PERMISSION) == PackageManager.PERMISSION_GRANTED
-                if (hasCameraPermission) {
-                    runQReader()
+        context?.let { context ->
+            when (requestCode) {
+                ZxingReader.CAMERA_PERMISSION_CODE -> {
+                    hasCameraPermission = checkSelfPermission(context, ZxingReader.CAMERA_PERMISSION) == PackageManager.PERMISSION_GRANTED
+                    if (hasCameraPermission) {
+                        runQReader()
+                    }
                 }
             }
         }

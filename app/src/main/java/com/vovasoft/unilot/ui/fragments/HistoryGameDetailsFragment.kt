@@ -45,12 +45,12 @@ class HistoryGameDetailsFragment : BaseFragment(), SearchView.OnQueryTextListene
     private var searchValue: String = ""
 
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater!!.inflate(R.layout.fragment_history_game_details, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_history_game_details, container, false)
     }
 
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         gamesVM = ViewModelProviders.of(activity).get(GamesVM::class.java)
 
@@ -81,9 +81,11 @@ class HistoryGameDetailsFragment : BaseFragment(), SearchView.OnQueryTextListene
                         doAsync {
                             App.database.gameResultsDao().deleteGameResultByGameId(id)
                             uiThread {
-                                val broadcaster = LocalBroadcastManager.getInstance(context)
-                                val broadcastIntent = Intent("news")
-                                broadcaster.sendBroadcast(broadcastIntent)
+                                context?.let { context ->
+                                    val broadcaster = LocalBroadcastManager.getInstance(context)
+                                    val broadcastIntent = Intent("news")
+                                    broadcaster.sendBroadcast(broadcastIntent)
+                                }
                             }
                         }
                     }
@@ -164,11 +166,13 @@ class HistoryGameDetailsFragment : BaseFragment(), SearchView.OnQueryTextListene
 
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
-        when (requestCode) {
-            ZxingReader.CAMERA_PERMISSION_CODE -> {
-                hasCameraPermission = ContextCompat.checkSelfPermission(context, ZxingReader.CAMERA_PERMISSION) == PackageManager.PERMISSION_GRANTED
-                if (hasCameraPermission) {
-                    runQReader()
+        context?.let { context ->
+            when (requestCode) {
+                ZxingReader.CAMERA_PERMISSION_CODE -> {
+                    hasCameraPermission = ContextCompat.checkSelfPermission(context, ZxingReader.CAMERA_PERMISSION) == PackageManager.PERMISSION_GRANTED
+                    if (hasCameraPermission) {
+                        runQReader()
+                    }
                 }
             }
         }

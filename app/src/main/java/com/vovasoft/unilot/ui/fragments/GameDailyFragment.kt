@@ -30,12 +30,12 @@ import kotlinx.android.synthetic.main.fragment_game_daily.*
  ****************************************************************************/
 class GameDailyFragment : GameBaseFragment() {
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater!!.inflate(R.layout.fragment_game_daily, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_game_daily, container, false)
     }
 
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         observeData()
     }
@@ -50,13 +50,17 @@ class GameDailyFragment : GameBaseFragment() {
 
     override fun onStart() {
         super.onStart()
-        LocalBroadcastManager.getInstance(context).registerReceiver(messageReceiver, IntentFilter("daily"))
+        context?.let { context ->
+            LocalBroadcastManager.getInstance(context).registerReceiver(messageReceiver, IntentFilter("daily"))
+        }
     }
 
 
     override fun onStop() {
         super.onStop()
-        LocalBroadcastManager.getInstance(context).unregisterReceiver(messageReceiver)
+        context?.let { context ->
+            LocalBroadcastManager.getInstance(context).unregisterReceiver(messageReceiver)
+        }
     }
 
 
@@ -72,38 +76,40 @@ class GameDailyFragment : GameBaseFragment() {
 
 
     override fun setupViews() {
-        contentFrame.visibility = View.INVISIBLE
-        noContentFrame.visibility = View.VISIBLE
+        context?.let { context ->
+            contentFrame.visibility = View.INVISIBLE
+            noContentFrame.visibility = View.VISIBLE
 
-        game?.let { game ->
-            contentFrame.visibility = View.VISIBLE
-            noContentFrame.visibility = View.INVISIBLE
+            game?.let { game ->
+                contentFrame.visibility = View.VISIBLE
+                noContentFrame.visibility = View.INVISIBLE
 
-            prizeBoard.setCharacterList(TickerUtils.getDefaultListForUSCurrency())
-            prizeBoard.typeface = Typeface.create("sans-serif-light", Typeface.NORMAL)
-            prizeBoard.setText("%.3f".format(game.prizeAmount), true)
+                prizeBoard.setCharacterList(TickerUtils.getDefaultListForUSCurrency())
+                prizeBoard.typeface = Typeface.create("sans-serif-light", Typeface.NORMAL)
+                prizeBoard.setText("%.3f".format(game.prizeAmount), true)
 
-            prizeFiatTv.setCharacterList(TickerUtils.getDefaultListForUSCurrency())
-            prizeFiatTv.typeface = Typeface.create("sans-serif-light", Typeface.NORMAL)
-            prizeFiatTv.setText("$ %.2f".format(game.prizeAmountFiat), true)
+                prizeFiatTv.setCharacterList(TickerUtils.getDefaultListForUSCurrency())
+                prizeFiatTv.typeface = Typeface.create("sans-serif-light", Typeface.NORMAL)
+                prizeFiatTv.setText("$ %.2f".format(game.prizeAmountFiat), true)
 
-            peopleTv.text = game.playersNum.toString()
+                peopleTv.text = game.playersNum.toString()
 
-            if (game.status == Game.Status.PUBLISHED.value) {
-                showPublished()
-            }
-            else {
-                showFinishing()
-            }
-
-            topPlacesBtn.setOnClickListener {
-                val dialog = TopPlacesDialog(context, game)
-                game.id?.let {
-                    gamesVM.getWinners(it).observe(this, Observer { winners ->
-                        dialog.setWinners(winners ?: emptyList())
-                    })
+                if (game.status == Game.Status.PUBLISHED.value) {
+                    showPublished()
                 }
-                dialog.show()
+                else {
+                    showFinishing()
+                }
+
+                topPlacesBtn.setOnClickListener {
+                    val dialog = TopPlacesDialog(context, game)
+                    game.id?.let {
+                        gamesVM.getWinners(it).observe(this, Observer { winners ->
+                            dialog.setWinners(winners ?: emptyList())
+                        })
+                    }
+                    dialog.show()
+                }
             }
         }
     }
@@ -117,7 +123,7 @@ class GameDailyFragment : GameBaseFragment() {
             walletTv.text = game.smartContractId
 
             copyBtn.setOnClickListener {
-                val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                val clipboard = context?.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
                 val clip = ClipData.newPlainText("wallet", walletTv.text)
                 clipboard.primaryClip = clip
                 Toast.makeText(context, R.string.wallet_number_has_been_copied, Toast.LENGTH_SHORT).show()
@@ -142,44 +148,46 @@ class GameDailyFragment : GameBaseFragment() {
 
 
     private fun showPublished() {
-        publishedView.visibility = View.VISIBLE
-        finishingView.visibility = View.GONE
+        context?.let { context ->
+            publishedView.visibility = View.VISIBLE
+            finishingView.visibility = View.GONE
 
-        game?.let { game ->
-            timeProgress?.setProgress(0)
+            game?.let { game ->
+                timeProgress?.setProgress(0)
 
-            countDown = object : CountDownTimer(game.endTime() - System.currentTimeMillis(), 1000) {
-                override fun onTick(millisUntilFinished: Long) {
-                    val seconds = (millisUntilFinished / 1000) % 60
-                    val minutes = (millisUntilFinished / (1000 * 60)) % 60
-                    val hours = (millisUntilFinished / (1000 * 60 * 60))
-                    val progress = ((millisUntilFinished * 100) / (game.endTime() - game.startTime())).toInt()
+                countDown = object : CountDownTimer(game.endTime() - System.currentTimeMillis(), 1000) {
+                    override fun onTick(millisUntilFinished: Long) {
+                        val seconds = (millisUntilFinished / 1000) % 60
+                        val minutes = (millisUntilFinished / (1000 * 60)) % 60
+                        val hours = (millisUntilFinished / (1000 * 60 * 60))
+                        val progress = ((millisUntilFinished * 100) / (game.endTime() - game.startTime())).toInt()
 
-                    view?.let {
-                        timeTv.text = String.format("%02d : %02d : %02d", hours, minutes, seconds)
-                        timeProgress?.setProgress(progress)
+                        view?.let {
+                            timeTv.text = String.format("%02d : %02d : %02d", hours, minutes, seconds)
+                            timeProgress?.setProgress(progress)
+                        }
+                    }
+
+                    override fun onFinish() {
+
                     }
                 }
+                countDown?.start()
 
-                override fun onFinish() {
+                betTv.text = "%.2f Eth".format(game.betAmount)
 
+                participateBtn.setOnClickListener {
+                    val dialog = ParticipateDialog(context, game)
+                    gamesVM.getWallets().observe(this, Observer { wallets ->
+                        wallets?.let {
+                            dialog.hideWarning(wallets.isNotEmpty())
+                        }
+                    })
+                    dialog.show()
+
+                    Answers.getInstance().logCustom(CustomEvent("EVENT_DAILY_PARTICIPATE")
+                            .putCustomAttribute("language", Preferences.instance.language))
                 }
-            }
-            countDown?.start()
-
-            betTv.text = "%.2f Eth".format(game.betAmount)
-
-            participateBtn.setOnClickListener {
-                val dialog = ParticipateDialog(context, game)
-                gamesVM.getWallets().observe(this, Observer { wallets ->
-                    wallets?.let {
-                        dialog.hideWarning(wallets.isNotEmpty())
-                    }
-                })
-                dialog.show()
-
-                Answers.getInstance().logCustom(CustomEvent("EVENT_DAILY_PARTICIPATE")
-                        .putCustomAttribute("language", Preferences.instance.language))
             }
         }
     }

@@ -30,12 +30,12 @@ import kotlinx.android.synthetic.main.fragment_game_monthly.*
  ****************************************************************************/
 class GameMonthlyFragment : GameBaseFragment() {
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater!!.inflate(R.layout.fragment_game_monthly, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_game_monthly, container, false)
     }
 
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         observeData()
     }
@@ -50,13 +50,17 @@ class GameMonthlyFragment : GameBaseFragment() {
 
     override fun onStart() {
         super.onStart()
-        LocalBroadcastManager.getInstance(context).registerReceiver(messageReceiver, IntentFilter("monthly"))
+        context?.let { context ->
+            LocalBroadcastManager.getInstance(context).registerReceiver(messageReceiver, IntentFilter("monthly"))
+        }
     }
 
 
     override fun onStop() {
         super.onStop()
-        LocalBroadcastManager.getInstance(context).unregisterReceiver(messageReceiver)
+        context?.let { context ->
+            LocalBroadcastManager.getInstance(context).unregisterReceiver(messageReceiver)
+        }
     }
 
 
@@ -72,38 +76,40 @@ class GameMonthlyFragment : GameBaseFragment() {
 
 
     override fun setupViews() {
-        contentFrame.visibility = View.INVISIBLE
-        noContentFrame.visibility = View.VISIBLE
+        context?.let { context ->
+            contentFrame.visibility = View.INVISIBLE
+            noContentFrame.visibility = View.VISIBLE
 
-        game?.let { game ->
-            contentFrame.visibility = View.VISIBLE
-            noContentFrame.visibility = View.INVISIBLE
+            game?.let { game ->
+                contentFrame.visibility = View.VISIBLE
+                noContentFrame.visibility = View.INVISIBLE
 
-            prizeBoard.setCharacterList(TickerUtils.getDefaultListForUSCurrency())
-            prizeBoard.typeface = Typeface.create("sans-serif-light", Typeface.NORMAL)
-            prizeBoard.setText("%.3f".format(game.prizeAmount), true)
+                prizeBoard.setCharacterList(TickerUtils.getDefaultListForUSCurrency())
+                prizeBoard.typeface = Typeface.create("sans-serif-light", Typeface.NORMAL)
+                prizeBoard.setText("%.3f".format(game.prizeAmount), true)
 
-            prizeFiatTv.setCharacterList(TickerUtils.getDefaultListForUSCurrency())
-            prizeFiatTv.typeface = Typeface.create("sans-serif-light", Typeface.NORMAL)
-            prizeFiatTv.setText("$ %.2f".format(game.prizeAmountFiat), true)
+                prizeFiatTv.setCharacterList(TickerUtils.getDefaultListForUSCurrency())
+                prizeFiatTv.typeface = Typeface.create("sans-serif-light", Typeface.NORMAL)
+                prizeFiatTv.setText("$ %.2f".format(game.prizeAmountFiat), true)
 
-            peopleTv.text = game.playersNum.toString()
+                peopleTv.text = game.playersNum.toString()
 
-            if (game.status == Game.Status.PUBLISHED.value) {
-                showPublished()
-            }
-            else {
-                showFinishing()
-            }
-
-            topPlacesBtn.setOnClickListener {
-                val dialog = TopPlacesDialog(context, game)
-                game.id?.let {
-                    gamesVM.getWinners(it).observe(this, Observer { winners ->
-                        dialog.setWinners(winners ?: emptyList())
-                    })
+                if (game.status == Game.Status.PUBLISHED.value) {
+                    showPublished()
                 }
-                dialog.show()
+                else {
+                    showFinishing()
+                }
+
+                topPlacesBtn.setOnClickListener {
+                    val dialog = TopPlacesDialog(context, game)
+                    game.id?.let {
+                        gamesVM.getWinners(it).observe(this, Observer { winners ->
+                            dialog.setWinners(winners ?: emptyList())
+                        })
+                    }
+                    dialog.show()
+                }
             }
         }
     }
@@ -117,7 +123,7 @@ class GameMonthlyFragment : GameBaseFragment() {
             walletTv.text = game.smartContractId
 
             copyBtn.setOnClickListener {
-                val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                val clipboard = context?.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
                 val clip = ClipData.newPlainText("wallet", walletTv.text)
                 clipboard.primaryClip = clip
                 Toast.makeText(context, R.string.wallet_number_has_been_copied, Toast.LENGTH_SHORT).show()
@@ -142,26 +148,28 @@ class GameMonthlyFragment : GameBaseFragment() {
 
 
     private fun showPublished() {
-        publishedView.visibility = View.VISIBLE
-        finishingView.visibility = View.GONE
+        context?.let { context ->
+            publishedView.visibility = View.VISIBLE
+            finishingView.visibility = View.GONE
 
-        game?.let { game ->
+            game?.let { game ->
 
-            val days = (game.endTime() - System.currentTimeMillis()) / (1000 * 60 * 60 * 24)
-            daysBoard.setCharacterList(TickerUtils.getDefaultListForUSCurrency())
-            daysBoard.typeface = Typeface.create("sans-serif-light", Typeface.NORMAL)
-            daysBoard.setText("%02d".format(days), true)
-            mutableDaysTv.text = daysPlural(context, days.toInt(), getString(R.string.mutable_days))
+                val days = (game.endTime() - System.currentTimeMillis()) / (1000 * 60 * 60 * 24)
+                daysBoard.setCharacterList(TickerUtils.getDefaultListForUSCurrency())
+                daysBoard.typeface = Typeface.create("sans-serif-light", Typeface.NORMAL)
+                daysBoard.setText("%02d".format(days), true)
+                mutableDaysTv.text = daysPlural(context, days.toInt(), getString(R.string.mutable_days))
 
-            infoBtn.setOnClickListener {
-                AlertDialog.Builder(context)
-                        .setTitle(R.string.how_does_it_work)
-                        .setMessage(R.string.how_does_it_work_text)
-                        .setPositiveButton(R.string.ok) { dialog, _ -> dialog.dismiss() }
-                        .create().show()
+                infoBtn.setOnClickListener {
+                    AlertDialog.Builder(context)
+                            .setTitle(R.string.how_does_it_work)
+                            .setMessage(R.string.how_does_it_work_text)
+                            .setPositiveButton(R.string.ok) { dialog, _ -> dialog.dismiss() }
+                            .create().show()
 
-                Answers.getInstance().logCustom(CustomEvent("EVENT_BONUS_HOWTO")
-                        .putCustomAttribute("language", Preferences.instance.language))
+                    Answers.getInstance().logCustom(CustomEvent("EVENT_BONUS_HOWTO")
+                            .putCustomAttribute("language", Preferences.instance.language))
+                }
             }
         }
     }

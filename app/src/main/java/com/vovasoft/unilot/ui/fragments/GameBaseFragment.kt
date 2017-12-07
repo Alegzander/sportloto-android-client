@@ -58,9 +58,11 @@ abstract class GameBaseFragment : BaseFragment() {
     }
 
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        broadcaster = LocalBroadcastManager.getInstance(context)
+        context?.let { context ->
+            broadcaster = LocalBroadcastManager.getInstance(context)
+        }
         gamesVM = ViewModelProviders.of(activity).get(GamesVM::class.java)
     }
 
@@ -118,67 +120,69 @@ abstract class GameBaseFragment : BaseFragment() {
 
 
     private fun showResultDialog(result: GameResult, resultCallback: (Boolean) -> Unit) {
-        gamesVM.getGameById(result.gameId!!, object : RepositoryCallback<Game?> {
-            override fun done(data: Game?) {
-                data?.let {
-                    if (it.type == data.type) {
-                        var showNext = true
-                        when {
-                            result.position!! > 0 -> {
-                                val dialog = WinnerDialog(context, result)
-                                dialog.setOnDismissListener {
-                                    sendNewsCountBroadcastIntent()
-                                    resultCallback(showNext)
-                                }
-
-                                dialog.setonHistoryListener {
-                                    showNext = false
-                                    gamesVM.selectedHistoryGame = data
-                                    dialog.dismiss()
-                                    AppFragmentManager.instance.openFragment(HistoryGameDetailsFragment(), true)
-                                }
-                                dialog.show()
-                            }
-                            result.position!! == 0 -> {
-                                val dialog = LooserDialog(context, it)
-                                dialog.setOnDismissListener {
-                                    sendNewsCountBroadcastIntent()
-                                    resultCallback(showNext)
-                                }
-
-                                gamesVM.getMonthlyGame().observe(this@GameBaseFragment, Observer { bonusGame ->
-                                    bonusGame?.let {
-                                        dialog.setDays(it.endTime())
+        context?.let { context ->
+            gamesVM.getGameById(result.gameId!!, object : RepositoryCallback<Game?> {
+                override fun done(data: Game?) {
+                    data?.let {
+                        if (it.type == data.type) {
+                            var showNext = true
+                            when {
+                                result.position!! > 0 -> {
+                                    val dialog = WinnerDialog(context, result)
+                                    dialog.setOnDismissListener {
+                                        sendNewsCountBroadcastIntent()
+                                        resultCallback(showNext)
                                     }
-                                })
-                                dialog.setonHistoryListener {
-                                    showNext = false
-                                    gamesVM.selectedHistoryGame = data
-                                    dialog.dismiss()
-                                    AppFragmentManager.instance.openFragment(HistoryGameDetailsFragment(), true)
-                                }
-                                dialog.show()
-                            }
-                            else -> {
-                                val dialog = UnknownStatusDialog(context, it)
-                                dialog.setOnDismissListener {
-                                    sendNewsCountBroadcastIntent()
-                                    resultCallback(showNext)
-                                }
 
-                                dialog.setOnHistoryListener {
-                                    showNext = false
-                                    gamesVM.selectedHistoryGame = data
-                                    dialog.dismiss()
-                                    AppFragmentManager.instance.openFragment(HistoryGameDetailsFragment(), true)
+                                    dialog.setonHistoryListener {
+                                        showNext = false
+                                        gamesVM.selectedHistoryGame = data
+                                        dialog.dismiss()
+                                        AppFragmentManager.instance.openFragment(HistoryGameDetailsFragment(), true)
+                                    }
+                                    dialog.show()
                                 }
-                                dialog.show()
+                                result.position!! == 0 -> {
+                                    val dialog = LooserDialog(context, it)
+                                    dialog.setOnDismissListener {
+                                        sendNewsCountBroadcastIntent()
+                                        resultCallback(showNext)
+                                    }
+
+                                    gamesVM.getMonthlyGame().observe(this@GameBaseFragment, Observer { bonusGame ->
+                                        bonusGame?.let {
+                                            dialog.setDays(it.endTime())
+                                        }
+                                    })
+                                    dialog.setonHistoryListener {
+                                        showNext = false
+                                        gamesVM.selectedHistoryGame = data
+                                        dialog.dismiss()
+                                        AppFragmentManager.instance.openFragment(HistoryGameDetailsFragment(), true)
+                                    }
+                                    dialog.show()
+                                }
+                                else -> {
+                                    val dialog = UnknownStatusDialog(context, it)
+                                    dialog.setOnDismissListener {
+                                        sendNewsCountBroadcastIntent()
+                                        resultCallback(showNext)
+                                    }
+
+                                    dialog.setOnHistoryListener {
+                                        showNext = false
+                                        gamesVM.selectedHistoryGame = data
+                                        dialog.dismiss()
+                                        AppFragmentManager.instance.openFragment(HistoryGameDetailsFragment(), true)
+                                    }
+                                    dialog.show()
+                                }
                             }
                         }
                     }
                 }
-            }
-        })
+            })
+        }
     }
 
 
