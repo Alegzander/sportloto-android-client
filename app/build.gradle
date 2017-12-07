@@ -17,8 +17,8 @@ android {
         applicationId "com.vovasoft.unilot"
         minSdkVersion 16
         targetSdkVersion 27
-        versionCode 1511
-        versionName "1.5.1.1"
+        versionCode 1512
+        versionName "1.5.1.2"
         vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
