@@ -1,9 +1,8 @@
 <resources>
     <string name="app_name">Unilot</string>
     <string name="grant_type">client_credentials</string>
-    <string name="presentation_url">https://unilot.io//static/files/UNILOT_RUS.pdf</string>
     <string name="faq_url">https://dev.unilot.io/ru/mobile/faq</string>
-    <string name="unilot_url">https://unilot.io/ru/</string>
+    <string name="unilot_url">https://unilot.io/ru-ru</string>
     <string name="ok">OK</string>
     <string name="daily">Дневная</string>
     <string name="weekly">Недельная</string>
@@ -23,7 +22,7 @@
     <string name="statistic">Статистика</string>
     <string name="how_it_works">Как это работает?</string>
     <string name="faq">ЧАВО</string>
-    <string name="white_paper">Презентация</string>
+    <string name="white_paper">White Paper</string>
     <string name="settings">Настройки</string>
     <string name="be_aware">Оставайтесь в курсе:</string>
     <string name="blockchain_based_lottery">Блокчейн-лотерея</string>

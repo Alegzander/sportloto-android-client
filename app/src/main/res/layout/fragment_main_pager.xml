@@ -60,7 +60,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/infoBtn"
                 app:layout_constraintStart_toEndOf="@+id/drawerBtn"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/logo" />
+                app:srcCompat="@drawable/logo_beta" />
 
             <android.support.v7.widget.AppCompatImageButton
                 android:id="@+id/infoBtn"

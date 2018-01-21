@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/view_dark_background">
@@ -12,22 +11,13 @@
         android:orientation="vertical"
         android:paddingEnd="24dp"
         android:paddingStart="24dp"
-        android:paddingTop="64dp">
+        android:paddingTop="52dp">
 
         <android.support.v7.widget.AppCompatImageView
             android:layout_width="wrap_content"
-            android:layout_height="28dp"
+            android:layout_height="32dp"
             android:scaleType="fitStart"
-            app:srcCompat="@drawable/logo" />
-
-        <android.support.v7.widget.AppCompatTextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="@string/blockchain_based_lottery"
-            android:textColor="@color/colorLightGray"
-            android:textSize="12sp"
-            app:fontFamily="@font/roboto_light" />
+            app:srcCompat="@drawable/logo_beta" />
 
         <View
             android:layout_width="128dp"
@@ -208,7 +198,7 @@
             android:layout_width="match_parent"
             android:layout_height="120dp"
             android:scaleType="fitStart"
-            app:srcCompat="@drawable/soon" />
+            app:srcCompat="@drawable/gotoio" />
 
         <android.support.v7.widget.AppCompatTextView
             android:layout_width="wrap_content"
@@ -230,10 +220,9 @@
                 android:id="@+id/facebookBtn"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:padding="12dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginRight="8dp"
-                android:background="@drawable/view_square_rounded_gray_stroke"
+                android:background="@drawable/view_square_rounded_gray"
                 android:scaleType="fitCenter"
                 app:srcCompat="@drawable/ic_facebook" />
 
@@ -241,10 +230,9 @@
                 android:id="@+id/telecgramBtn"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:padding="12dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginRight="8dp"
-                android:background="@drawable/view_square_rounded_gray_stroke"
+                android:background="@drawable/view_square_rounded_gray"
                 android:scaleType="fitCenter"
                 app:srcCompat="@drawable/ic_telegram" />
 
@@ -252,10 +240,9 @@
                 android:id="@+id/redditBtn"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:padding="12dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginRight="8dp"
-                android:background="@drawable/view_square_rounded_gray_stroke"
+                android:background="@drawable/view_square_rounded_gray"
                 android:scaleType="fitCenter"
                 app:srcCompat="@drawable/ic_reddit" />
 
@@ -263,12 +250,60 @@
                 android:id="@+id/twitterBtn"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:padding="12dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginRight="8dp"
-                android:background="@drawable/view_square_rounded_gray_stroke"
+                android:background="@drawable/view_square_rounded_gray"
                 android:scaleType="fitCenter"
                 app:srcCompat="@drawable/ic_twitter" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:orientation="horizontal">
+
+            <android.support.v7.widget.AppCompatImageButton
+                android:id="@+id/steemitBtn"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:background="@drawable/view_square_rounded_gray"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/ic_steemit" />
+
+            <android.support.v7.widget.AppCompatImageButton
+                android:id="@+id/mediumBtn"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:background="@drawable/view_square_rounded_gray"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/ic_medium" />
+
+            <android.support.v7.widget.AppCompatImageButton
+                android:id="@+id/linkedinBtn"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:background="@drawable/view_square_rounded_gray"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/ic_linkedin" />
+
+            <android.support.v7.widget.AppCompatImageButton
+                android:id="@+id/youtubeBtn"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:background="@drawable/view_square_rounded_gray"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/ic_youtube" />
 
         </LinearLayout>
 

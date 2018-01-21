@@ -20,6 +20,7 @@ import com.crashlytics.android.answers.Answers
 import com.crashlytics.android.answers.CustomEvent
 import com.google.firebase.iid.FirebaseInstanceId
 import com.vovasoft.unilot.App
+import com.vovasoft.unilot.BuildConfig
 import com.vovasoft.unilot.R
 import com.vovasoft.unilot.components.NetworkStateReceiver
 import com.vovasoft.unilot.components.Preferences
@@ -198,10 +199,10 @@ class MainActivity : AppCompatActivity(), NetworkStateReceiver.ReceiverCallback 
         }
 
         whitepaperBtn.setOnClickListener {
-            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.presentation_url)))
+            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(BuildConfig.WP_URL))
             startActivity(browserIntent)
             drawerLayout.closeDrawers()
-            Answers.getInstance().logCustom(CustomEvent("EVENT_PRESENTATION")
+            Answers.getInstance().logCustom(CustomEvent("EVENT_WHITE_PAPER")
                     .putCustomAttribute("language", Preferences.instance.language))
         }
 
@@ -225,23 +226,51 @@ class MainActivity : AppCompatActivity(), NetworkStateReceiver.ReceiverCallback 
         }
 
         telecgramBtn.setOnClickListener {
-            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://t.me/unilot_channel/"))
+            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://t.me/Uniloteng"))
             startActivity(browserIntent)
             Answers.getInstance().logCustom(CustomEvent("EVENT_TG")
                     .putCustomAttribute("language", Preferences.instance.language))
         }
 
         redditBtn.setOnClickListener {
-            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.reddit.com/user/unilot_lottery/"))
+            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.reddit.com/r/Unilot/"))
             startActivity(browserIntent)
             Answers.getInstance().logCustom(CustomEvent("EVENT_REDDIT")
                     .putCustomAttribute("language", Preferences.instance.language))
         }
 
         twitterBtn.setOnClickListener {
-            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://twitter.com/unilot_lottery/"))
+            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://twitter.com/unilot_platform"))
             startActivity(browserIntent)
             Answers.getInstance().logCustom(CustomEvent("EVENT_TWITTER")
+                    .putCustomAttribute("language", Preferences.instance.language))
+        }
+
+        steemitBtn.setOnClickListener {
+            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://steemit.com/@unilot"))
+            startActivity(browserIntent)
+            Answers.getInstance().logCustom(CustomEvent("EVENT_STEEMIT")
+                    .putCustomAttribute("language", Preferences.instance.language))
+        }
+
+        mediumBtn.setOnClickListener {
+            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://medium.com/@unilot"))
+            startActivity(browserIntent)
+            Answers.getInstance().logCustom(CustomEvent("EVENT_MEDIUM")
+                    .putCustomAttribute("language", Preferences.instance.language))
+        }
+
+        linkedinBtn.setOnClickListener {
+            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.linkedin.com/company/unilot"))
+            startActivity(browserIntent)
+            Answers.getInstance().logCustom(CustomEvent("EVENT_LINKEDIN")
+                    .putCustomAttribute("language", Preferences.instance.language))
+        }
+
+        youtubeBtn.setOnClickListener {
+            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/channel/UCNdn2maOQEbYwpNK4Yaoxqw"))
+            startActivity(browserIntent)
+            Answers.getInstance().logCustom(CustomEvent("EVENT_YOUTUBE")
                     .putCustomAttribute("language", Preferences.instance.language))
         }
 
