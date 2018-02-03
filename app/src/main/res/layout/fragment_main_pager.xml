@@ -63,7 +63,7 @@
                 app:srcCompat="@drawable/logo_beta" />
 
             <android.support.v7.widget.AppCompatImageButton
-                android:id="@+id/infoBtn"
+                android:id="@+id/profileBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
@@ -71,7 +71,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_info" />
+                app:srcCompat="@drawable/ic_profile_orange" />
 
             <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/markerLabel"
@@ -135,7 +135,7 @@
             <android.support.design.widget.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:icon="@drawable/ic_profile_gray"
+                android:icon="@drawable/ic_token_gray"
                 android:text="@string/profile" />
         </android.support.design.widget.TabLayout>
 

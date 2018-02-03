@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import com.crashlytics.android.answers.Answers
 import com.crashlytics.android.answers.CustomEvent
 import com.vovasoft.unilot.R
+import com.vovasoft.unilot.components.AppFragmentManager
 import com.vovasoft.unilot.components.Preferences
-import com.vovasoft.unilot.ui.AppFragmentManager
 import kotlinx.android.synthetic.main.fragment_settings.*
 
 

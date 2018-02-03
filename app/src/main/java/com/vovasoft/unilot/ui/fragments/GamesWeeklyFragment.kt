@@ -18,8 +18,12 @@ import com.crashlytics.android.answers.Answers
 import com.crashlytics.android.answers.CustomEvent
 import com.robinhood.ticker.TickerUtils
 import com.vovasoft.unilot.R
+import com.vovasoft.unilot.components.AppFragmentManager
 import com.vovasoft.unilot.components.Preferences
+import com.vovasoft.unilot.components.RevealAnimationSetting
+import com.vovasoft.unilot.repository.Reactive
 import com.vovasoft.unilot.repository.models.entities.Game
+import com.vovasoft.unilot.repository.models.entities.Wallet
 import com.vovasoft.unilot.ui.dialogs.ParticipateDialog
 import com.vovasoft.unilot.ui.dialogs.TopPlacesDialog
 import kotlinx.android.synthetic.main.fragment_game_weekly.*
@@ -179,12 +183,30 @@ class GamesWeeklyFragment : GameBaseFragment() {
 
                 participateBtn.setOnClickListener {
                     val dialog = ParticipateDialog(context, game)
-                    gamesVM.getWallets().observe(this, Observer { wallets ->
-                        wallets?.let {
-                            dialog.hideWarning(wallets.isNotEmpty())
+                    gamesVM.getWallets(object : Reactive<List<Wallet>?> {
+                        override fun done(data: List<Wallet>?) {
+                            data?.let {
+                                if (data.isNotEmpty()) {
+                                    dialog.show()
+                                }
+                                else {
+                                    view?.let {
+                                        val fragment = ProfileFragment.newInstance(RevealAnimationSetting(
+                                                activity.window.decorView.width,
+                                                0,
+                                                activity.window.decorView.width.toDouble(),
+                                                activity.window.decorView.height.toDouble()
+                                        ))
+
+                                        AppFragmentManager.instance.openFragment(fragment, true)
+                                        Answers.getInstance().logCustom(CustomEvent("EVENT_PROFILE")
+                                                .putCustomAttribute("language", Preferences.instance.language))
+
+                                    }
+                                }
+                            }
                         }
                     })
-                    dialog.show()
 
                     Answers.getInstance().logCustom(CustomEvent("EVENT_WEEKLY_PARTICIPATE")
                             .putCustomAttribute("language", Preferences.instance.language))

@@ -19,7 +19,7 @@ import com.vovasoft.unilot.App
 import com.vovasoft.unilot.R
 import com.vovasoft.unilot.components.Preferences
 import com.vovasoft.unilot.repository.AppRepository
-import com.vovasoft.unilot.repository.RepositoryCallback
+import com.vovasoft.unilot.repository.Reactive
 import com.vovasoft.unilot.repository.models.GsonModel
 import com.vovasoft.unilot.repository.models.entities.Game
 import com.vovasoft.unilot.repository.models.entities.GameResult
@@ -131,11 +131,11 @@ class NotificationMessagingService : FirebaseMessagingService() {
             val result = GsonModel.fromJson(jsonData, Result::class.java)
             result.gameId?.let { gameId ->
 
-                appRepo.getRemoteGameById(gameId, object : RepositoryCallback<Game?> {
+                appRepo.getRemoteGameById(gameId, object : Reactive<Game?> {
                     override fun done(game: Game?) {
                         game?.let {
                             game.saveAsync()
-                            appRepo.getWalletsNumbers(object : RepositoryCallback<List<String>?> {
+                            appRepo.getWalletsNumbers(object : Reactive<List<String>?> {
                                 override fun done(wallets: List<String>?) {
                                     if (wallets.orEmpty().isNotEmpty()) {
                                         var isWinner = false
@@ -146,7 +146,7 @@ class NotificationMessagingService : FirebaseMessagingService() {
                                         }
 
                                         if (isWinner) {
-                                            appRepo.getRemoteWinners(gameId, object : RepositoryCallback<List<Winner>?> {
+                                            appRepo.getRemoteWinners(gameId, object : Reactive<List<Winner>?> {
                                                 override fun done(winnersData: List<Winner>?) {
                                                     winnersData?.let { winners ->
                                                         wallets?.forEach { wallet ->
@@ -207,6 +207,7 @@ class NotificationMessagingService : FirebaseMessagingService() {
             Game.Type.DAILY.value -> Intent("daily")
             Game.Type.WEEKLY.value -> Intent("weekly")
             Game.Type.MONTHLY.value -> Intent("monthly")
+            Game.Type.TOKEN.value -> Intent("token")
             else -> null
         }
 
@@ -241,6 +242,9 @@ class NotificationMessagingService : FirebaseMessagingService() {
                     Gson().fromJson(messageBody, JsonObject::class.java)?.get(Preferences.instance.language)?.asString
                 }
                 else if (type == Game.Type.MONTHLY.value && Preferences.instance.monthLotteryNotify) {
+                    Gson().fromJson(messageBody, JsonObject::class.java)?.get(Preferences.instance.language)?.asString
+                }
+                else if (type == Game.Type.TOKEN.value && Preferences.instance.tokenLotteryNotify) {
                     Gson().fromJson(messageBody, JsonObject::class.java)?.get(Preferences.instance.language)?.asString
                 }
                 else {

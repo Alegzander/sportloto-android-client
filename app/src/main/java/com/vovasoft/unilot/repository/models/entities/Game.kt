@@ -63,6 +63,7 @@ data class Game(@SerializedName("id")
         DAILY,
         WEEKLY,
         MONTHLY,
+        TOKEN,
         UNKNOWN;
 
         companion object {
@@ -71,6 +72,7 @@ data class Game(@SerializedName("id")
                     10 -> return DAILY
                     30 -> return WEEKLY
                     50 -> return MONTHLY
+                    70 -> return TOKEN
                     else -> UNKNOWN
                 }
             }
@@ -82,6 +84,7 @@ data class Game(@SerializedName("id")
                     DAILY -> 10
                     WEEKLY -> 30
                     MONTHLY -> 50
+                    TOKEN -> 70
                     else -> -1
                 }
             }

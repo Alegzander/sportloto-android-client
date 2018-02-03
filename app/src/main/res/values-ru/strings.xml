@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">Unilot</string>
+    <string name="unilot_app">Unilot® App</string>
+    <string name="version" formatted="false">Version: %s Closed Beta</string>
     <string name="grant_type">client_credentials</string>
     <string name="faq_url">https://dev.unilot.io/ru/mobile/faq</string>
     <string name="unilot_url">https://unilot.io/ru-ru</string>
@@ -7,6 +9,7 @@
     <string name="daily">Дневная</string>
     <string name="weekly">Недельная</string>
     <string name="monthly_bonus">Бонусная</string>
+    <string name="token">Токен</string>
     <string name="profile">Профиль</string>
     <string name="daily_lottery">Дневная лотерея</string>
     <string name="prize_fund">Призовой фонд</string>
@@ -29,9 +32,10 @@
     <string name="english">English</string>
     <string name="russian">Русский</string>
     <string name="deutsch">Deutsch</string>
-    <string name="no_games_for_today">Сегодня розыгрыша нет</string>
-    <string name="no_weekly_games">На этой неделе розыгрыша нет</string>
-    <string name="no_bonus_games">Бонусного розыгрыша нет</string>
+    <string name="no_games_for_today">Сегодня розыгрыша пока нет</string>
+    <string name="no_weekly_games">На этой неделе розыгрыша пока нет</string>
+    <string name="no_bonus_games">Бонусного розыгрыша пока нет</string>
+    <string name="no_token_games">Розыгрыша токенов пока нет</string>
     <string name="eth">Eth</string>
     <string name="participate">Принять участие</string>
     <string name="top_places">Призовые места</string>
@@ -76,7 +80,7 @@
     <string name="you_automatically_participate_in_bonus_drawing_that_will_run_in">Вы автоматически становитесь участником бонусной лотереи, которая состоится через:</string>
     <string name="how_does_it_work">Как это работает:</string>
     <string name="how_does_it_work_text">1. Выберите тип розыгрыша: Дневная, Недельная.\n2. Оплатите стоимость билета.\n3. Ожидайте результат.\n\nСистема сама случайным образом выбирает пользователей, между которыми разделит призовой фонд розыгрыша.\n\nВо время розыгрыша вы можете ознакомиться с количеством призовых мест и суммой призовых в соответствующем разделе приложения: Дневная, Недельная, Бонусная. Списки постоянно изменяются в зависимости от количества участников.\n\nВсе пользователи, которые не стали победителями в Дневных и Недельных розыгрышах, в течение месяца автоматически становятся участниками Бонусного Ежемесячного розыгрыша бесплатно!</string>
-    <string name="after_pay_rules">После оплаты вернитесь в приложение и зарегистрируйте свой кошелек.</string>
+    <string name="payment_attention">Убедитесь что вы совершаете оплату с кошелька, который зарегистрирован в профиле.</string>
     <string name="wallet_not_found">Так как вы не зарегистрировали ваш кошелек, ваш статус незвестен.\nПроверьте историю розыгрыша</string>
     <string name="drawing_from">Розыгрыш от:</string>
     <string name="jackpot">ДЖЕКПОТ</string>
@@ -96,11 +100,17 @@
     <string name="goto_googleplay">Перейти в Google Play</string>
     <string name="all">Все</string>
     <string name="tutorial_step_1">Чтобы принять участие в лотереях, сначала выберите тип: Дневная, Недельная. Нажмите на экране лотереи на кнопку “Принять участие”.</string>
-    <string name="tutorial_step_2">После этого появится адрес кошелька, на который нужно отправить средства для участия в розыгрыше. Скопируйте его.</string>
-    <string name="tutorial_step_3">Перейдите в ваш кошелек и отправьте указанную для участия в лотерее сумму на адрес кошелька, который вы скопировали.</string>
-    <string name="tutorial_step_4">Вернитесь в приложение, зайдите в Профиль и добавьте адрес кошелька, с которого произвели оплату. Теперь вы сможете получать уведомления.</string>
-    <string name="tutorial_step_5">Ожидайте результатов. Если вы не стали победителем в Дневной или Недельной лотереях, вы автоматически становитесь участником Бонусного розыгрыша.</string>
+    <string name="tutorial_step_2">Производите оплату только с приватных криптокошельков, к которым у вас есть закрытый ключ! Используя биржевые кошельки, вы не сможете получить ни выигрыш, ни бонусные токены.</string>
+    <string name="tutorial_step_3">Здесь вы найдете адрес кошелька, на который необходимо перевести указанное количество средств для участия. Пожалуйста, скопируйте его.</string>
+    <string name="tutorial_step_4">Чтобы принять участие в розыгрыше, необходимо отправить ETH с вашего криптокошелька на адрес розыгрыша Unilot.</string>
+    <string name="tutorial_step_5">Перейдите в ваш кошелек и отправьте указанную для участия в лотерее сумму на адрес кошелька, который вы скопировали.</string>
+    <string name="tutorial_step_6">Вернитесь в приложение, зайдите в Профиль и добавьте адрес кошелька, с которого произвели оплату. Теперь вы сможете получать уведомления.</string>
+    <string name="tutorial_step_7">Ожидайте результатов. Если вы не стали победителем в Дневной или Недельной лотереях, вы автоматически становитесь участником Бонусного розыгрыша.</string>
     <string name="skip">Закрыть</string>
     <string name="want_know_more">Хочу знать больше</string>
     <string name="letsgo">Погнали!</string>
+    <string name="wallets_attention">Прежде чем принять участие, вам необходимо указать номер кошелька с которого будет производится оплата</string>
+    <string name="attention">Внимание!</string>
+    <string name="invalid_wallet_number">Неверный номер кошелька</string>
+
 </resources>

@@ -9,12 +9,12 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.support.v4.content.LocalBroadcastManager
 import android.view.View
+import com.vovasoft.unilot.components.AppFragmentManager
 import com.vovasoft.unilot.notifications.NotificationMessagingService
-import com.vovasoft.unilot.repository.RepositoryCallback
+import com.vovasoft.unilot.repository.Reactive
 import com.vovasoft.unilot.repository.models.GsonModel
 import com.vovasoft.unilot.repository.models.entities.Game
 import com.vovasoft.unilot.repository.models.entities.GameResult
-import com.vovasoft.unilot.ui.AppFragmentManager
 import com.vovasoft.unilot.ui.dialogs.LooserDialog
 import com.vovasoft.unilot.ui.dialogs.UnknownStatusDialog
 import com.vovasoft.unilot.ui.dialogs.WinnerDialog
@@ -91,7 +91,7 @@ abstract class GameBaseFragment : BaseFragment() {
     private fun fetchGameResults() {
         if (isOnScreen && isCreated && allowDialogs) {
             allowDialogs = false
-            gamesVM.getNewResults(object: RepositoryCallback<Queue<GameResult>> {
+            gamesVM.getNewResults(object: Reactive<Queue<GameResult>> {
                 override fun done(data: Queue<GameResult>?) {
                     data?.let { queue ->
                         proceedGameResult(queue)
@@ -108,7 +108,7 @@ abstract class GameBaseFragment : BaseFragment() {
             allowDialogs = true
         }
         else {
-            gamesVM.getGameById(result.gameId!!, object : RepositoryCallback<Game?> {
+            gamesVM.getGameById(result.gameId!!, object : Reactive<Game?> {
                 override fun done(data: Game?) {
                     data?.let { resultGame ->
                         showResultDialog(result, resultGame, { next ->

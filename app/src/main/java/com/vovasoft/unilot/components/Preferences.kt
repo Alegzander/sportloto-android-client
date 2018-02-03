@@ -63,6 +63,11 @@ class Preferences private constructor() {
         get() = sharedPreferences.getBoolean("month_lottery_notify", true)
 
 
+    var tokenLotteryNotify: Boolean
+        set(value) = sharedPreferences.edit().putBoolean("token_lottery_notify", value).apply()
+        get() = sharedPreferences.getBoolean("token_lottery_notify", true)
+
+
     var language: String
         set(value) = sharedPreferences.edit().putString("language", value).apply()
         get() = sharedPreferences.getString("language", Locale.getDefault().language)

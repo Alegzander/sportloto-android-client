@@ -6,8 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.vovasoft.unilot.R
+import com.vovasoft.unilot.components.AppFragmentManager
 import com.vovasoft.unilot.components.AppWebViewClients
-import com.vovasoft.unilot.ui.AppFragmentManager
 import kotlinx.android.synthetic.main.fragment_faq.*
 
 

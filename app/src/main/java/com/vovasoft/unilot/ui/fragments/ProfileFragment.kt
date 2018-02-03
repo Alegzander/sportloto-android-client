@@ -17,7 +17,10 @@ import android.widget.TextView
 import com.crashlytics.android.answers.Answers
 import com.crashlytics.android.answers.CustomEvent
 import com.vovasoft.unilot.R
+import com.vovasoft.unilot.components.AnimationUtils
+import com.vovasoft.unilot.components.AppFragmentManager
 import com.vovasoft.unilot.components.Preferences
+import com.vovasoft.unilot.components.RevealAnimationSetting
 import com.vovasoft.unilot.repository.models.entities.Wallet
 import com.vovasoft.unilot.ui.recycler_adapters.WalletsRecyclerAdapter
 import com.vovasoft.unilot.ui.widgets.ZxingReader
@@ -37,14 +40,34 @@ class ProfileFragment : BaseFragment() {
     private val walletsAdapter = WalletsRecyclerAdapter()
     private var hasCameraPermission = false
 
+    companion object {
+        fun newInstance(animationSettings: RevealAnimationSetting?): ProfileFragment {
+            val fragment = ProfileFragment()
+
+            val args = Bundle()
+            args.putParcelable("animation", animationSettings)
+            fragment.arguments = args
+
+            return fragment
+        }
+    }
+
+    private val animationSettings: RevealAnimationSetting?
+        get() = arguments?.getParcelable("animation")
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater!!.inflate(R.layout.fragment_profile, container, false)
+        return inflater.inflate(R.layout.fragment_profile, container, false)
     }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        lockDrawerMode(true)
+
+        animationSettings?.let {
+            AnimationUtils.registerCircularRevealAnimation(context, view, it)
+        }
+
         gamesVM = ViewModelProviders.of(activity).get(GamesVM::class.java)
 
         context?.let { context ->
@@ -55,16 +78,12 @@ class ProfileFragment : BaseFragment() {
         observeData()
     }
 
-
-    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
-        super.setUserVisibleHint(isVisibleToUser)
-        Answers.getInstance().logCustom(CustomEvent("EVENT_PROFILE")
-                .putCustomAttribute("language", Preferences.instance.language))
-    }
-
-
     private fun setupViews() {
         context?.let { context ->
+            backBtn.setOnClickListener {
+                onBackPressed()
+            }
+
             recyclerView.layoutManager = LinearLayoutManager(context)
             recyclerView.adapter = walletsAdapter
 
@@ -113,21 +132,32 @@ class ProfileFragment : BaseFragment() {
 
 
     private fun addWallet() {
-        if (walletEt.text.toString().isNotEmpty()) {
-            val wallet = Wallet()
-            wallet.number = walletEt.text.toString().trim()
-            doAsync {
-                wallet.save()
-                uiThread {
-                    walletEt.setText("")
-                    walletEt.clearFocus()
-                    activity.hideKeyboard()
-                    walletsAdapter.addWallet(wallet)
-                }
-            }
+        context?.let { context ->
+            val walletNumber = walletEt.text.toString().trim()
+            if (walletNumber.isNotEmpty() && walletNumber.matches(Regex("^(0x)?[0-9a-f]{40}$"))) {
 
-            Answers.getInstance().logCustom(CustomEvent("EVENT_WALLET_ADD")
-                    .putCustomAttribute("language", Preferences.instance.language))
+                val wallet = Wallet()
+                wallet.number = walletNumber
+                doAsync {
+                    wallet.save()
+                    uiThread {
+                        walletEt.setText("")
+                        walletEt.clearFocus()
+                        activity.hideKeyboard()
+                        walletsAdapter.addWallet(wallet)
+                    }
+                }
+
+                Answers.getInstance().logCustom(CustomEvent("EVENT_WALLET_ADD")
+                        .putCustomAttribute("language", Preferences.instance.language))
+            }
+            else {
+                val alertDialog = AlertDialog.Builder(context).create()
+                alertDialog.setTitle(getString(R.string.attention))
+                alertDialog.setMessage(getString(R.string.invalid_wallet_number))
+                alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.ok)) { dialog, _ -> dialog.dismiss() }
+                alertDialog.show()
+            }
         }
     }
 
@@ -164,6 +194,12 @@ class ProfileFragment : BaseFragment() {
                 }
             }
         }
+    }
+
+
+    override fun onBackPressed() {
+        lockDrawerMode(false)
+        AppFragmentManager.instance.popBackStack()
     }
 
 }

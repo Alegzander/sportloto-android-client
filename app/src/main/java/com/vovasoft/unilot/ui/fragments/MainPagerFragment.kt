@@ -6,10 +6,8 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
-import android.graphics.PorterDuff
 import android.os.Bundle
 import android.os.Handler
-import android.support.v4.content.ContextCompat
 import android.support.v4.content.LocalBroadcastManager
 import android.support.v4.view.GravityCompat
 import android.support.v4.view.ViewPager
@@ -20,12 +18,12 @@ import android.view.ViewGroup
 import com.crashlytics.android.answers.Answers
 import com.crashlytics.android.answers.CustomEvent
 import com.vovasoft.unilot.R
+import com.vovasoft.unilot.components.AppFragmentManager
 import com.vovasoft.unilot.components.Preferences
-import com.vovasoft.unilot.repository.RepositoryCallback
+import com.vovasoft.unilot.repository.Reactive
 import com.vovasoft.unilot.repository.models.entities.GameResult
-import com.vovasoft.unilot.ui.AppFragmentManager
 import com.vovasoft.unilot.ui.pager_adapters.MainPagerAdapter
-import com.vovasoft.unilot.view_models.AppVM
+import com.vovasoft.unilot.view_models.AppSettings
 import com.vovasoft.unilot.view_models.GamesVM
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_main_pager.*
@@ -37,7 +35,7 @@ import kotlinx.android.synthetic.main.fragment_main_pager.*
 class MainPagerFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
 
     enum class Page(val value: Int) {
-        DAY(0), WEEK(1), MONTH(2), PROFILE(3);
+        DAY(0), WEEK(1), MONTH(2), TOKEN(3);
 
         companion object {
             fun from(findValue: Int) : Page {
@@ -45,13 +43,31 @@ class MainPagerFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
                     0 -> DAY
                     1 -> WEEK
                     2 -> MONTH
-                    else -> PROFILE
+                    else -> TOKEN
+                }
+            }
+
+            fun iconNormal(findValue: Int) : Int {
+                return when (findValue) {
+                    0 -> R.drawable.ic_day_gray
+                    1 -> R.drawable.ic_week_gray
+                    2 -> R.drawable.ic_month_gray
+                    else -> R.drawable.ic_token_gray
+                }
+            }
+
+            fun iconSelected(findValue: Int) : Int {
+                return when (findValue) {
+                    0 -> R.drawable.ic_day_orange
+                    1 -> R.drawable.ic_week_orange
+                    2 -> R.drawable.ic_month_orange
+                    else -> R.drawable.ic_token_orange
                 }
             }
         }
     }
 
-    private lateinit var appVM: AppVM
+    private lateinit var appSettings: AppSettings
 
     private lateinit var gamesVM: GamesVM
 
@@ -63,9 +79,10 @@ class MainPagerFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        appVM = ViewModelProviders.of(activity).get(AppVM::class.java)
+        appSettings = ViewModelProviders.of(activity).get(AppSettings::class.java)
         gamesVM = ViewModelProviders.of(activity).get(GamesVM::class.java)
         drawerBtn.setOnClickListener { activity.drawerLayout.openDrawer(GravityCompat.START) }
+
         setupPager()
     }
 
@@ -94,15 +111,17 @@ class MainPagerFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
 
 
     private fun updateMarkers() {
-        gamesVM.getAllResults(object: RepositoryCallback<List<GameResult>> {
+        gamesVM.getAllResults(object: Reactive<List<GameResult>> {
             override fun done(data: List<GameResult>?) {
                 data?.let { list ->
-                    if (list.isNotEmpty()) {
-                        markerLabel.text = list.size.toString()
-                        markerLabel.visibility = View.VISIBLE
-                    }
-                    else {
-                        markerLabel.visibility = View.INVISIBLE
+                    context?.let {
+                        if (list.isNotEmpty()) {
+                            markerLabel.text = list.size.toString()
+                            markerLabel.visibility = View.VISIBLE
+                        }
+                        else {
+                            markerLabel.visibility = View.INVISIBLE
+                        }
                     }
                 }
             }
@@ -118,6 +137,7 @@ class MainPagerFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
 
         observeData()
         updateMarkers()
+        updateTabs()
         refreshPager()
     }
 
@@ -127,14 +147,11 @@ class MainPagerFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
             refreshLayout.isRefreshing = false
         })
 
-        appVM.selectedPage.observe(this, Observer {
-            context?.let { context ->
-                for (i in 0..tabs.tabCount) {
-                    val tab = tabs.getTabAt(i)
-                    tab?.icon?.setColorFilter(ContextCompat.getColor(context, R.color.colorLightGray), PorterDuff.Mode.SRC_IN)
-                    if (i == it) {
-                        tab?.icon?.setColorFilter(ContextCompat.getColor(context, R.color.colorOrange), PorterDuff.Mode.SRC_IN)
-                    }
+        appSettings.gamePageChanged.observe(this, Observer { changed ->
+            changed?.let {
+                if (it) {
+                    updateTabs()
+                    refreshPager()
                 }
             }
         })
@@ -144,9 +161,9 @@ class MainPagerFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
     private fun setupPager() {
         refreshLayout.setColorSchemeResources(R.color.colorAccent)
 
-        infoBtn.setOnClickListener {
-            AppFragmentManager.instance.openFragment(TutorialFragment(), true)
-            Answers.getInstance().logCustom(CustomEvent("EVENT_TUTORIAL_VIEW")
+        profileBtn.setOnClickListener {
+            AppFragmentManager.instance.openFragment(ProfileFragment(), true)
+            Answers.getInstance().logCustom(CustomEvent("EVENT_PROFILE")
                     .putCustomAttribute("language", Preferences.instance.language))
         }
 
@@ -158,7 +175,7 @@ class MainPagerFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
         tabs.getTabAt(Page.DAY.value)?.setText(R.string.daily)?.setIcon(R.drawable.ic_day_gray)
         tabs.getTabAt(Page.WEEK.value)?.setText(R.string.weekly)?.setIcon(R.drawable.ic_week_gray)
         tabs.getTabAt(Page.MONTH.value)?.setText(R.string.monthly_bonus)?.setIcon(R.drawable.ic_month_gray)
-        tabs.getTabAt(Page.PROFILE.value)?.setText(R.string.profile)?.setIcon(R.drawable.ic_profile_gray)
+        tabs.getTabAt(Page.TOKEN.value)?.setText(R.string.token)?.setIcon(R.drawable.ic_token_gray)
 
         pager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
@@ -167,8 +184,9 @@ class MainPagerFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
             }
 
             override fun onPageSelected(position: Int) {
-                appVM.selectedPage.value = position
                 activity.hideKeyboard()
+                AppSettings.selectedPage = position
+                updateTabs()
             }
 
             override fun onPageScrollStateChanged(state: Int) {
@@ -182,16 +200,31 @@ class MainPagerFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
             private fun enableDisableSwipeRefresh(enable: Boolean) {
                 refreshLayout?.isEnabled = enable
             }
-
         })
+
+        updateTabs()
+    }
+
+
+    private fun updateTabs() {
+        context?.let { _ ->
+            for (i in 0..tabs.tabCount) {
+                val tab = tabs.getTabAt(i)
+                if (i == AppSettings.selectedPage) {
+                    tab?.setIcon(Page.iconSelected(i))
+                }
+                else {
+                    tab?.setIcon(Page.iconNormal(i))
+                }
+            }
+        }
     }
 
 
     private fun refreshPager() {
-        val position = appVM.selectedPage.value!!
         Handler().post {
             view?.let {
-                pager?.setCurrentItem(position, false)
+                pager?.setCurrentItem(AppSettings.selectedPage, false)
             }
         }
     }

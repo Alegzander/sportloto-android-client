@@ -135,7 +135,7 @@
         android:layout_marginEnd="32dp"
         android:layout_marginStart="32dp"
         android:gravity="center"
-        android:text="@string/after_pay_rules"
+        android:text="@string/payment_attention"
         android:textColor="@color/colorRed" />
 
 

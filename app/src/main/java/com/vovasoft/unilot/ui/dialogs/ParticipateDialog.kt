@@ -6,7 +6,6 @@ import android.content.Context
 import android.os.CountDownTimer
 import android.support.v7.app.AlertDialog
 import android.util.AttributeSet
-import android.view.View
 import android.widget.FrameLayout
 import android.widget.Toast
 import com.crashlytics.android.answers.Answers
@@ -40,11 +39,6 @@ class ParticipateDialog(val context: Context, val game: Game) {
 
     fun dismiss() {
         dialog?.dismiss()
-    }
-
-
-    fun hideWarning(hide: Boolean) {
-        participateDialogView.hideWarning(hide)
     }
 
 
@@ -128,13 +122,6 @@ class ParticipateDialog(val context: Context, val game: Game) {
                     countDown?.start()
 
                 }
-            }
-        }
-
-
-        fun hideWarning(hide: Boolean) {
-            if (hide) {
-                warningTv.visibility = View.GONE
             }
         }
 

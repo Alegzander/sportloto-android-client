@@ -4,7 +4,7 @@ import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import com.vovasoft.unilot.repository.AppRepository
-import com.vovasoft.unilot.repository.RepositoryCallback
+import com.vovasoft.unilot.repository.Reactive
 import com.vovasoft.unilot.repository.models.entities.Game
 import com.vovasoft.unilot.repository.models.entities.GameResult
 import com.vovasoft.unilot.repository.models.entities.Wallet
@@ -30,6 +30,8 @@ class GamesVM : ViewModel() {
 
     private var monthlyGameLiveData = MutableLiveData<Game>()
 
+    private var tokenGameLiveData = MutableLiveData<Game>()
+
     private var isUpdating = false
 
 
@@ -37,7 +39,7 @@ class GamesVM : ViewModel() {
 
 
     fun getWallets() : LiveData<List<Wallet>> {
-        appRepo.getWallets(object : RepositoryCallback<List<Wallet>?> {
+        appRepo.getWallets(object : Reactive<List<Wallet>?> {
             override fun done(data: List<Wallet>?) {
                 walletsLiveData.value = data
             }
@@ -46,8 +48,13 @@ class GamesVM : ViewModel() {
     }
 
 
+    fun getWallets(callback: Reactive<List<Wallet>?>) {
+        appRepo.getWallets(callback)
+    }
+
+
     fun getGamesHistory() : LiveData<List<Game>> {
-        appRepo.getRemoteGamesHistory(object : RepositoryCallback<List<Game>?> {
+        appRepo.getRemoteGamesHistory(object : Reactive<List<Game>?> {
             override fun done(data: List<Game>?) {
                 gamesHistoryLiveData.value = data
             }
@@ -66,7 +73,7 @@ class GamesVM : ViewModel() {
 
     fun getWinners(id: Int) : LiveData<List<Winner>> {
         val winners = MutableLiveData<List<Winner>>()
-        appRepo.getRemoteWinners(id, object : RepositoryCallback<List<Winner>?> {
+        appRepo.getRemoteWinners(id, object : Reactive<List<Winner>?> {
             override fun done(data: List<Winner>?) {
                 winners.value = data
             }
@@ -78,7 +85,7 @@ class GamesVM : ViewModel() {
     fun updateGamesList() {
         if (!isUpdating) {
             isUpdating = true
-            appRepo.getRemoteGames(object : RepositoryCallback<List<Game>?> {
+            appRepo.getRemoteGames(object : Reactive<List<Game>?> {
                 override fun done(data: List<Game>?) {
 
                     gamesLiveData.value = data
@@ -99,6 +106,12 @@ class GamesVM : ViewModel() {
                         (Game.Status.from(game.status) == Game.Status.PUBLISHED
                                 || Game.Status.from(game.status) == Game.Status.FINISHING)
                                 && Game.Type.from(game.type) == Game.Type.MONTHLY
+                    }
+
+                    tokenGameLiveData.value = data?.firstOrNull { game ->
+                        (Game.Status.from(game.status) == Game.Status.PUBLISHED
+                                || Game.Status.from(game.status) == Game.Status.FINISHING)
+                                && Game.Type.from(game.type) == Game.Type.TOKEN
                     }
 
                     isUpdating = false
@@ -123,8 +136,13 @@ class GamesVM : ViewModel() {
     }
 
 
-    fun getNewResults(callback: RepositoryCallback<Queue<GameResult>>) {
-        appRepo.getNewResults(object : RepositoryCallback<Queue<GameResult>> {
+    fun getTokenGame() : LiveData<Game> {
+        return tokenGameLiveData
+    }
+
+
+    fun getNewResults(callback: Reactive<Queue<GameResult>>) {
+        appRepo.getNewResults(object : Reactive<Queue<GameResult>> {
             override fun done(data: Queue<GameResult>?) {
                 callback.done(data)
             }
@@ -132,8 +150,8 @@ class GamesVM : ViewModel() {
     }
 
 
-    fun getAllResults(callback: RepositoryCallback<List<GameResult>>) {
-        appRepo.getAllResults(object : RepositoryCallback<List<GameResult>> {
+    fun getAllResults(callback: Reactive<List<GameResult>>) {
+        appRepo.getAllResults(object : Reactive<List<GameResult>> {
             override fun done(data: List<GameResult>?) {
                 callback.done(data)
             }
@@ -141,8 +159,8 @@ class GamesVM : ViewModel() {
     }
 
 
-    fun getGameById(id: Int, callback: RepositoryCallback<Game?>) {
-        appRepo.getGameById(id, object : RepositoryCallback<Game?> {
+    fun getGameById(id: Int, callback: Reactive<Game?>) {
+        appRepo.getGameById(id, object : Reactive<Game?> {
             override fun done(data: Game?) {
                 callback.done(data)
             }

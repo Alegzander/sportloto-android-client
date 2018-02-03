@@ -4,7 +4,7 @@ import android.arch.persistence.room.ColumnInfo
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey
 import com.vovasoft.unilot.App
-import com.vovasoft.unilot.repository.RepositoryCallback
+import com.vovasoft.unilot.repository.Reactive
 import com.vovasoft.unilot.repository.models.GsonModel
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
@@ -26,7 +26,7 @@ data class Wallet(@PrimaryKey(autoGenerate = true) @ColumnInfo(name = "id")
     }
 
 
-    fun saveAsync(callback: RepositoryCallback<Unit>) {
+    fun saveAsync(callback: Reactive<Unit>) {
         doAsync {
             App.database.walletsDao().insert(this@Wallet)
             uiThread {
@@ -41,7 +41,7 @@ data class Wallet(@PrimaryKey(autoGenerate = true) @ColumnInfo(name = "id")
     }
 
 
-    fun deleteAsync(callback: RepositoryCallback<Unit>) {
+    fun deleteAsync(callback: Reactive<Unit>) {
         doAsync {
             App.database.walletsDao().delete(this@Wallet)
             uiThread {

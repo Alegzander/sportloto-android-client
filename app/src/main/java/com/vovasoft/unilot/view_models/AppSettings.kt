@@ -6,14 +6,15 @@ import android.arch.lifecycle.ViewModel
 /***************************************************************************
  * Created by arseniy on 01/10/2017.
  ****************************************************************************/
-class AppVM : ViewModel() {
-    var selectedPage = MutableLiveData<Int>()
-    var selectedHistoryFilter = MutableLiveData<Int>()
-    var languageChanged = MutableLiveData<Boolean>()
+class AppSettings : ViewModel() {
+    var gamePageChanged = MutableLiveData<Boolean>()
 
     init {
-        selectedPage.value = 0
-        selectedHistoryFilter.value = 0
-        languageChanged.value = false
+        gamePageChanged.value = false
+    }
+
+    companion object {
+        var selectedPage: Int = 0
+        var selectedHistoryFilter: Int = 0
     }
 }

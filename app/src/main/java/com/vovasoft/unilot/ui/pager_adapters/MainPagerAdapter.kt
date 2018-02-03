@@ -9,7 +9,7 @@ import com.vovasoft.unilot.ui.fragments.*
  ****************************************************************************/
 class MainPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
 
-    private val fragments = arrayOf(GameDailyFragment(), GamesWeeklyFragment(), GameMonthlyFragment(), ProfileFragment())
+    private val fragments = arrayOf(GameDailyFragment(), GamesWeeklyFragment(), GameMonthlyFragment(), GameTokenFragment())
 
 
     override fun getCount(): Int {

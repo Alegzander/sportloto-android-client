@@ -15,10 +15,10 @@ import android.view.View
 import android.view.ViewGroup
 import com.vovasoft.unilot.App
 import com.vovasoft.unilot.R
+import com.vovasoft.unilot.components.AppFragmentManager
 import com.vovasoft.unilot.components.toHumanDate
 import com.vovasoft.unilot.repository.models.entities.Game
 import com.vovasoft.unilot.repository.models.pure.Winner
-import com.vovasoft.unilot.ui.AppFragmentManager
 import com.vovasoft.unilot.ui.recycler_adapters.DetailsHistoryRecyclerAdapter
 import com.vovasoft.unilot.ui.widgets.ZxingReader
 import com.vovasoft.unilot.view_models.GamesVM

@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">Unilot</string>
+    <string name="unilot_app">Unilot® App</string>
+    <string name="version" formatted="false">Version: %s Closed Beta</string>
     <string name="grant_type">client_credentials</string>
     <string name="faq_url">https://dev.unilot.io/en/mobile/faq</string>
     <string name="unilot_url">https://unilot.io/en-us/</string>
@@ -7,6 +9,7 @@
     <string name="daily">Daily</string>
     <string name="weekly">Weekly</string>
     <string name="monthly_bonus">Bonus</string>
+    <string name="token">Token</string>
     <string name="profile">Profile</string>
     <string name="daily_lottery">Daily drawing</string>
     <string name="prize_fund">Jackpot</string>
@@ -29,9 +32,10 @@
     <string name="english">English</string>
     <string name="russian">Русский</string>
     <string name="deutsch">Deutsch</string>
-    <string name="no_games_for_today">There is no drawing for today</string>
-    <string name="no_weekly_games">There is no weekly drawing</string>
-    <string name="no_bonus_games">There is no bonus drawing</string>
+    <string name="no_games_for_today">There is no drawing for today yet</string>
+    <string name="no_weekly_games">There is no weekly drawing yet</string>
+    <string name="no_bonus_games">There is no bonus drawing yet</string>
+    <string name="no_token_games">There is no token drawing yet</string>
     <string name="eth">Eth</string>
     <string name="participate">Participate</string>
     <string name="top_places">Top places</string>
@@ -76,7 +80,7 @@
     <string name="you_automatically_participate_in_bonus_drawing_that_will_run_in">You automatically become a participant of the Bonus drawing that is to take place in:</string>
     <string name="how_does_it_work">How it works:</string>
     <string name="how_does_it_work_text">1. Select the type: Daily, Weekly\n2. Pay the ticket cost\n3. Wait for the result\n\nThe system is choosing the winners who split the jackpot randomly.\n\nDuring the drawings you can always check the number of prize-winning places and the jackpot amount in the relevant section: Daily, Weekly, Bonus. Lists are constantly changing depending on the number of participants.\n\nAll the users who lost in Daily and Weekly drawings will automatically become participants of the Bonus Monthly Draw for free.</string>
-    <string name="after_pay_rules">Return to the app and register your wallet after the payment.</string>
+    <string name="payment_attention">Make sure that you make payment from the wallet that is registered in the profile.</string>
     <string name="wallet_not_found">Since you have not registered your wallet, your status is unknown.\nCheck History of the drawing.</string>
     <string name="drawing_from">Drawing dated:</string>
     <string name="jackpot">JACKPOT</string>
@@ -95,12 +99,18 @@
     <string name="outdated">Your version of Unilot is out of date. Please update it.</string>
     <string name="goto_googleplay">Go to Google Play</string>
     <string name="all">All</string>
-    <string name="tutorial_step_1">First choose the type of the drawings: Daily or Weekly. Then tap the button “Participate” to start.</string>
-    <string name="tutorial_step_2">Here is the wallet address you need to transfer the specified amount to. Please copy it.</string>
-    <string name="tutorial_step_3">Go to your wallet and transfer the necessary amount to the copied wallet address.</string>
-    <string name="tutorial_step_4">Return to the app, go to Profile and add your wallet address. Now you can get notifications about win or loss.</string>
-    <string name="tutorial_step_5">Wait for the results. If you loose in Daily or Weekly drawing, you will automatically become a participant of the Bonus Monthly Draw for free.</string>
+    <string name="tutorial_step_1">Чтобы принять участие в лотереях, сначала выберите тип: Дневная, Недельная. Нажмите на экране лотереи на кнопку “Принять участие”.</string>
+    <string name="tutorial_step_2">Производите оплату только с приватных криптокошельков, к которым у вас есть закрытый ключ! Используя биржевые кошельки, вы не сможете получить ни выигрыш, ни бонусные токены.</string>
+    <string name="tutorial_step_3">Здесь вы найдете адрес кошелька, на который необходимо перевести указанное количество средств для участия. Пожалуйста, скопируйте его.</string>
+    <string name="tutorial_step_4">Чтобы принять участие в розыгрыше, необходимо отправить ETH с вашего криптокошелька на адрес розыгрыша Unilot.</string>
+    <string name="tutorial_step_5">Перейдите в ваш кошелек и отправьте указанную для участия в лотерее сумму на адрес кошелька, который вы скопировали.</string>
+    <string name="tutorial_step_6">Вернитесь в приложение, зайдите в Профиль и добавьте адрес кошелька, с которого произвели оплату. Теперь вы сможете получать уведомления.</string>
+    <string name="tutorial_step_7">Ожидайте результатов. Если вы не стали победителем в Дневной или Недельной лотереях, вы автоматически становитесь участником Бонусного розыгрыша.</string>
     <string name="skip">Skip</string>
     <string name="want_know_more">Want to know more</string>
     <string name="letsgo">Lets GO!</string>
+    <string name="wallets_attention">Прежде чем принять участие, вам необходимо указать номер кошелька с которого будет производится оплата</string>
+    <string name="attention">Attention!</string>
+    <string name="invalid_wallet_number">Invalid wallet number</string>
+
 </resources>

@@ -31,7 +31,7 @@ class AppRepository {
     }
 
 
-    fun getRemoteGames(callback: RepositoryCallback<List<Game>?>) {
+    fun getRemoteGames(callback: Reactive<List<Game>?>) {
         webClient.webservice.games().enqueue(object : Callback<List<Game>> {
             override fun onResponse(call: Call<List<Game>>?, response: Response<List<Game>>?) {
                 if (response?.code() == 417) {
@@ -55,7 +55,7 @@ class AppRepository {
     }
 
 
-    fun getRemoteWinners(id: Int, callback: RepositoryCallback<List<Winner>?>) {
+    fun getRemoteWinners(id: Int, callback: Reactive<List<Winner>?>) {
         webClient.webservice.winners(id).enqueue(object : Callback<List<Winner>> {
             override fun onResponse(call: Call<List<Winner>>?, response: Response<List<Winner>>?) {
                 if (response?.code() == 417) {
@@ -74,7 +74,7 @@ class AppRepository {
     }
 
 
-    fun getRemoteGamesHistory(callback: RepositoryCallback<List<Game>?>) {
+    fun getRemoteGamesHistory(callback: Reactive<List<Game>?>) {
         webClient.webservice.gamesArchived().enqueue(object : Callback<List<Game>> {
             override fun onResponse(call: Call<List<Game>>?, response: Response<List<Game>>?) {
                 if (response?.code() == 417) {
@@ -98,7 +98,7 @@ class AppRepository {
     }
 
 
-    fun getGamesHistory(callback: RepositoryCallback<List<Game>?>) {
+    fun getGamesHistory(callback: Reactive<List<Game>?>) {
         doAsync {
             val games = App.database.gamesDao().getGames()
             games.sortedBy { it.endTime() }
@@ -109,7 +109,7 @@ class AppRepository {
     }
 
 
-    fun getRemoteGameById(id: Int, callback: RepositoryCallback<Game?>) {
+    fun getRemoteGameById(id: Int, callback: Reactive<Game?>) {
         webClient.webservice.gameById(id).enqueue(object : Callback<Game> {
             override fun onResponse(call: Call<Game>?, response: Response<Game>?) {
                 if (response?.code() == 417) {
@@ -129,7 +129,7 @@ class AppRepository {
     }
 
 
-    fun getGameById(id: Int, callback: RepositoryCallback<Game?>) {
+    fun getGameById(id: Int, callback: Reactive<Game?>) {
         doAsync {
             val game = App.database.gamesDao().getGameById(id)
             uiThread {
@@ -139,7 +139,7 @@ class AppRepository {
     }
 
 
-    fun getWallets(callback: RepositoryCallback<List<Wallet>?>) {
+    fun getWallets(callback: Reactive<List<Wallet>?>) {
         doAsync {
             val wallets = App.database.walletsDao().getWallets()
             uiThread {
@@ -149,7 +149,7 @@ class AppRepository {
     }
 
 
-    fun getWalletsNumbers(callback: RepositoryCallback<List<String>?>) {
+    fun getWalletsNumbers(callback: Reactive<List<String>?>) {
         doAsync {
             val numbers = App.database.walletsDao().getWalletsNumbers()
             uiThread {
@@ -159,7 +159,7 @@ class AppRepository {
     }
 
 
-    fun getNewResults(callback: RepositoryCallback<Queue<GameResult>>) {
+    fun getNewResults(callback: Reactive<Queue<GameResult>>) {
         doAsync {
             val results = App.database.gameResultsDao().getGameResults(true)
             uiThread {
@@ -169,7 +169,7 @@ class AppRepository {
     }
 
 
-    fun getAllResults(callback: RepositoryCallback<List<GameResult>>) {
+    fun getAllResults(callback: Reactive<List<GameResult>>) {
         doAsync {
             val results = App.database.gameResultsDao().getAllGameResults()
             uiThread {

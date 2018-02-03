@@ -22,14 +22,14 @@ import com.google.firebase.iid.FirebaseInstanceId
 import com.vovasoft.unilot.App
 import com.vovasoft.unilot.BuildConfig
 import com.vovasoft.unilot.R
+import com.vovasoft.unilot.components.AppFragmentManager
 import com.vovasoft.unilot.components.NetworkStateReceiver
 import com.vovasoft.unilot.components.Preferences
-import com.vovasoft.unilot.repository.RepositoryCallback
+import com.vovasoft.unilot.repository.Reactive
 import com.vovasoft.unilot.repository.models.entities.Game
 import com.vovasoft.unilot.repository.models.entities.GameResult
-import com.vovasoft.unilot.ui.AppFragmentManager
 import com.vovasoft.unilot.ui.fragments.*
-import com.vovasoft.unilot.view_models.AppVM
+import com.vovasoft.unilot.view_models.AppSettings
 import com.vovasoft.unilot.view_models.GamesVM
 import io.fabric.sdk.android.Fabric
 import kotlinx.android.synthetic.main.activity_main.*
@@ -39,7 +39,7 @@ import java.util.*
 
 class MainActivity : AppCompatActivity(), NetworkStateReceiver.ReceiverCallback {
 
-    private lateinit var appVM: AppVM
+    private lateinit var appSettings: AppSettings
 
     private lateinit var gamesVM: GamesVM
 
@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity(), NetworkStateReceiver.ReceiverCallback 
         Fabric.with(this, Crashlytics())
         setContentView(R.layout.activity_main)
 
-        appVM = ViewModelProviders.of(this).get(AppVM::class.java)
+        appSettings = ViewModelProviders.of(this).get(AppSettings::class.java)
 
         gamesVM = ViewModelProviders.of(this).get(GamesVM::class.java)
 
@@ -115,7 +115,7 @@ class MainActivity : AppCompatActivity(), NetworkStateReceiver.ReceiverCallback 
 
 
     private fun updateMarkers() {
-        gamesVM.getAllResults(object: RepositoryCallback<List<GameResult>> {
+        gamesVM.getAllResults(object: Reactive<List<GameResult>> {
             override fun done(data: List<GameResult>?) {
                 data?.let { list ->
                     if (list.isNotEmpty()) {
@@ -159,9 +159,10 @@ class MainActivity : AppCompatActivity(), NetworkStateReceiver.ReceiverCallback 
         val intentData = intent.getSerializableExtra("data") as HashMap<*, *>?
         intentData?.get("type")?.let {
             when (Game.Type.from(it as Int)) {
-                Game.Type.DAILY -> appVM.selectedPage.value = MainPagerFragment.Page.DAY.value
-                Game.Type.WEEKLY -> appVM.selectedPage.value = MainPagerFragment.Page.WEEK.value
-                Game.Type.MONTHLY -> appVM.selectedPage.value = MainPagerFragment.Page.MONTH.value
+                Game.Type.DAILY -> AppSettings.selectedPage = MainPagerFragment.Page.DAY.value
+                Game.Type.WEEKLY -> AppSettings.selectedPage = MainPagerFragment.Page.WEEK.value
+                Game.Type.MONTHLY -> AppSettings.selectedPage = MainPagerFragment.Page.MONTH.value
+                Game.Type.TOKEN -> AppSettings.selectedPage = MainPagerFragment.Page.TOKEN.value
             }
         }
     }
@@ -178,10 +179,24 @@ class MainActivity : AppCompatActivity(), NetworkStateReceiver.ReceiverCallback 
     private fun setupDrawer() {
         navigationView?.refreshDrawableState()
 
+        profileBtn.setOnClickListener {
+            drawerLayout.closeDrawers()
+            AppFragmentManager.instance.openFragment(ProfileFragment(), true)
+            Answers.getInstance().logCustom(CustomEvent("EVENT_PROFILE")
+                    .putCustomAttribute("language", Preferences.instance.language))
+        }
+
         historyBtn.setOnClickListener {
             drawerLayout.closeDrawers()
             AppFragmentManager.instance.openFragment(HistoryFragment(), true)
             Answers.getInstance().logCustom(CustomEvent("EVENT_HISTORY_VIEW")
+                    .putCustomAttribute("language", Preferences.instance.language))
+        }
+
+        settingsBtn.setOnClickListener {
+            drawerLayout.closeDrawers()
+            AppFragmentManager.instance.openFragment(SettingsFragment(), true)
+            Answers.getInstance().logCustom(CustomEvent("EVENT_SETTINGS")
                     .putCustomAttribute("language", Preferences.instance.language))
         }
 
@@ -203,13 +218,6 @@ class MainActivity : AppCompatActivity(), NetworkStateReceiver.ReceiverCallback 
             startActivity(browserIntent)
             drawerLayout.closeDrawers()
             Answers.getInstance().logCustom(CustomEvent("EVENT_WHITE_PAPER")
-                    .putCustomAttribute("language", Preferences.instance.language))
-        }
-
-        settingsBtn.setOnClickListener {
-            drawerLayout.closeDrawers()
-            AppFragmentManager.instance.openFragment(SettingsFragment(), true)
-            Answers.getInstance().logCustom(CustomEvent("EVENT_SETTINGS")
                     .putCustomAttribute("language", Preferences.instance.language))
         }
 
@@ -246,13 +254,6 @@ class MainActivity : AppCompatActivity(), NetworkStateReceiver.ReceiverCallback 
                     .putCustomAttribute("language", Preferences.instance.language))
         }
 
-        steemitBtn.setOnClickListener {
-            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://steemit.com/@unilot"))
-            startActivity(browserIntent)
-            Answers.getInstance().logCustom(CustomEvent("EVENT_STEEMIT")
-                    .putCustomAttribute("language", Preferences.instance.language))
-        }
-
         mediumBtn.setOnClickListener {
             val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://medium.com/@unilot"))
             startActivity(browserIntent)
@@ -260,20 +261,7 @@ class MainActivity : AppCompatActivity(), NetworkStateReceiver.ReceiverCallback 
                     .putCustomAttribute("language", Preferences.instance.language))
         }
 
-        linkedinBtn.setOnClickListener {
-            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.linkedin.com/company/unilot"))
-            startActivity(browserIntent)
-            Answers.getInstance().logCustom(CustomEvent("EVENT_LINKEDIN")
-                    .putCustomAttribute("language", Preferences.instance.language))
-        }
-
-        youtubeBtn.setOnClickListener {
-            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/channel/UCNdn2maOQEbYwpNK4Yaoxqw"))
-            startActivity(browserIntent)
-            Answers.getInstance().logCustom(CustomEvent("EVENT_YOUTUBE")
-                    .putCustomAttribute("language", Preferences.instance.language))
-        }
-
+        versionTv.text = String.format(getString(R.string.version), packageManager.getPackageInfo(packageName, 0).versionName)
     }
 
 

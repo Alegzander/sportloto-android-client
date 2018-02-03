@@ -1,4 +1,4 @@
-package com.vovasoft.unilot.ui
+package com.vovasoft.unilot.components
 
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
@@ -29,7 +29,6 @@ class AppFragmentManager private constructor() {
         private set(value) {
             field = value
         }
-        get() = field
 
 
     val isRegistered: Boolean
@@ -42,10 +41,19 @@ class AppFragmentManager private constructor() {
 
 
     fun openFragment(fragment: Fragment, addToBackStack: Boolean = false) {
-        manager?.also { manager ->
+        manager?.let { manager ->
             if (addToBackStack && currentFragment != null) fragmentStack.push(currentFragment)
-            val transaction = manager.beginTransaction().replace(R.id.contentFrame, fragment)
-            currentFragment?.also { transaction.remove(currentFragment) }
+            val transaction = manager.beginTransaction().add(R.id.contentFrame, fragment)
+            transaction.commit()
+            currentFragment = fragment
+        }
+    }
+
+
+    fun openFragmentWithAnimation(fragment: Fragment, anim: Int, addToBackStack: Boolean = false) {
+        manager?.let { manager ->
+            if (addToBackStack && currentFragment != null) fragmentStack.push(currentFragment)
+            val transaction = manager.beginTransaction().setCustomAnimations(anim, anim).add(R.id.contentFrame, fragment)
             transaction.commit()
             currentFragment = fragment
         }
@@ -53,12 +61,12 @@ class AppFragmentManager private constructor() {
 
 
     fun popBackStack() {
-        manager?.also { manager ->
+        manager?.let { manager ->
             if (fragmentStack.isNotEmpty()) {
                 val fragment = fragmentStack.pop()
-                fragment?.also {
+                fragment?.let {
                     val transaction = manager.beginTransaction().replace(R.id.contentFrame, fragment)
-                    currentFragment?.also { transaction.remove(currentFragment) }
+                    currentFragment?.let { transaction.remove(currentFragment) }
                     transaction.commit()
                     currentFragment = fragment
                 }
