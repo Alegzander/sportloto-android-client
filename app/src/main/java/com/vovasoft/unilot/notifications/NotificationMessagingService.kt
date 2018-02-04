@@ -1,5 +1,6 @@
 package com.vovasoft.unilot.notifications
 
+import android.annotation.SuppressLint
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -227,6 +228,7 @@ class NotificationMessagingService : FirebaseMessagingService() {
     }
 
 
+    @SuppressLint("NewApi")
     private fun showNotification(messageBody: String?, type: Int? = null, isJson: Boolean = false, extraData: HashMap<String, Any> = HashMap()) {
 
         if (!App.isBackground) {

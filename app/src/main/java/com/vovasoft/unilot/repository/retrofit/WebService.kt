@@ -2,6 +2,7 @@ package com.vovasoft.unilot.repository.retrofit
 
 import com.vovasoft.unilot.repository.models.entities.Game
 import com.vovasoft.unilot.repository.models.pure.AuthorizationModel
+import com.vovasoft.unilot.repository.models.pure.Player
 import com.vovasoft.unilot.repository.models.pure.Winner
 import com.vovasoft.unilot.repository.retrofit.requests.AuthorizationRequest
 import com.vovasoft.unilot.repository.retrofit.requests.TokenRegistrationRequest
@@ -28,8 +29,11 @@ interface WebService {
     fun gamesArchived(): Call<List<Game>>
 
     @GET("api/v1/games/{id}")
-    fun gameById(@Path("id") id: Int): Call<Game>
+    fun gameById(@Path("id") id: Long): Call<Game>
 
     @GET("api/v1/games/{id}/winners")
-    fun winners(@Path("id") id: Int): Call<List<Winner>>
+    fun winners(@Path("id") id: Long): Call<List<Winner>>
+
+    @GET("api/v1/games/{id}/players")
+    fun players(@Path("id") id: Long): Call<List<Player>>
 }

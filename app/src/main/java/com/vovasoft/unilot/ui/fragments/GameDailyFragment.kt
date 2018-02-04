@@ -24,7 +24,7 @@ import com.vovasoft.unilot.components.RevealAnimationSetting
 import com.vovasoft.unilot.repository.Reactive
 import com.vovasoft.unilot.repository.models.entities.Game
 import com.vovasoft.unilot.repository.models.entities.Wallet
-import com.vovasoft.unilot.ui.dialogs.ParticipateDialog
+import com.vovasoft.unilot.ui.dialogs.SimpleParticipateDialog
 import com.vovasoft.unilot.ui.dialogs.TopPlacesDialog
 import kotlinx.android.synthetic.main.fragment_game_daily.*
 
@@ -90,7 +90,7 @@ class GameDailyFragment : GameBaseFragment() {
 
                 prizeBoard.setCharacterList(TickerUtils.getDefaultListForUSCurrency())
                 prizeBoard.typeface = Typeface.create("sans-serif-light", Typeface.NORMAL)
-                prizeBoard.setText("%.3f".format(game.prizeAmount), true)
+                prizeBoard.setText("%.3f".format(game.prize?.amount), true)
 
                 prizeFiatTv.setCharacterList(TickerUtils.getDefaultListForUSCurrency())
                 prizeFiatTv.typeface = Typeface.create("sans-serif-light", Typeface.NORMAL)
@@ -178,10 +178,10 @@ class GameDailyFragment : GameBaseFragment() {
                 }
                 countDown?.start()
 
-                betTv.text = "%.2f Eth".format(game.betAmount)
+                betTv.text = "%.2f ${game.bet?.currency}".format(game.bet?.amount)
 
                 participateBtn.setOnClickListener {
-                    val dialog = ParticipateDialog(context, game)
+                    val dialog = SimpleParticipateDialog(context, game)
                     gamesVM.getWallets(object : Reactive<List<Wallet>?> {
                         override fun done(data: List<Wallet>?) {
                             data?.let {

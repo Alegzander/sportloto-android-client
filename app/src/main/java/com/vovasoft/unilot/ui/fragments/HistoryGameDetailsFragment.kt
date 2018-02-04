@@ -108,7 +108,7 @@ class HistoryGameDetailsFragment : BaseFragment(), SearchView.OnQueryTextListene
         }
 
         dateTv.text = game?.endTime().toHumanDate()
-        prizeTv.text = "%.3f".format(game?.prizeAmount)
+        prizeTv.text = "%.3f".format(game?.prize?.amount)
         peopleTv.text = game?.playersNum?.toString()
 
         searchBox.setOnQueryTextListener(this)
@@ -124,8 +124,6 @@ class HistoryGameDetailsFragment : BaseFragment(), SearchView.OnQueryTextListene
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = adapter
     }
-
-
 
 
     private fun refreshSearch() {

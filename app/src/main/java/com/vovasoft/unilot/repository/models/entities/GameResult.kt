@@ -1,6 +1,7 @@
 package com.vovasoft.unilot.repository.models.entities
 
 import android.arch.persistence.room.ColumnInfo
+import android.arch.persistence.room.Embedded
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
@@ -17,19 +18,19 @@ data class GameResult(@PrimaryKey(autoGenerate = true) @ColumnInfo(name = "id")
 
                       @SerializedName("id")
                       @ColumnInfo(name = "game_id")
-                      var gameId: Int? = null,
+                      var gameId: Long? = null,
 
                       @SerializedName("position")
                       @ColumnInfo(name = "position")
-                      var position: Int? = null,
+                      var position: Long? = null,
 
                       @SerializedName("wallet")
                       @ColumnInfo(name = "wallet")
                       var address: String? = null,
 
                       @SerializedName("prize_amount")
-                      @ColumnInfo(name = "prize_amount")
-                      var prize: Float? = null,
+                      @Embedded(prefix = "prize_")
+                      var prize: Game.Prize? = null,
 
                       @SerializedName("prize_amount_fiat")
                       @ColumnInfo(name = "prize_amount_fiat")

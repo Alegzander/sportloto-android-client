@@ -18,7 +18,7 @@ interface GamesDao {
     fun getActiveGames(): List<Game>
 
     @Query("SELECT * FROM games WHERE id = :arg0 LIMIT 1")
-    fun getGameById(id: Int): Game?
+    fun getGameById(id: Long): Game?
 
     @Insert(onConflict= OnConflictStrategy.REPLACE)
     fun insert(game: Game)

@@ -1,6 +1,7 @@
 package com.vovasoft.unilot.repository.models.entities
 
 import android.arch.persistence.room.ColumnInfo
+import android.arch.persistence.room.Embedded
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
@@ -16,7 +17,7 @@ import java.util.*
 @Entity(tableName = "games")
 data class Game(@SerializedName("id")
                 @PrimaryKey @ColumnInfo(name = "id")
-                var id: Int? = null,
+                var id: Long? = null,
 
                 @SerializedName("status")
                 @ColumnInfo(name = "status")
@@ -27,16 +28,24 @@ data class Game(@SerializedName("id")
                 var type: Int? = null,
 
                 @SerializedName("prize_amount")
-                @ColumnInfo(name = "prize_amount")
-                var prizeAmount: Float? = null,
+                @Embedded(prefix = "prize_")
+                var prize: Prize? = null,
+
+                @SerializedName("bet_amount")
+                @Embedded(prefix = "bet_")
+                var bet: Bet? = null,
+
+                @SerializedName("gas_price")
+                @ColumnInfo(name = "gas_price")
+                var gasPrice: Long? = null,
+
+                @SerializedName("gas_limit")
+                @ColumnInfo(name = "gas_limit")
+                var gasLimit: Long? = null,
 
                 @SerializedName("prize_amount_fiat")
                 @ColumnInfo(name = "prize_amount_fiat")
                 var prizeAmountFiat: Float? = null,
-
-                @SerializedName("bet_amount")
-                @ColumnInfo(name = "bet_amount")
-                var betAmount: Float? = null,
 
                 @SerializedName("bet_amount_fiat")
                 @ColumnInfo(name = "bet_amount_fiat")
@@ -44,7 +53,7 @@ data class Game(@SerializedName("id")
 
                 @SerializedName("num_players")
                 @ColumnInfo(name = "num_players")
-                var playersNum: Int? = null,
+                var playersNum: Long? = null,
 
                 @SerializedName("smart_contract_id")
                 @ColumnInfo(name = "smart_contract_id")
@@ -57,6 +66,7 @@ data class Game(@SerializedName("id")
                 @SerializedName("ending_at")
                 @ColumnInfo(name = "ending_at")
                 var endingAt: String? = null
+
 ) : GsonModel() {
 
     enum class Type {
@@ -121,6 +131,22 @@ data class Game(@SerializedName("id")
                 }
             }
     }
+
+
+    data class Bet(@SerializedName("amount")
+                   var amount: Float? = null,
+
+                   @SerializedName("currency")
+                   var currency: String? = null
+    ) : GsonModel()
+
+
+    data class Prize(@SerializedName("amount")
+                   var amount: Float? = null,
+
+                   @SerializedName("currency")
+                   var currency: String? = null
+    ) : GsonModel()
 
 
     fun startTime() : Long {

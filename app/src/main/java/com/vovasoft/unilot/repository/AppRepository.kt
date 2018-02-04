@@ -2,10 +2,12 @@ package com.vovasoft.unilot.repository
 
 import android.content.Intent
 import android.support.v4.content.LocalBroadcastManager
+import android.util.Log
 import com.vovasoft.unilot.App
 import com.vovasoft.unilot.repository.models.entities.Game
 import com.vovasoft.unilot.repository.models.entities.GameResult
 import com.vovasoft.unilot.repository.models.entities.Wallet
+import com.vovasoft.unilot.repository.models.pure.Player
 import com.vovasoft.unilot.repository.models.pure.Winner
 import com.vovasoft.unilot.repository.retrofit.WebClient
 import org.jetbrains.anko.doAsync
@@ -54,6 +56,7 @@ class AppRepository {
             }
 
             override fun onFailure(call: Call<List<Game>>?, t: Throwable?) {
+                t?.printStackTrace()
                 getLocalActiveGames(callback)
             }
         })
@@ -71,7 +74,7 @@ class AppRepository {
     }
 
 
-    fun getRemoteWinners(id: Int, callback: Reactive<List<Winner>?>) {
+    fun getRemoteWinners(id: Long, callback: Reactive<List<Winner>?>) {
         webClient.webservice.winners(id).enqueue(object : Callback<List<Winner>> {
             override fun onResponse(call: Call<List<Winner>>?, response: Response<List<Winner>>?) {
                 if (response?.code() == 417) {
@@ -84,6 +87,25 @@ class AppRepository {
             }
 
             override fun onFailure(call: Call<List<Winner>>?, t: Throwable?) {
+                callback.done(null)
+            }
+        })
+    }
+
+
+    fun getRemotePlayers(id: Long, callback: Reactive<List<Player>?>) {
+        webClient.webservice.players(id).enqueue(object : Callback<List<Player>> {
+            override fun onResponse(call: Call<List<Player>>?, response: Response<List<Player>>?) {
+                if (response?.code() == 417) {
+                    callback.done(null)
+                    showUpdateScreen()
+                }
+                else {
+                    callback.done(response?.body())
+                }
+            }
+
+            override fun onFailure(call: Call<List<Player>>?, t: Throwable?) {
                 callback.done(null)
             }
         })
@@ -114,7 +136,7 @@ class AppRepository {
     }
 
 
-    fun getRemoteGameById(id: Int, callback: Reactive<Game?>) {
+    fun getRemoteGameById(id: Long, callback: Reactive<Game?>) {
         webClient.webservice.gameById(id).enqueue(object : Callback<Game> {
             override fun onResponse(call: Call<Game>?, response: Response<Game>?) {
                 if (response?.code() == 417) {
@@ -134,7 +156,7 @@ class AppRepository {
     }
 
 
-    fun getLocalGameById(id: Int, callback: Reactive<Game?>) {
+    fun getLocalGameById(id: Long, callback: Reactive<Game?>) {
         doAsync {
             val game = App.database.gamesDao().getGameById(id)
             uiThread {

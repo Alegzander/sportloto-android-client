@@ -22,6 +22,7 @@ import com.vovasoft.unilot.components.AppFragmentManager
 import com.vovasoft.unilot.components.Preferences
 import com.vovasoft.unilot.components.RevealAnimationSetting
 import com.vovasoft.unilot.repository.models.entities.Wallet
+import com.vovasoft.unilot.ui.dialogs.ProfileInfoDialog
 import com.vovasoft.unilot.ui.recycler_adapters.WalletsRecyclerAdapter
 import com.vovasoft.unilot.ui.widgets.ZxingReader
 import com.vovasoft.unilot.view_models.GamesVM
@@ -82,6 +83,11 @@ class ProfileFragment : BaseFragment() {
         context?.let { context ->
             backBtn.setOnClickListener {
                 onBackPressed()
+            }
+
+            infoBtn.setOnClickListener {
+                val dialog = ProfileInfoDialog(context)
+                dialog.show()
             }
 
             recyclerView.layoutManager = LinearLayoutManager(context)

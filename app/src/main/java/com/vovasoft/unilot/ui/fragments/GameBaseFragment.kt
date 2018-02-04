@@ -1,12 +1,15 @@
 package com.vovasoft.unilot.ui.fragments
 
+import android.app.Activity
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.support.v4.content.ContextCompat
 import android.support.v4.content.LocalBroadcastManager
 import android.view.View
 import com.vovasoft.unilot.components.AppFragmentManager
@@ -18,6 +21,7 @@ import com.vovasoft.unilot.repository.models.entities.GameResult
 import com.vovasoft.unilot.ui.dialogs.LooserDialog
 import com.vovasoft.unilot.ui.dialogs.UnknownStatusDialog
 import com.vovasoft.unilot.ui.dialogs.WinnerDialog
+import com.vovasoft.unilot.ui.widgets.ZxingReader
 import com.vovasoft.unilot.view_models.GamesVM
 import java.util.*
 
@@ -26,6 +30,9 @@ import java.util.*
  ****************************************************************************/
 abstract class GameBaseFragment : BaseFragment() {
 
+    protected var hasCameraPermission = false
+
+    protected var onScannerResult: ((String?) -> Unit)? = null
 
     protected lateinit var gamesVM: GamesVM
 
@@ -151,7 +158,7 @@ abstract class GameBaseFragment : BaseFragment() {
                         }
                         dialog.show()
                     }
-                    result.position!! == 0 -> {
+                    result.position == 0L -> {
                         val dialog = LooserDialog(context, resultGame)
                         dialog.setOnDismissListener {
                             sendNewsCountBroadcastIntent()
@@ -195,6 +202,38 @@ abstract class GameBaseFragment : BaseFragment() {
     private fun sendNewsCountBroadcastIntent() {
         val broadcastIntent = Intent("news")
         broadcaster.sendBroadcast(broadcastIntent)
+    }
+
+
+    protected fun runQReader() {
+        val intent = Intent(context, ZxingReader::class.java)
+        startActivityForResult(intent, ZxingReader.RESULT_CODE)
+    }
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK) {
+            when (requestCode) {
+                ZxingReader.RESULT_CODE -> {
+                    onScannerResult?.invoke(data?.getStringExtra("result"))
+                }
+            }
+        }
+    }
+
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+        context?.let { context ->
+            when (requestCode) {
+                ZxingReader.CAMERA_PERMISSION_CODE -> {
+                    hasCameraPermission = ContextCompat.checkSelfPermission(context, ZxingReader.CAMERA_PERMISSION) == PackageManager.PERMISSION_GRANTED
+                    if (hasCameraPermission) {
+                        runQReader()
+                    }
+                }
+            }
+        }
     }
 
 }

@@ -14,18 +14,18 @@ import kotlinx.android.synthetic.main.dialog_view_unknown_status.view.*
  ****************************************************************************/
 class UnknownStatusDialog(val context: Context, val game: Game) {
 
-    private val winnerDialogView: WinnerDialogView
+    private val unknownStatusDialogView: UnknownStatusDialogView
     private var dialog: AlertDialog? = null
     private var onHistoryListener: (()-> Unit)? = null
     private var onDismissListener: (()-> Unit)? = null
 
     init {
-        winnerDialogView = WinnerDialogView(context)
+        unknownStatusDialogView = UnknownStatusDialogView(context)
     }
 
 
     fun show() {
-        val builder = AlertDialog.Builder(context).setView(winnerDialogView)
+        val builder = AlertDialog.Builder(context).setView(unknownStatusDialogView)
         dialog = builder.create()
         dialog?.setOnDismissListener({
             onDismissListener?.invoke()
@@ -50,7 +50,7 @@ class UnknownStatusDialog(val context: Context, val game: Game) {
 
 
 
-    inner class WinnerDialogView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0)
+    inner class UnknownStatusDialogView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0)
         : FrameLayout(context, attrs, defStyleAttr) {
 
         init {

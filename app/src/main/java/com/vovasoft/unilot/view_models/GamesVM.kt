@@ -8,6 +8,7 @@ import com.vovasoft.unilot.repository.Reactive
 import com.vovasoft.unilot.repository.models.entities.Game
 import com.vovasoft.unilot.repository.models.entities.GameResult
 import com.vovasoft.unilot.repository.models.entities.Wallet
+import com.vovasoft.unilot.repository.models.pure.Player
 import com.vovasoft.unilot.repository.models.pure.Winner
 import java.util.*
 
@@ -71,7 +72,7 @@ class GamesVM : ViewModel() {
     }
 
 
-    fun getWinners(id: Int) : LiveData<List<Winner>> {
+    fun getWinners(id: Long) : LiveData<List<Winner>> {
         val winners = MutableLiveData<List<Winner>>()
         appRepo.getRemoteWinners(id, object : Reactive<List<Winner>?> {
             override fun done(data: List<Winner>?) {
@@ -79,6 +80,17 @@ class GamesVM : ViewModel() {
             }
         })
         return winners
+    }
+
+
+    fun getPlayers(id: Long) : LiveData<List<Player>> {
+        val players = MutableLiveData<List<Player>>()
+        appRepo.getRemotePlayers(id, object : Reactive<List<Player>?> {
+            override fun done(data: List<Player>?) {
+                players.value = data
+            }
+        })
+        return players
     }
 
 
@@ -159,7 +171,7 @@ class GamesVM : ViewModel() {
     }
 
 
-    fun getGameById(id: Int, callback: Reactive<Game?>) {
+    fun getGameById(id: Long, callback: Reactive<Game?>) {
         appRepo.getLocalGameById(id, object : Reactive<Game?> {
             override fun done(data: Game?) {
                 callback.done(data)

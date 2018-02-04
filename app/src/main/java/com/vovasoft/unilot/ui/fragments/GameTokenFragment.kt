@@ -22,7 +22,9 @@ import com.vovasoft.unilot.R
 import com.vovasoft.unilot.components.Preferences
 import com.vovasoft.unilot.components.daysPlural
 import com.vovasoft.unilot.repository.models.entities.Game
+import com.vovasoft.unilot.ui.dialogs.BonusParticipateDialog
 import com.vovasoft.unilot.ui.dialogs.TopPlacesDialog
+import com.vovasoft.unilot.ui.widgets.ZxingReader
 import kotlinx.android.synthetic.main.fragment_game_monthly.*
 
 /***************************************************************************
@@ -86,7 +88,7 @@ class GameTokenFragment : GameBaseFragment() {
 
                 prizeBoard.setCharacterList(TickerUtils.getDefaultListForUSCurrency())
                 prizeBoard.typeface = Typeface.create("sans-serif-light", Typeface.NORMAL)
-                prizeBoard.setText("%.3f".format(game.prizeAmount), true)
+                prizeBoard.setText("%.3f".format(game.prize?.amount), true)
 
                 prizeFiatTv.setCharacterList(TickerUtils.getDefaultListForUSCurrency())
                 prizeFiatTv.typeface = Typeface.create("sans-serif-light", Typeface.NORMAL)
@@ -161,14 +163,21 @@ class GameTokenFragment : GameBaseFragment() {
                 mutableDaysTv.text = daysPlural(context, days.toInt(), getString(R.string.mutable_days))
 
                 infoBtn.setOnClickListener {
-                    AlertDialog.Builder(context)
-                            .setTitle(R.string.how_does_it_work)
-                            .setMessage(R.string.how_does_it_work_text)
-                            .setPositiveButton(R.string.ok) { dialog, _ -> dialog.dismiss() }
-                            .create().show()
-
-                    Answers.getInstance().logCustom(CustomEvent("EVENT_TOKEN_HOWTO")
-                            .putCustomAttribute("language", Preferences.instance.language))
+                    val dialog = BonusParticipateDialog(context, game)
+                    game.id?.let {
+                        gamesVM.getPlayers(it).observe(this, Observer { winners ->
+                            dialog.setPlayers(winners ?: emptyList())
+                        })
+                    }
+                    onScannerResult = dialog.onScannerResult()
+                    dialog.setOnQrCodePressed {
+                        if (hasCameraPermission) {
+                            runQReader()
+                        } else {
+                            requestPermissions(listOf(ZxingReader.CAMERA_PERMISSION).toTypedArray(), ZxingReader.CAMERA_PERMISSION_CODE)
+                        }
+                    }
+                    dialog.show()
                 }
             }
         }

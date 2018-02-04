@@ -15,10 +15,10 @@ interface GameResultsDao {
     fun getGameResults(show: Boolean = true): List<GameResult>
 
     @Query("SELECT * FROM game_results WHERE game_id = :arg0 LIMIT 1")
-    fun getGameResultByGameId(id: Int): GameResult
+    fun getGameResultByGameId(id: Long): GameResult
 
     @Query("DELETE FROM game_results WHERE game_id = :arg0")
-    fun deleteGameResultByGameId(id: Int)
+    fun deleteGameResultByGameId(id: Long)
 
     @Insert(onConflict= OnConflictStrategy.REPLACE)
     fun insert(wallet: GameResult)

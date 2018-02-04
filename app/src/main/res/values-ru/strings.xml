@@ -16,6 +16,7 @@
     <string name="till_the_end_of_registration">До окончания розыгрыша:</string>
     <string name="weekly_lottery">Недельная лотерея</string>
     <string name="bonus_draw">Бонусная лотерея</string>
+    <string name="unit_draw">Unit лотерея</string>
     <string name="days">дни</string>
     <string name="mutable_days">дни</string>
     <string name="hours">часы</string>
@@ -41,7 +42,7 @@
     <string name="top_places">Призовые места</string>
     <string name="winner_announcement">До объявления\nпобедителя:</string>
     <string name="you_are_not_in_participants_list">Вас пока нет в списке участников.</string>
-    <string name="how_to_participate">Как попасть в данный розыгрыш?</string>
+    <string name="how_to_participate">Как принять участие?</string>
     <string name="notify_about">Получать уведомлять о</string>
     <string name="about_daily_lottery">Дневной лотерее</string>
     <string name="about_weekly_lottery">Недельной лотерее</string>
@@ -78,7 +79,6 @@
     <string name="you_automatically_participate_in_bonus_drawing_that_will_run_in">Вы автоматически становитесь участником бонусной лотереи, которая состоится через:</string>
     <string name="how_does_it_work">Как это работает:</string>
     <string name="how_does_it_work_text">1. Выберите тип розыгрыша: Дневная, Недельная.\n2. Оплатите стоимость билета.\n3. Ожидайте результат.\n\nСистема сама случайным образом выбирает пользователей, между которыми разделит призовой фонд розыгрыша.\n\nВо время розыгрыша вы можете ознакомиться с количеством призовых мест и суммой призовых в соответствующем разделе приложения: Дневная, Недельная, Бонусная. Списки постоянно изменяются в зависимости от количества участников.\n\nВсе пользователи, которые не стали победителями в Дневных и Недельных розыгрышах, в течение месяца автоматически становятся участниками Бонусного Ежемесячного розыгрыша бесплатно!</string>
-    <string name="payment_attention">Убедитесь что вы совершаете оплату с кошелька, который зарегистрирован в профиле.</string>
     <string name="wallet_not_found">Так как вы не зарегистрировали ваш кошелек, ваш статус незвестен.\nПроверьте историю розыгрыша</string>
     <string name="drawing_from">Розыгрыш от:</string>
     <string name="jackpot">ДЖЕКПОТ</string>
@@ -110,6 +110,7 @@
     <string name="wallets_attention">Прежде чем принять участие, вам необходимо указать номер кошелька с которого будет производится оплата</string>
     <string name="attention">Внимание!</string>
     <string name="invalid_wallet_number">Неверный номер кошелька</string>
+    <string name="payment_attention">Убедитесь что вы совершаете оплату с кошелька, который зарегистрирован в профиле.</string>
     <string name="participation_rules" formatted="false">
         <![CDATA[
             <b>Чтобы принять участие:</b><br>
@@ -120,5 +121,20 @@
             <b>Цена газа - %d Gwei</b>
         ]]>
     </string>
+    <string name="list_of_participants">Список участников</string>
+    <string name="participation_rules_bonus">Чтобы принять участие в розыгрыше Бонусной лотереи вам необходимо принять участие в Дневной или Недельной лотерее.</string>
+    <string name="participation_rules_unit">Чтобы принять участие в розыгрыше 100,000 UNIT вам необходимо принять участие в Дневной или Недельной лотерее.</string>
+    <string name="title_wallets_allert">Укажите адрес кошелька, который вы будете использовать для покупки UNIT токенов.</string>
+    <string name="text_wallets_allert">
+        Обратите внимание!\n
+        Мы рекомендуем использовать нижеследующие кошельки:\n\n
+        • MyEtherWallet (http://myetherwallet.com/)\n
+        • MetaМask - браузерное расширение (https://metamask.io/)\n\n
+        НЕ ИСПОЛЬЗУЙТЕ следующие кошельки для инвестирования:\n\n
+        • Приложения Freewallet (https://freewallet.org/)\n
+        • Любые кошельки, хранящиеся на биржах (coinbase, bitfinex, coinexchange, cex.io и т.д.)\n
+        • Любое приложение-кошелек, которое не позволяет легко импортировать и экспортировать ваш кошелек без каких-либо допольнительных условий (например, необходимо писать в тех.поддержку)
+    </string>
+    <string name="your_wallet_number">Номер кошелька</string>
 
 </resources>

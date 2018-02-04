@@ -6,34 +6,27 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.os.CountDownTimer
 import android.support.v7.app.AlertDialog
+import android.support.v7.widget.AppCompatImageView
 import android.text.Html
 import android.util.AttributeSet
+import android.view.ViewGroup
+import android.view.Window
+import android.view.WindowManager
 import android.widget.FrameLayout
+import android.widget.RelativeLayout
 import android.widget.Toast
 import com.crashlytics.android.answers.Answers
 import com.crashlytics.android.answers.CustomEvent
 import com.vovasoft.unilot.R
 import com.vovasoft.unilot.components.Preferences
 import com.vovasoft.unilot.repository.models.entities.Game
-import kotlinx.android.synthetic.main.dialog_view_participate.view.*
-import android.view.animation.AnimationSet
-import android.view.animation.TranslateAnimation
-import android.view.animation.Animation
-import android.view.animation.ScaleAnimation
-import android.view.ViewGroup
-import android.widget.RelativeLayout
-import android.content.DialogInterface
-import android.graphics.drawable.ColorDrawable
-import android.support.v7.widget.AppCompatImageView
-import android.view.Window
-import android.view.Window.FEATURE_NO_TITLE
-import android.view.WindowManager
+import kotlinx.android.synthetic.main.dialog_view_participate_simple.view.*
 
 
 /***************************************************************************
  * Created by arseniy on 12/10/2017.
  ****************************************************************************/
-class ParticipateDialog(val context: Context, val game: Game) {
+class SimpleParticipateDialog(val context: Context, val game: Game) {
 
     private val participateDialogView: ParticipateDialogView
     private var dialog: AlertDialog? = null
@@ -62,7 +55,7 @@ class ParticipateDialog(val context: Context, val game: Game) {
         private var countDown: CountDownTimer? = null
 
         init {
-            inflate(context, R.layout.dialog_view_participate, this)
+            inflate(context, R.layout.dialog_view_participate_simple, this)
             setupViews()
         }
 
@@ -111,7 +104,7 @@ class ParticipateDialog(val context: Context, val game: Game) {
                 builder.window.attributes = lp
             }
 
-            participateTv.text = Html.fromHtml(context.getString(R.string.participation_rules).format(game.betAmount, 210000, 30))
+            participateTv.text = Html.fromHtml(context.getString(R.string.participation_rules).format(game.bet?.amount, game.gasLimit, game.gasPrice))
 
             when (game.type) {
                 Game.Type.DAILY.value -> {
