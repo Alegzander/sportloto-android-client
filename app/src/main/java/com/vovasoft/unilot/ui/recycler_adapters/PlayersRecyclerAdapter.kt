@@ -6,9 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.vovasoft.unilot.R
 import com.vovasoft.unilot.repository.models.pure.Player
-import com.vovasoft.unilot.repository.models.pure.Winner
 import com.vovasoft.unilot.ui.view_holders.PlayersViewHolder
-import com.vovasoft.unilot.ui.view_holders.WinnersViewHolder
 
 /***************************************************************************
  * Created by arseniy on 14/10/2017.

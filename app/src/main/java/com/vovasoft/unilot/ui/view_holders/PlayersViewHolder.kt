@@ -5,7 +5,6 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.vovasoft.unilot.R
 import com.vovasoft.unilot.repository.models.pure.Player
-import com.vovasoft.unilot.repository.models.pure.Winner
 
 /***************************************************************************
  * Created by arseniy on 14/10/2017.
