@@ -34,24 +34,40 @@ class AppRepository {
     fun getRemoteGames(callback: Reactive<List<Game>?>) {
         webClient.webservice.games().enqueue(object : Callback<List<Game>> {
             override fun onResponse(call: Call<List<Game>>?, response: Response<List<Game>>?) {
-                if (response?.code() == 417) {
-                    callback.done(null)
-                    showUpdateScreen()
-                }
-                else {
-                    doAsync {
-                        response?.body()?.let { games ->
-                            App.database.gamesDao().insertAll(games)
+                response?.let {
+                    when {
+                        response.isSuccessful -> {
+                            doAsync {
+                                response.body()?.let { games ->
+                                    App.database.gamesDao().insertAll(games)
+                                }
+                            }
+                            callback.done(response.body())
                         }
+                        response.code() == 417 -> {
+                            callback.done(null)
+                            showUpdateScreen()
+                        }
+                        else -> getLocalActiveGames(callback)
                     }
-                    callback.done(response?.body())
                 }
             }
 
             override fun onFailure(call: Call<List<Game>>?, t: Throwable?) {
-                callback.done(null)
+                getLocalActiveGames(callback)
             }
         })
+    }
+
+
+    fun getLocalActiveGames(callback: Reactive<List<Game>?>) {
+        doAsync {
+            val games = App.database.gamesDao().getActiveGames()
+            games.sortedBy { it.endTime() }
+            uiThread {
+                callback.done(games)
+            }
+        }
     }
 
 
@@ -98,17 +114,6 @@ class AppRepository {
     }
 
 
-    fun getGamesHistory(callback: Reactive<List<Game>?>) {
-        doAsync {
-            val games = App.database.gamesDao().getGames()
-            games.sortedBy { it.endTime() }
-            uiThread {
-                callback.done(games)
-            }
-        }
-    }
-
-
     fun getRemoteGameById(id: Int, callback: Reactive<Game?>) {
         webClient.webservice.gameById(id).enqueue(object : Callback<Game> {
             override fun onResponse(call: Call<Game>?, response: Response<Game>?) {
@@ -129,7 +134,7 @@ class AppRepository {
     }
 
 
-    fun getGameById(id: Int, callback: Reactive<Game?>) {
+    fun getLocalGameById(id: Int, callback: Reactive<Game?>) {
         doAsync {
             val game = App.database.gamesDao().getGameById(id)
             uiThread {

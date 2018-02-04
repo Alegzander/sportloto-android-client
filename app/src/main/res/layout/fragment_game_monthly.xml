@@ -368,7 +368,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_trophy" />
+                app:srcCompat="@drawable/ic_trophy_gray" />
 
             <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/textView11"

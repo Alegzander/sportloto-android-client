@@ -12,7 +12,10 @@ import com.vovasoft.unilot.repository.models.entities.Game
 @Dao
 interface GamesDao {
     @Query("SELECT * FROM games")
-    fun getGames(): List<Game>
+    fun getAllGames(): List<Game>
+
+    @Query("SELECT * FROM games WHERE status = 10")
+    fun getActiveGames(): List<Game>
 
     @Query("SELECT * FROM games WHERE id = :arg0 LIMIT 1")
     fun getGameById(id: Int): Game?

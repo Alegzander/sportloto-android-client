@@ -54,12 +54,10 @@
     <string name="add_wallet">Добавить кошелек</string>
     <string name="close">Закрыть</string>
     <string name="total_prize_fund">Общий призовой фонд</string>
-    <string name="daily_lottery_unilot">Ежедневная лотерея Unilot</string>
-    <string name="weekly_lottery_unilot">Еженедельная лотерея Unilot</string>
-    <string name="participation_rules_daily" formatted="false">Чтобы принять участие в ежедневном розыгрыше, вам необходимо перечислить %.3f Eth на кошелек, адрес которого вы получите, нажав на кнопку ниже.</string>
-    <string name="participation_rules_weekly" formatted="false">Чтобы принять участие в недельном розыгрыше, вам необходимо перечислить %.3f Eth на кошелек, адрес которого вы получите, нажав на кнопку ниже.</string>
+    <string name="daily_lottery_unilot">Ежедневная лотерея</string>
+    <string name="weekly_lottery_unilot">Еженедельная лотерея</string>
     <string name="lottery_ends_in">Лотерея заканчивается через:</string>
-    <string name="copy_wallet_number">Скопировать адрес кошелька</string>
+    <string name="copy_number">Скопировать адрес</string>
     <string name="wallet_number_has_been_copied">Адрес кошелька был скопирован</string>
     <string name="your_wallets">Ваши кошельки</string>
     <string name="add">Добавить</string>
@@ -112,5 +110,15 @@
     <string name="wallets_attention">Прежде чем принять участие, вам необходимо указать номер кошелька с которого будет производится оплата</string>
     <string name="attention">Внимание!</string>
     <string name="invalid_wallet_number">Неверный номер кошелька</string>
+    <string name="participation_rules" formatted="false">
+        <![CDATA[
+            <b>Чтобы принять участие:</b><br>
+            1. Скопируйте адрес кошелька, указанный ниже.<br>
+            2. Перейдите в ваш личный кошелек<br>
+            3. Отправьте <b>%.5f</b> Eth на скопированный адрес с параметрами<br>
+            <b>Лимит газа - %d,</b><br>
+            <b>Цена газа - %d Gwei</b>
+        ]]>
+    </string>
 
 </resources>

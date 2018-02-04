@@ -54,12 +54,10 @@
     <string name="add_wallet">Add wallet</string>
     <string name="close">Close</string>
     <string name="total_prize_fund">Total jackpot</string>
-    <string name="daily_lottery_unilot">Daily drawing Unilot</string>
-    <string name="weekly_lottery_unilot">Weekly drawing Unilot</string>
-    <string name="participation_rules_daily" formatted="false">To participate in daily drawing you should transfer %.2f Eth to a specified wallet. Please tap on the button below to get the wallet address.</string>
-    <string name="participation_rules_weekly" formatted="false">To participate in weekly drawing you should transfer %.2f Eth to a specified wallet. Please tap on the button below to get the wallet address.</string>
+    <string name="daily_lottery_unilot">Daily drawing</string>
+    <string name="weekly_lottery_unilot">Weekly drawing</string>
     <string name="lottery_ends_in">The drawing finishes in:</string>
-    <string name="copy_wallet_number">Copy wallet address</string>
+    <string name="copy_number">Copy address</string>
     <string name="wallet_number_has_been_copied">Wallet address has been copied</string>
     <string name="your_wallets">Your wallets</string>
     <string name="add">Add</string>
@@ -112,5 +110,15 @@
     <string name="wallets_attention">Прежде чем принять участие, вам необходимо указать номер кошелька с которого будет производится оплата</string>
     <string name="attention">Attention!</string>
     <string name="invalid_wallet_number">Invalid wallet number</string>
+    <string name="participation_rules" formatted="false">
+        <![CDATA[
+            <b>To participate:</b><br>
+            1. Copy Unilot wallet address down below.<br>
+            2. Go to your private wallet<br>
+            3. Send <b>%f</b> Eth to copied address with<br>
+            <b>Gas Limit - %d,</b><br>
+            <b>Gas Price - %d Gwei</b>
+        ]]>
+    </string>
 
 </resources>

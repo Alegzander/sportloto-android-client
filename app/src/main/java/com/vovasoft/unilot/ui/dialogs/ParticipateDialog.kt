@@ -1,10 +1,12 @@
 package com.vovasoft.unilot.ui.dialogs
 
+import android.app.Dialog
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.os.CountDownTimer
 import android.support.v7.app.AlertDialog
+import android.text.Html
 import android.util.AttributeSet
 import android.widget.FrameLayout
 import android.widget.Toast
@@ -14,6 +16,18 @@ import com.vovasoft.unilot.R
 import com.vovasoft.unilot.components.Preferences
 import com.vovasoft.unilot.repository.models.entities.Game
 import kotlinx.android.synthetic.main.dialog_view_participate.view.*
+import android.view.animation.AnimationSet
+import android.view.animation.TranslateAnimation
+import android.view.animation.Animation
+import android.view.animation.ScaleAnimation
+import android.view.ViewGroup
+import android.widget.RelativeLayout
+import android.content.DialogInterface
+import android.graphics.drawable.ColorDrawable
+import android.support.v7.widget.AppCompatImageView
+import android.view.Window
+import android.view.Window.FEATURE_NO_TITLE
+import android.view.WindowManager
 
 
 /***************************************************************************
@@ -79,10 +93,28 @@ class ParticipateDialog(val context: Context, val game: Game) {
 
             }
 
+            qrBtn.setOnClickListener {
+                val builder = Dialog(context)
+                builder.requestWindowFeature(Window.FEATURE_NO_TITLE)
+
+                val imageView = AppCompatImageView(context)
+                imageView.setImageResource(R.drawable.ic_qr_code_black)
+                builder.addContentView(imageView, RelativeLayout.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.MATCH_PARENT))
+
+                val lp: WindowManager.LayoutParams  = WindowManager.LayoutParams()
+                lp.copyFrom(builder.window.attributes)
+                lp.width = width
+                lp.height = width
+                builder.show()
+                builder.window.attributes = lp
+            }
+
+            participateTv.text = Html.fromHtml(context.getString(R.string.participation_rules).format(game.betAmount, 210000, 30))
+
             when (game.type) {
                 Game.Type.DAILY.value -> {
-                    participateTv.text = context.getString(R.string.participation_rules_daily).format(game.betAmount)
-
                     var timeLeft = "00:00:00"
                     countDown = object : CountDownTimer(game.endTime() - System.currentTimeMillis(), 1000) {
                         override fun onTick(millisUntilFinished: Long) {
@@ -102,8 +134,6 @@ class ParticipateDialog(val context: Context, val game: Game) {
 
                 }
                 Game.Type.WEEKLY.value -> {
-                    participateTv.text = context.getString(R.string.participation_rules_weekly).format(game.betAmount)
-
                     var timeLeft = "00:00:00"
                     countDown = object : CountDownTimer(game.endTime() - System.currentTimeMillis(), 60000) {
                         override fun onTick(millisUntilFinished: Long) {

@@ -36,7 +36,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:background="@drawable/view_rounded_background_black"
+        android:background="@drawable/view_square_rounded_background_black"
         android:paddingBottom="8dp"
         android:paddingEnd="24dp"
         android:paddingLeft="24dp"

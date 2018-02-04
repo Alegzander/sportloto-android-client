@@ -160,7 +160,7 @@ class GamesVM : ViewModel() {
 
 
     fun getGameById(id: Int, callback: Reactive<Game?>) {
-        appRepo.getGameById(id, object : Reactive<Game?> {
+        appRepo.getLocalGameById(id, object : Reactive<Game?> {
             override fun done(data: Game?) {
                 callback.done(data)
             }
