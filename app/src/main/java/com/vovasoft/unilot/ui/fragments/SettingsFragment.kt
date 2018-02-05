@@ -36,6 +36,7 @@ class SettingsFragment : BaseFragment() {
         dailySwitch.isChecked = Preferences.instance.dayLotteryNotify
         weeklySwitch.isChecked = Preferences.instance.weekLotteryNotify
         monthlySwitch.isChecked = Preferences.instance.monthLotteryNotify
+        tokenSwitch.isChecked = Preferences.instance.tokenLotteryNotify
 
         when (Preferences.instance.language) {
             "en" -> enSwitch.isChecked = true
@@ -52,6 +53,10 @@ class SettingsFragment : BaseFragment() {
 
         monthlySwitch.setOnCheckedChangeListener { _, isChecked ->
             Preferences.instance.monthLotteryNotify = isChecked
+        }
+
+        tokenSwitch.setOnCheckedChangeListener { _, isChecked ->
+            Preferences.instance.tokenLotteryNotify = isChecked
         }
 
         enSwitch.setOnCheckListener {

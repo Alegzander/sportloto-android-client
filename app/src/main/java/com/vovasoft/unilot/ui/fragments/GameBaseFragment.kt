@@ -24,6 +24,7 @@ import com.vovasoft.unilot.ui.dialogs.WinnerDialog
 import com.vovasoft.unilot.ui.widgets.ZxingReader
 import com.vovasoft.unilot.view_models.GamesVM
 import java.util.*
+import java.util.regex.Pattern
 
 /***************************************************************************
  * Created by arseniy on 29/10/2017.
@@ -216,7 +217,14 @@ abstract class GameBaseFragment : BaseFragment() {
         if (resultCode == Activity.RESULT_OK) {
             when (requestCode) {
                 ZxingReader.RESULT_CODE -> {
-                    onScannerResult?.invoke(data?.getStringExtra("result"))
+                    var result = data?.getStringExtra("result")
+                    val p = Pattern.compile("(0x)?[0-9a-f]{40}")
+                    val m = p.matcher(result?.toLowerCase())
+                    if (m.find()) {
+                        result = m.group()
+                    }
+
+                    onScannerResult?.invoke(result)
                 }
             }
         }

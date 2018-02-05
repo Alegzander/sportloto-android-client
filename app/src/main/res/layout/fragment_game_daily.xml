@@ -20,6 +20,8 @@
             android:text="@string/no_games_for_today"
             android:textColor="@color/colorYellow"
             android:textSize="24sp"
+            android:padding="8dp"
+            android:gravity="center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

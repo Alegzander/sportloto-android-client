@@ -3,7 +3,8 @@
     <string name="unilot_app">Unilot® App</string>
     <string name="version" formatted="false">Version: %s Closed Beta</string>
     <string name="grant_type">client_credentials</string>
-    <string name="faq_url">https://dev.unilot.io/en/mobile/faq</string>
+    <string name="faq_url">https://api.unilot.io/en/mobile/faq</string>
+    <string name="wp_url">https://unilot.io/en-us/wp.html</string>
     <string name="unilot_url">https://unilot.io/en-us/</string>
     <string name="ok">OK</string>
     <string name="daily">Daily</string>
@@ -47,6 +48,7 @@
     <string name="about_daily_lottery">Daily drawing</string>
     <string name="about_weekly_lottery">Weekly drawing</string>
     <string name="about_bonus_draw">Bonus drawing</string>
+    <string name="about_token_draw">Unit drawing</string>
     <string name="language_selection">Select language:</string>
     <string name="submit">Submit</string>
     <string name="cancel">Cancel</string>
@@ -103,7 +105,7 @@
     <string name="tutorial_step_4">To participate please send ETH from your crypto wallet to Unilot address.</string>
     <string name="tutorial_step_5">Go to your wallet and transfer the necessary amount to the copied wallet address.</string>
     <string name="tutorial_step_6">Return to the app, go to Profile and add your wallet address. Now you can get notifications about win or loss.</string>
-    <string name="tutorial_step_7">Wait for the results. If you loose in Daily or Weekly drawing, you will automatically become a participant of the Bonus Monthly Draw for free.</string>
+    <string name="tutorial_step_7">Wait for the results. If you lose in Daily or Weekly drawing, you will automatically become a participant of the Bonus Monthly Draw for free.</string>
     <string name="skip">Skip</string>
     <string name="want_know_more">Want to know more</string>
     <string name="letsgo">Lets GO!</string>

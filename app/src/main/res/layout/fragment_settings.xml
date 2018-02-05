@@ -177,6 +177,43 @@
                 android:layout_height="0.5dp"
                 android:background="@color/colorDarkGray" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="16dp"
+                android:paddingEnd="16dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:paddingStart="16dp">
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    app:srcCompat="@drawable/ic_token_gray" />
+
+                <android.support.v7.widget.SwitchCompat
+                    android:id="@+id/tokenSwitch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginStart="16dp"
+                    android:checked="true"
+                    app:fontFamily="@font/roboto_light"
+                    android:text="@string/about_token_draw"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="18sp"
+                    app:thumbTint="@color/colorWhite"
+                    app:trackTint="@color/switch_color" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/colorDarkGray" />
+
             <android.support.v7.widget.AppCompatTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

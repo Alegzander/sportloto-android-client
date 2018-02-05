@@ -29,6 +29,7 @@ import com.vovasoft.unilot.view_models.GamesVM
 import kotlinx.android.synthetic.main.fragment_profile.*
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
+import java.util.regex.Pattern
 
 
 /***************************************************************************
@@ -184,7 +185,13 @@ class ProfileFragment : BaseFragment() {
         if (resultCode == Activity.RESULT_OK) {
             when (requestCode) {
                 ZxingReader.RESULT_CODE -> {
-                    walletEt.setText(data?.getStringExtra("result"))
+                    var result = data?.getStringExtra("result")
+                    val p = Pattern.compile("(0x)?[0-9a-f]{40}")
+                    val m = p.matcher(result?.toLowerCase())
+                    if (m.find()) {
+                        result = m.group()
+                    }
+                    walletEt.setText(result)
                 }
             }
         }

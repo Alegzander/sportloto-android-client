@@ -87,7 +87,7 @@ class GameTokenFragment : GameBaseFragment() {
 
                 prizeBoard.setCharacterList(TickerUtils.getDefaultListForUSCurrency())
                 prizeBoard.typeface = Typeface.create("sans-serif-light", Typeface.NORMAL)
-                prizeBoard.setText("%.3f".format(game.prize?.amount), true)
+                prizeBoard.setText("%.0f".format(game.prize?.amount), true)
 
                 prizeFiatTv.setCharacterList(TickerUtils.getDefaultListForUSCurrency())
                 prizeFiatTv.typeface = Typeface.create("sans-serif-light", Typeface.NORMAL)

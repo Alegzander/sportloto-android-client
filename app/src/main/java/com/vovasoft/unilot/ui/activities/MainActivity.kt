@@ -238,7 +238,7 @@ class MainActivity : AppCompatActivity(), NetworkStateReceiver.ReceiverCallback 
         }
 
         whitepaperBtn.setOnClickListener {
-            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(BuildConfig.WP_URL))
+            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.wp_url)))
             startActivity(browserIntent)
             drawerLayout.closeDrawers()
             Answers.getInstance().logCustom(CustomEvent("EVENT_WHITE_PAPER")

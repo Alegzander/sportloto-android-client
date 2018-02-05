@@ -3,7 +3,8 @@
     <string name="unilot_app">Unilot® App</string>
     <string name="version" formatted="false">Version: %s Closed Beta</string>
     <string name="grant_type">client_credentials</string>
-    <string name="faq_url">https://dev.unilot.io/ru/mobile/faq</string>
+    <string name="faq_url">https://api.unilot.io/ru/mobile/faq</string>
+    <string name="wp_url">https://unilot.io/ru-ru/wp.html</string>
     <string name="unilot_url">https://unilot.io/ru-ru</string>
     <string name="ok">OK</string>
     <string name="daily">Дневная</string>
@@ -43,10 +44,11 @@
     <string name="winner_announcement">До объявления\nпобедителя:</string>
     <string name="you_are_not_in_participants_list">Вас пока нет в списке участников.</string>
     <string name="how_to_participate">Как принять участие?</string>
-    <string name="notify_about">Получать уведомлять о</string>
+    <string name="notify_about">Получать уведомления о</string>
     <string name="about_daily_lottery">Дневной лотерее</string>
     <string name="about_weekly_lottery">Недельной лотерее</string>
     <string name="about_bonus_draw">Бонусной лотерее</string>
+    <string name="about_token_draw">Unit лотерее</string>
     <string name="language_selection">Выберите язык:</string>
     <string name="submit">Подтвердить</string>
     <string name="cancel">Отменить</string>
