@@ -88,6 +88,8 @@ class ProfileFragment : BaseFragment() {
             infoBtn.setOnClickListener {
                 val dialog = ProfileInfoDialog(context)
                 dialog.show()
+                Answers.getInstance().logCustom(CustomEvent("EVENT_WALLETS_ALERT")
+                        .putCustomAttribute("language", Preferences.instance.language))
             }
 
             recyclerView.layoutManager = LinearLayoutManager(context)
@@ -140,7 +142,7 @@ class ProfileFragment : BaseFragment() {
     private fun addWallet() {
         context?.let { context ->
             val walletNumber = walletEt.text.toString().trim()
-            if (walletNumber.isNotEmpty() && walletNumber.matches(Regex("^(0x)?[0-9a-f]{40}$"))) {
+            if (walletNumber.isNotEmpty() && walletNumber.toLowerCase().matches(Regex("^(0x)?[0-9a-f]{40}$"))) {
 
                 val wallet = Wallet()
                 wallet.number = walletNumber

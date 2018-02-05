@@ -177,6 +177,8 @@ class GameTokenFragment : GameBaseFragment() {
                         }
                     }
                     dialog.show()
+                    Answers.getInstance().logCustom(CustomEvent("EVENT_LIST_PARTICIPANTS")
+                            .putCustomAttribute("language", Preferences.instance.language))
                 }
             }
         }
