@@ -136,5 +136,12 @@
         • Any wallet application that doesn’t allow you to export and import your wallet freely without any extra condition (like write to support)
     </string>
     <string name="your_wallet_number">Wallet number</string>
+    <string name="send_feedback">Send feedback</string>
+    <string name="send_feedback_email">mvp@unilot.io</string>
+    <string name="send_feedback_subject">Unilot app beta testing</string>
+    <string name="send_feedback_message">
+        Send Feedback\n
+        Have a suggestion for improvement or find a bug? Please send your feedback to help us improve Unilot product!
+    </string>
 
 </resources>

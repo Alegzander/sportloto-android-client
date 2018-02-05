@@ -11,6 +11,7 @@ import android.net.ConnectivityManager
 import android.net.Uri
 import android.os.Bundle
 import android.support.v4.content.LocalBroadcastManager
+import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
@@ -80,6 +81,29 @@ class MainActivity : AppCompatActivity(), NetworkStateReceiver.ReceiverCallback 
         if (Preferences.instance.isFirstOpen) {
             Preferences.instance.isFirstOpen = false
             AppFragmentManager.instance.openFragment(TutorialFragment(), true)
+        }
+
+
+        sendFeedbackBtn.setOnClickListener {
+            Answers.getInstance().logCustom(CustomEvent("EVENT_SEND_FEEDBACK_PRESSED")
+                    .putCustomAttribute("language", Preferences.instance.language))
+
+            val alertDialog = AlertDialog.Builder(this).create()
+            alertDialog.setTitle(getString(R.string.send_feedback))
+            alertDialog.setMessage(getString(R.string.send_feedback_message))
+            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.ok)) { dialog, _ ->
+                Answers.getInstance().logCustom(CustomEvent("EVENT_SEND_FEEDBACK_SUBMIT")
+                        .putCustomAttribute("language", Preferences.instance.language))
+
+                dialog.dismiss()
+                val emailIntent = Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", getString(R.string.send_feedback_email), null))
+                emailIntent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.send_feedback_subject))
+                startActivity(Intent.createChooser(emailIntent, getString(R.string.send_feedback)))
+            }
+            alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, getText(R.string.cancel)) {dialog, _ ->
+                dialog.dismiss()
+            }
+            alertDialog.show()
         }
     }
 

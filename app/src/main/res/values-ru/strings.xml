@@ -136,5 +136,12 @@
         • Любое приложение-кошелек, которое не позволяет легко импортировать и экспортировать ваш кошелек без каких-либо допольнительных условий (например, необходимо писать в тех.поддержку)
     </string>
     <string name="your_wallet_number">Номер кошелька</string>
+    <string name="send_feedback">Отправить отзыв</string>
+    <string name="send_feedback_email">mvp@unilot.io</string>
+    <string name="send_feedback_subject">Бета-тестирование приложения Unilot</string>
+    <string name="send_feedback_message">
+        Отправить отзыв\n
+        Нашли баг? Есть предложения по улучшению приложения? Пожалуйста, напишите нам, чтобы помочь сделать приложение Unilot лучше для вас!
+    </string>
 
 </resources>
