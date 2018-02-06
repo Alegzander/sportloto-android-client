@@ -155,7 +155,7 @@ class GameMonthlyFragment : GameBaseFragment() {
 
             game?.let { game ->
 
-                val days = (game.endTime() - System.currentTimeMillis()) / (1000 * 60 * 60 * 24)
+                val days = (game.endTime() - System.currentTimeMillis()) / (1000 * 60 * 60 * 24) + 1
                 daysBoard.setCharacterList(TickerUtils.getDefaultListForUSCurrency())
                 daysBoard.typeface = Typeface.create("sans-serif-light", Typeface.NORMAL)
                 daysBoard.setText("%02d".format(days), true)
