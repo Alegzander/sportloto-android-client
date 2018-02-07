@@ -36,7 +36,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/colorBlack"
             android:textSize="18sp"
-            app:fontFamily="@font/roboto_medium"
+            app:fontFamily="@font/roboto_bold"
             tools:layout_editor_absoluteX="54dp" />
 
     </LinearLayout>

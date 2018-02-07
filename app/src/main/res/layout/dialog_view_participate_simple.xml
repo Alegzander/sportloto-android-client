@@ -1,172 +1,184 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:focusable="true"
-    android:focusableInTouchMode="true">
+    android:layout_height="wrap_content">
 
-
-    <android.support.constraint.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <android.support.v7.widget.AppCompatImageView
-            android:layout_width="32dp"
-            android:layout_height="58dp"
-            android:layout_marginTop="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/titleTv"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_trophy_black" />
-
-        <android.support.v7.widget.AppCompatTextView
-            android:id="@+id/titleTv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:gravity="center"
-            android:paddingEnd="16dp"
-            android:paddingStart="16dp"
-            android:text="@string/weekly_lottery_unilot"
-            android:textColor="@color/colorBlack"
-            android:textSize="20sp"
-            app:fontFamily="@font/roboto_medium"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <android.support.v7.widget.AppCompatImageButton
-            android:id="@+id/closeBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:padding="12dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_x_black" />
-
-    </android.support.constraint.ConstraintLayout>
-
-
-    <android.support.v7.widget.AppCompatTextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:fontFamily="@font/roboto_light"
-        android:gravity="center"
-        android:text="@string/lottery_ends_in"
-        android:textColor="@color/colorBlack"
-        android:textSize="15sp" />
+        android:orientation="vertical"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
 
-    <android.support.v7.widget.AppCompatTextView
-        android:id="@+id/timeTv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:fontFamily="@font/roboto"
-        android:gravity="center"
-        android:text="00:00:00"
-        android:textColor="@color/colorBlack"
-        android:textSize="35sp" />
-
-    <android.support.v7.widget.AppCompatTextView
-        android:id="@+id/participateTv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/view_square_rounded_orange"
-        android:padding="16dp"
-        android:textSize="16sp"
-        app:fontFamily="@font/roboto_light" />
-
-    <android.support.v7.widget.AppCompatTextView
-        android:id="@+id/walletTv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:gravity="center"
-        android:textColor="@color/colorBlack"
-        android:textSize="12sp"
-        app:fontFamily="@font/roboto" />
-
-    <android.support.constraint.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp">
-
-        <android.support.v7.widget.AppCompatImageButton
-            android:id="@+id/qrBtn"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginStart="8dp"
-            android:background="@android:color/transparent"
-            android:padding="4dp"
-            android:scaleType="fitCenter"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_qr_code_black"
-            android:layout_marginLeft="8dp" />
 
         <android.support.constraint.ConstraintLayout
-            android:id="@+id/copyBtn"
-            android:layout_width="0dp"
-            android:layout_height="48dp"
-            android:layout_marginStart="8dp"
-            android:background="@drawable/view_rounded_background_black"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/qrBtn"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginLeft="8dp">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-            <android.support.v7.widget.AppCompatImageView
-                android:id="@+id/appCompatImageView"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_marginEnd="6dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/appCompatTextView2"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_copy_gray"
-                android:layout_marginRight="6dp" />
-
-            <android.support.v7.widget.AppCompatTextView
-                android:id="@+id/appCompatTextView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:layout_marginStart="8dp"
-                android:includeFontPadding="false"
-                android:text="@string/copy_number"
-                android:textColor="@color/colorWhite"
-                android:textSize="16sp"
-                app:fontFamily="@font/roboto_light"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingTop="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent">
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:layout_width="28dp"
+                    android:layout_height="48dp"
+                    app:srcCompat="@drawable/ic_trophy_black" />
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/titleTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center"
+                    android:text="@string/weekly_lottery_unilot"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="18sp"
+                    app:fontFamily="@font/roboto_bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </LinearLayout>
+
+            <android.support.v7.widget.AppCompatImageButton
+                android:id="@+id/closeBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:padding="12dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_x_black" />
+
         </android.support.constraint.ConstraintLayout>
 
-    </android.support.constraint.ConstraintLayout>
 
-    <android.support.v7.widget.AppCompatTextView
-        android:id="@+id/warningTv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginStart="32dp"
-        android:gravity="center"
-        android:text="@string/payment_attention"
-        android:textColor="@color/colorRed" />
+        <android.support.v7.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/lottery_ends_in"
+            android:textColor="@color/colorBlack"
+            android:textSize="14sp"
+            app:fontFamily="@font/roboto_light" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/timeTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:fontFamily="@font/roboto"
+            android:gravity="center"
+            android:text="00:00:00"
+            android:textColor="@color/colorBlack"
+            android:textSize="35sp" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/participateTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/view_square_rounded_orange"
+            android:padding="16dp"
+            android:textSize="14sp"
+            app:fontFamily="@font/roboto_light" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/walletTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:textColor="@color/colorBlack"
+            android:textSize="12sp"
+            app:fontFamily="@font/roboto" />
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp">
+
+            <android.support.v7.widget.AppCompatImageButton
+                android:id="@+id/qrBtn"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="8dp"
+                android:background="@android:color/transparent"
+                android:padding="4dp"
+                android:scaleType="fitCenter"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_qr_code_black"
+                android:layout_marginLeft="8dp" />
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/copyBtn"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/view_rounded_background_black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/qrBtn"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginLeft="8dp">
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:id="@+id/appCompatImageView"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginEnd="6dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/appCompatTextView2"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_copy_gray"
+                    android:layout_marginRight="6dp" />
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/appCompatTextView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginStart="8dp"
+                    android:includeFontPadding="false"
+                    android:text="@string/copy_number"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="16sp"
+                    app:fontFamily="@font/roboto_light"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </android.support.constraint.ConstraintLayout>
+
+        </android.support.constraint.ConstraintLayout>
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/warningTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginStart="32dp"
+            android:gravity="center"
+            android:text="@string/payment_attention"
+            android:textColor="@color/colorRed" />
 
 
-</LinearLayout>
+    </LinearLayout>
+
+</ScrollView>

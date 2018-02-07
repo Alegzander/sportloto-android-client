@@ -31,7 +31,7 @@ class DetailsHistoryViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemVi
         walletNumber = data.wallet
         placeTv?.text = data.position?.toString()
         walletTv?.text = data.wallet
-        prizeTv?.text = "%.3f".format(data.prize?.amount)
+        prizeTv?.text = "%.4f".format(data.prize?.amount)
         prizeFiatTv?.text = "%.2f".format(data.prizeFiat)
     }
 

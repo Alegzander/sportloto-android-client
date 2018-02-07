@@ -9,6 +9,7 @@ import android.view.View
 import android.widget.FrameLayout
 import com.vovasoft.unilot.R
 import com.vovasoft.unilot.repository.models.entities.Game
+import com.vovasoft.unilot.repository.models.entities.Wallet
 import com.vovasoft.unilot.repository.models.pure.Player
 import com.vovasoft.unilot.ui.recycler_adapters.PlayersRecyclerAdapter
 import kotlinx.android.synthetic.main.dialog_view_participate_bonus.view.*
@@ -30,6 +31,11 @@ class BonusParticipateDialog(val context: Context, val game: Game) {
 
     fun setPlayers(players: List<Player>) {
         participateDialogView.setPlayersData(players)
+    }
+
+
+    fun setWallets(wallets: List<Wallet>) {
+        participateDialogView.setWalletsData(wallets)
     }
 
 
@@ -65,6 +71,8 @@ class BonusParticipateDialog(val context: Context, val game: Game) {
 
         private val players = mutableListOf<Player>()
 
+        private val wallets = mutableListOf<Wallet>()
+
         var onScannerResult: ((String?) -> Unit) = { result ->
             searchBox?.setQuery(result, false)
         }
@@ -77,6 +85,8 @@ class BonusParticipateDialog(val context: Context, val game: Game) {
 
 
         private fun setupViews() {
+            searchBox.setOnQueryTextListener(this)
+
             closeBtn.setOnClickListener {
                 dismiss()
             }
@@ -112,6 +122,11 @@ class BonusParticipateDialog(val context: Context, val game: Game) {
             this.players.addAll(players)
             refreshSearch()
             progressBar.visibility = View.INVISIBLE
+        }
+
+
+        fun setWalletsData(wallets: List<Wallet>) {
+            adapter.wallets = wallets.toMutableList()
         }
 
 

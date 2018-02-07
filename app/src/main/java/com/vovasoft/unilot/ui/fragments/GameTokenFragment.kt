@@ -167,6 +167,10 @@ class GameTokenFragment : GameBaseFragment() {
                         gamesVM.getPlayers(it).observe(this, Observer { winners ->
                             dialog.setPlayers(winners ?: emptyList())
                         })
+
+                        gamesVM.getWallets().observe(this, Observer { wallets ->
+                            dialog.setWallets(wallets ?: emptyList())
+                        })
                     }
                     onScannerResult = dialog.onScannerResult()
                     dialog.setOnQrCodePressed {

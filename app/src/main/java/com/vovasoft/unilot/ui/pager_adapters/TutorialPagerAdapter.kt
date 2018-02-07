@@ -16,8 +16,7 @@ class TutorialPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
             TutorialPageFragment.newInstance(3),
             TutorialPageFragment.newInstance(4),
             TutorialPageFragment.newInstance(5),
-            TutorialPageFragment.newInstance(6),
-            TutorialPageFragment.newInstance(7)
+            TutorialPageFragment.newInstance(6)
     )
 
 

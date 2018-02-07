@@ -4,6 +4,7 @@ import android.support.v7.widget.AppCompatTextView
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.vovasoft.unilot.R
+import com.vovasoft.unilot.repository.models.entities.Game
 import com.vovasoft.unilot.repository.models.pure.Winner
 
 /***************************************************************************
@@ -15,9 +16,9 @@ class WinnersViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
     private val prizeTv = itemView?.findViewById<AppCompatTextView>(R.id.prizeTv)
     private val prizeFiatTv = itemView?.findViewById<AppCompatTextView>(R.id.prizeFiatTv)
 
-    fun setData(data: Winner) {
+    fun setData(data: Winner, game: Game) {
         placeTv?.text = data.position?.toString()
-        prizeTv?.text = "%.3f".format(data.prize?.amount)
+        prizeTv?.text = if (game.type == Game.Type.TOKEN.value) "%.0f".format(game.prize?.amount) else "%.4f".format(game.prize?.amount)
         prizeFiatTv?.text = "%.2f".format(data.prizeFiat)
     }
 }

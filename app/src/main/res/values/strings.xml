@@ -101,11 +101,10 @@
     <string name="all">All</string>
     <string name="tutorial_step_1">First choose the type of the drawings: Daily or Weekly. Then tap the button “Participate” to start.</string>
     <string name="tutorial_step_2">Be aware to use only private crypto wallets. If you use an exchange wallet to participate you will get neither bonus tokens nor winnings.</string>
-    <string name="tutorial_step_3">Here is the wallet address you need to transfer the specified amount to. Please copy it.</string>
-    <string name="tutorial_step_4">To participate please send ETH from your crypto wallet to Unilot address.</string>
-    <string name="tutorial_step_5">Go to your wallet and transfer the necessary amount to the copied wallet address.</string>
-    <string name="tutorial_step_6">Return to the app, go to Profile and add your wallet address. Now you can get notifications about win or loss.</string>
-    <string name="tutorial_step_7">Wait for the results. If you lose in Daily or Weekly drawing, you will automatically become a participant of the Bonus Monthly Draw for free.</string>
+    <string name="tutorial_step_3">To participate please send ETH from your crypto wallet to Unilot address.</string>
+    <string name="tutorial_step_4">Go to your wallet and transfer the necessary amount to the copied wallet address.</string>
+    <string name="tutorial_step_5">Return to the app, go to Profile and add your wallet address. Now you can get notifications about win or loss.</string>
+    <string name="tutorial_step_6">Wait for the results. If you lose in Daily or Weekly drawing, you will automatically become a participant of the Bonus Monthly Draw for free.</string>
     <string name="skip">Skip</string>
     <string name="want_know_more">Want to know more</string>
     <string name="letsgo">Lets GO!</string>

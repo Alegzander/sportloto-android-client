@@ -47,7 +47,7 @@ class TopPlacesDialog(val context: Context, val game: Game) {
     inner class TopPlacesDialogView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0)
         : FrameLayout(context, attrs, defStyleAttr) {
 
-        private val adapter = WinnersRecyclerAdapter()
+        private val adapter = WinnersRecyclerAdapter(game)
 
         init {
             inflate(context, R.layout.dialog_view_top_places, this)
@@ -62,7 +62,12 @@ class TopPlacesDialog(val context: Context, val game: Game) {
 
             progressBar.visibility = View.VISIBLE
 
-            val prizeText = "${"%.3f".format(game.prize?.amount)} ${game.prize?.currency} = ${"$ %.2f".format(game.prizeAmountFiat)}"
+            val prizeText = if (game.type == Game.Type.TOKEN.value) {
+                "${"%.0f".format(game.prize?.amount)} ${game.prize?.currency} = ${"$ %.2f".format(game.prizeAmountFiat)}"
+            }
+            else {
+                "${"%.4f".format(game.prize?.amount)} ${game.prize?.currency} = ${"$ %.2f".format(game.prizeAmountFiat)}"
+            }
             prizeTv.text = prizeText
             currencyTv.text = game.prize?.currency
             recyclerView.layoutManager = LinearLayoutManager(context)

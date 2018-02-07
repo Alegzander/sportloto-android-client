@@ -39,6 +39,7 @@ import kotlin.collections.HashMap
 class NotificationMessagingService : FirebaseMessagingService() {
 
     enum class Action(val value: String) : Serializable {
+        MESSAGE("message"),
         GAME_STARTED("game_started"),
         GAME_UPDATED("game_updated"),
         GAME_UNPUBLISHED("game_unpublished"),
@@ -48,6 +49,7 @@ class NotificationMessagingService : FirebaseMessagingService() {
         companion object {
             fun from(findValue: String) : Action {
                 return when (findValue) {
+                    "message" -> MESSAGE
                     "game_started" -> GAME_STARTED
                     "game_updated" -> GAME_UPDATED
                     "game_unpublished" -> GAME_UNPUBLISHED
@@ -74,6 +76,7 @@ class NotificationMessagingService : FirebaseMessagingService() {
                     Log.e("Notification", remoteMessage.data.toString())
                     val action = remoteMessage.data["action"]?.let { Action.from(it) }
                     when (action) {
+                        Action.MESSAGE -> messageAction(remoteMessage.data)
                         Action.GAME_STARTED -> gameStartedAction(remoteMessage.data)
                         Action.GAME_UPDATED -> gameUpdatedAction(remoteMessage.data)
                         Action.GAME_FINISHED -> gameFinishedAction(remoteMessage.data)
@@ -85,6 +88,12 @@ class NotificationMessagingService : FirebaseMessagingService() {
         catch (e: Exception) {
             e.printStackTrace()
         }
+    }
+
+
+    private fun messageAction(data: Map<String, String>) {
+        val messageJson = data["message"]
+        showNotification(messageJson, isJson = true)
     }
 
 
@@ -141,7 +150,7 @@ class NotificationMessagingService : FirebaseMessagingService() {
                                     if (wallets.orEmpty().isNotEmpty()) {
                                         var isWinner = false
                                         wallets?.forEach {
-                                            if (result.winners.contains(it.toLowerCase())) {
+                                            if (result.winners.map { it.toLowerCase() }.contains(it.toLowerCase())) {
                                                 isWinner = true
                                             }
                                         }
@@ -247,6 +256,9 @@ class NotificationMessagingService : FirebaseMessagingService() {
                     Gson().fromJson(messageBody, JsonObject::class.java)?.get(Preferences.instance.language)?.asString
                 }
                 else if (type == Game.Type.TOKEN.value && Preferences.instance.tokenLotteryNotify) {
+                    Gson().fromJson(messageBody, JsonObject::class.java)?.get(Preferences.instance.language)?.asString
+                }
+                else if (type == null){
                     Gson().fromJson(messageBody, JsonObject::class.java)?.get(Preferences.instance.language)?.asString
                 }
                 else {

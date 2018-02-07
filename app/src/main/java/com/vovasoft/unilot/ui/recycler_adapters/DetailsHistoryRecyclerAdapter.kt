@@ -33,6 +33,7 @@ class DetailsHistoryRecyclerAdapter : RecyclerView.Adapter<DetailsHistoryViewHol
         set(value) {
             field.clear()
             field.addAll(value)
+            dataSet.sortByDescending { wallets.map { it.number?.toLowerCase() }.contains(it.wallet?.toLowerCase()) }
             notifyDataSetChanged()
         }
 
@@ -41,6 +42,7 @@ class DetailsHistoryRecyclerAdapter : RecyclerView.Adapter<DetailsHistoryViewHol
         set(value) {
             field.clear()
             field.addAll(value)
+            dataSet.sortByDescending { wallets.map { it.number?.toLowerCase() }.contains(it.wallet?.toLowerCase()) }
             notifyDataSetChanged()
         }
 

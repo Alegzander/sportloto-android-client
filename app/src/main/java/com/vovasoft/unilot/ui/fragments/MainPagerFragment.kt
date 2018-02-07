@@ -20,6 +20,7 @@ import com.crashlytics.android.answers.CustomEvent
 import com.vovasoft.unilot.R
 import com.vovasoft.unilot.components.AppFragmentManager
 import com.vovasoft.unilot.components.Preferences
+import com.vovasoft.unilot.components.RevealAnimationSetting
 import com.vovasoft.unilot.repository.Reactive
 import com.vovasoft.unilot.repository.models.entities.GameResult
 import com.vovasoft.unilot.ui.pager_adapters.MainPagerAdapter
@@ -162,7 +163,15 @@ class MainPagerFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
         refreshLayout.setColorSchemeResources(R.color.colorAccent)
 
         profileBtn.setOnClickListener {
-            AppFragmentManager.instance.openFragment(ProfileFragment(), true)
+            val fragment = ProfileFragment.newInstance(RevealAnimationSetting(
+                    activity.window.decorView.width,
+                    0,
+                    activity.window.decorView.width.toDouble(),
+                    activity.window.decorView.height.toDouble()
+            ))
+
+            AppFragmentManager.instance.openFragment(fragment, true)
+
             Answers.getInstance().logCustom(CustomEvent("EVENT_PROFILE")
                     .putCustomAttribute("language", Preferences.instance.language))
         }

@@ -64,10 +64,6 @@ class TutorialPageFragment : Fragment() {
                 tutorialTv.setText(R.string.tutorial_step_6)
                 tutorialImg.setImageResource(R.drawable.tutorial_6)
             }
-            7 -> {
-                tutorialTv.setText(R.string.tutorial_step_7)
-                tutorialImg.setImageResource(R.drawable.tutorial_7)
-            }
         }
     }
 }

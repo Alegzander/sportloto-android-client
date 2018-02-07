@@ -105,11 +105,13 @@ class HistoryGameDetailsFragment : BaseFragment(), SearchView.OnQueryTextListene
             Game.Type.DAILY.value -> titleIcon.setImageResource(R.drawable.ic_day_orange)
             Game.Type.WEEKLY.value -> titleIcon.setImageResource(R.drawable.ic_week_orange)
             Game.Type.MONTHLY.value -> titleIcon.setImageResource(R.drawable.ic_month_orange)
+            Game.Type.TOKEN.value -> titleIcon.setImageResource(R.drawable.ic_token_orange)
         }
 
         dateTv.text = game?.endTime().toHumanDate()
-        prizeTv.text = "%.3f".format(game?.prize?.amount)
+        prizeTv.text = if (game?.type == Game.Type.TOKEN.value) "%.0f".format(game?.prize?.amount) else "%.4f".format(game?.prize?.amount)
         peopleTv.text = game?.playersNum?.toString()
+        currencyTv.text = game?.prize?.currency
 
         searchBox.setOnQueryTextListener(this)
 

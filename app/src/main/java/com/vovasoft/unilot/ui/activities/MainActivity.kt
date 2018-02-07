@@ -21,7 +21,6 @@ import com.crashlytics.android.answers.Answers
 import com.crashlytics.android.answers.CustomEvent
 import com.google.firebase.iid.FirebaseInstanceId
 import com.vovasoft.unilot.App
-import com.vovasoft.unilot.BuildConfig
 import com.vovasoft.unilot.R
 import com.vovasoft.unilot.components.AppFragmentManager
 import com.vovasoft.unilot.components.NetworkStateReceiver

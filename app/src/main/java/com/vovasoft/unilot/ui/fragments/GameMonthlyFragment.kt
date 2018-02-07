@@ -87,7 +87,7 @@ class GameMonthlyFragment : GameBaseFragment() {
 
                 prizeBoard.setCharacterList(TickerUtils.getDefaultListForUSCurrency())
                 prizeBoard.typeface = Typeface.create("sans-serif-light", Typeface.NORMAL)
-                prizeBoard.setText("%.3f".format(game.prize?.amount), true)
+                prizeBoard.setText("%.4f".format(game.prize?.amount), true)
 
                 prizeFiatTv.setCharacterList(TickerUtils.getDefaultListForUSCurrency())
                 prizeFiatTv.typeface = Typeface.create("sans-serif-light", Typeface.NORMAL)
@@ -166,6 +166,10 @@ class GameMonthlyFragment : GameBaseFragment() {
                     game.id?.let {
                         gamesVM.getPlayers(it).observe(this, Observer { winners ->
                             dialog.setPlayers(winners ?: emptyList())
+                        })
+
+                        gamesVM.getWallets().observe(this, Observer { wallets ->
+                            dialog.setWallets(wallets ?: emptyList())
                         })
                     }
                     onScannerResult = dialog.onScannerResult()

@@ -66,7 +66,7 @@ class WinnerDialog(val context: Context, val result: GameResult) {
             }
 
             placeTv.text = context.getString(R.string.you_take_place_d).format(result.position)
-            prizeTv.text = "%.3f".format(result.prize)
+            prizeTv.text = "%.4f".format(result.prize?.amount)
             prizeFialtTv.text = "US $%.2f".format(result.prizeFiat)
 
             historyBtn.setOnClickListener {

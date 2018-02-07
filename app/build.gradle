@@ -26,8 +26,8 @@ android {
         applicationId "com.vovasoft.unilot"
         minSdkVersion 16
         targetSdkVersion 27
-        versionCode 1605
-        versionName "1.6.5"
+        versionCode 1607
+        versionName "1.6.7"
         vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
@@ -36,9 +36,13 @@ android {
             buildConfigField "int", "DATABASE_VERSION", "6"
         }
         debug {
-            buildConfigField "String", "BASE_API", "\"https://dev.unilot.io/\""
-            buildConfigField "String", "CLIENT_ID", "\"PccTjiTN7xXU9PCJRiAzYA2frgKUSEl0scJMTzFb\""
-            buildConfigField "String", "CLIENT_SECRET", "\"2HIDVZRBWIDWUVMnlgH76K6pA3g5vPuAygnTm5P4IbvTkQMymFVCejMRoOkiZkadenWUsiM5OPP8mhREYytAxtzym9ejKj5LVG37z3mgbtrlJ1nMuv3s14sx60AuwwO1\""
+            buildConfigField "String", "BASE_API", "\"https://api.unilot.io/\""
+            buildConfigField "String", "CLIENT_ID", "\"kwxbsoeg94f4Slp2mZrTvCw1DekHkpzcbdIThStB\""
+            buildConfigField "String", "CLIENT_SECRET", "\"Qg7ifO6fGYRAe2NYOFgliPpPZcNSuf6x2QsqOXKH962zDeMxZratPgsh5lNSdIsRsVmDJg8ZlWN1OCxV79GBHVcGrgkQqeVeosb9MbpxGOmwkzRRUokM8By86HmdLNgH\""
+
+//            buildConfigField "String", "BASE_API", "\"https://dev.unilot.io/\""
+//            buildConfigField "String", "CLIENT_ID", "\"PccTjiTN7xXU9PCJRiAzYA2frgKUSEl0scJMTzFb\""
+//            buildConfigField "String", "CLIENT_SECRET", "\"2HIDVZRBWIDWUVMnlgH76K6pA3g5vPuAygnTm5P4IbvTkQMymFVCejMRoOkiZkadenWUsiM5OPP8mhREYytAxtzym9ejKj5LVG37z3mgbtrlJ1nMuv3s14sx60AuwwO1\""
         }
         release {
             buildConfigField "String", "BASE_API", "\"https://api.unilot.io/\""
