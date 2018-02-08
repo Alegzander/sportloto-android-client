@@ -55,6 +55,11 @@ class HistoryViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView), Vi
                 prizeTv?.setTextColor(ContextCompat.getColor(itemView.context, R.color.colorBlue))
                 prizeTv?.text = itemView.context.getString(R.string.details)
             }
+            Game.Status.CANCELLED.value -> {
+                statusTv?.text = itemView.context.getString(R.string.canceled)
+                prizeTv?.setTextColor(ContextCompat.getColor(itemView.context, R.color.colorBlue))
+                prizeTv?.text = itemView.context.getString(R.string.details)
+            }
         }
     }
 

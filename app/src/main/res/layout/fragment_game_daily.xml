@@ -17,11 +17,11 @@
         <android.support.v7.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="8dp"
             android:text="@string/no_games_for_today"
             android:textColor="@color/colorYellow"
             android:textSize="24sp"
-            android:padding="8dp"
-            android:gravity="center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -100,7 +100,7 @@
                     android:layout_height="wrap_content"
                     android:includeFontPadding="false"
                     android:text="@string/eth"
-                    android:textColor="@color/colorWhite"
+                    android:textColor="@color/colorOrange"
                     android:textSize="15sp"
                     app:fontFamily="@font/roboto"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -182,7 +182,8 @@
             android:background="@drawable/view_rounded_background_semi_black"
             android:gravity="center"
             android:orientation="vertical"
-            android:padding="12dp"
+            android:paddingBottom="12dp"
+            android:paddingTop="12dp"
             android:weightSum="100">
 
             <android.support.v7.widget.AppCompatTextView
@@ -279,12 +280,22 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/frameLayout">
 
+                <android.support.v7.widget.AppCompatImageView
+                    android:id="@+id/appCompatImageView3"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="4dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_ticket" />
+
                 <android.support.v7.widget.AppCompatTextView
-                    android:id="@+id/textView3"
+                    android:id="@+id/participateTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginStart="16dp"
                     android:includeFontPadding="false"
                     android:text="@string/participate"
                     android:textColor="@color/colorWhite"
@@ -292,7 +303,7 @@
                     app:fontFamily="@font/roboto"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/view"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/appCompatImageView3"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <View
@@ -304,7 +315,7 @@
                     android:background="@color/colorWhite"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/betTv"
-                    app:layout_constraintStart_toEndOf="@+id/textView3"
+                    app:layout_constraintStart_toEndOf="@+id/participateTv"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <android.support.v7.widget.AppCompatTextView
@@ -416,7 +427,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:layout_weight="10"
-            android:background="@drawable/view_rounded_gray_stroke">
+            android:background="@drawable/view_rounded_semi_white_stroke">
 
             <android.support.v7.widget.AppCompatImageView
                 android:id="@+id/trophyImg"
@@ -427,7 +438,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_trophy_gray" />
+                app:srcCompat="@drawable/ic_trophy_semi_white" />
 
             <android.support.v7.widget.AppCompatTextView
                 android:layout_width="wrap_content"
@@ -435,11 +446,11 @@
                 android:includeFontPadding="false"
                 android:text="@string/top_places"
                 android:textColor="@color/colorWhite"
-                android:textSize="18sp"
-                app:fontFamily="@font/roboto_light"
+                android:textSize="16sp"
+                app:fontFamily="@font/roboto"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/trophyImg"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </android.support.constraint.ConstraintLayout>
     </LinearLayout>

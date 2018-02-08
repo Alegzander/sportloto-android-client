@@ -96,6 +96,7 @@
     <string name="move">Go to</string>
     <string name="details">Details</string>
     <string name="finished">Finished</string>
+    <string name="canceled">Canceled</string>
     <string name="outdated">Your version of Unilot is out of date. Please update it.</string>
     <string name="goto_googleplay">Go to Google Play</string>
     <string name="all">All</string>

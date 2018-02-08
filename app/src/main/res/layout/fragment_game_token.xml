@@ -17,11 +17,11 @@
         <android.support.v7.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="8dp"
             android:text="@string/no_token_games"
             android:textColor="@color/colorYellow"
             android:textSize="24sp"
-            android:padding="8dp"
-            android:gravity="center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -222,7 +222,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_weight="1"
-                android:background="@drawable/view_rounded_gray_stroke">
+                android:background="@drawable/view_rounded_semi_white_stroke">
 
                 <android.support.v7.widget.AppCompatImageView
                     android:id="@+id/infoImg"
@@ -233,7 +233,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/ic_info" />
+                    app:srcCompat="@drawable/ic_info_semi_white" />
 
                 <android.support.v7.widget.AppCompatTextView
                     android:layout_width="wrap_content"
@@ -241,12 +241,13 @@
                     android:includeFontPadding="false"
                     android:text="@string/how_to_participate"
                     android:textColor="@color/colorWhite"
-                    android:textSize="18sp"
-                    app:fontFamily="@font/roboto_light"
+                    android:textSize="16sp"
+                    app:fontFamily="@font/roboto"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/infoImg"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
             </android.support.constraint.ConstraintLayout>
 
         </LinearLayout>
@@ -339,7 +340,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:layout_weight="10"
-            android:background="@drawable/view_rounded_gray_stroke">
+            android:background="@drawable/view_rounded_semi_white_stroke">
 
             <android.support.v7.widget.AppCompatImageView
                 android:id="@+id/trophyImg"
@@ -350,21 +351,21 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_trophy_gray" />
+                app:srcCompat="@drawable/ic_trophy_semi_white" />
 
             <android.support.v7.widget.AppCompatTextView
-                android:id="@+id/textView11"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:includeFontPadding="false"
                 android:text="@string/top_places"
                 android:textColor="@color/colorWhite"
-                android:textSize="18sp"
-                app:fontFamily="@font/roboto_light"
+                android:textSize="16sp"
+                app:fontFamily="@font/roboto"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/trophyImg"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
         </android.support.constraint.ConstraintLayout>
     </LinearLayout>
 

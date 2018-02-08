@@ -50,10 +50,10 @@ class MainPagerFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
 
             fun iconNormal(findValue: Int) : Int {
                 return when (findValue) {
-                    0 -> R.drawable.ic_day_gray
-                    1 -> R.drawable.ic_week_gray
-                    2 -> R.drawable.ic_month_gray
-                    else -> R.drawable.ic_token_gray
+                    0 -> R.drawable.ic_day_semi_white
+                    1 -> R.drawable.ic_week_semi_white
+                    2 -> R.drawable.ic_month_semi_white
+                    else -> R.drawable.ic_token_semi_white
                 }
             }
 
@@ -181,10 +181,10 @@ class MainPagerFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
         pager.adapter = pagerAdapter
 
         tabs.setupWithViewPager(pager)
-        tabs.getTabAt(Page.DAY.value)?.setText(R.string.daily)?.setIcon(R.drawable.ic_day_gray)
-        tabs.getTabAt(Page.WEEK.value)?.setText(R.string.weekly)?.setIcon(R.drawable.ic_week_gray)
-        tabs.getTabAt(Page.MONTH.value)?.setText(R.string.monthly_bonus)?.setIcon(R.drawable.ic_month_gray)
-        tabs.getTabAt(Page.TOKEN.value)?.setText(R.string.token)?.setIcon(R.drawable.ic_token_gray)
+        tabs.getTabAt(Page.DAY.value)?.setText(R.string.daily)?.setIcon(R.drawable.ic_day_semi_white)
+        tabs.getTabAt(Page.WEEK.value)?.setText(R.string.weekly)?.setIcon(R.drawable.ic_week_semi_white)
+        tabs.getTabAt(Page.MONTH.value)?.setText(R.string.monthly_bonus)?.setIcon(R.drawable.ic_month_semi_white)
+        tabs.getTabAt(Page.TOKEN.value)?.setText(R.string.token)?.setIcon(R.drawable.ic_token_semi_white)
 
         pager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
