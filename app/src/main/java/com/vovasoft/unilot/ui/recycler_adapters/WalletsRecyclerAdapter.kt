@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.vovasoft.unilot.R
 import com.vovasoft.unilot.repository.models.entities.Wallet
+import com.vovasoft.unilot.repository.models.pure.Participate
 import com.vovasoft.unilot.ui.view_holders.WalletsViewHolder
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
@@ -15,7 +16,9 @@ import org.jetbrains.anko.uiThread
 class WalletsRecyclerAdapter : RecyclerView.Adapter<WalletsViewHolder>() {
 
 
-    var dataSet = mutableListOf<Wallet>()
+    private var dataSet = mutableListOf<Wallet>()
+
+    private var dataSetExtra = mutableListOf<Participate>()
 
     private var onDelete: ((Wallet) -> Unit)? = null
 
@@ -44,6 +47,13 @@ class WalletsRecyclerAdapter : RecyclerView.Adapter<WalletsViewHolder>() {
     }
 
 
+    fun addParticipates(participates: List<Participate>) {
+        dataSetExtra.clear()
+        dataSetExtra.addAll(participates)
+        notifyDataSetChanged()
+    }
+
+
     fun setOnDeleteListener(listener: (Wallet) -> Unit) {
         onDelete = listener
     }
@@ -61,7 +71,7 @@ class WalletsRecyclerAdapter : RecyclerView.Adapter<WalletsViewHolder>() {
 
 
     override fun onBindViewHolder(holder: WalletsViewHolder?, position: Int) {
-        holder?.setData(dataSet[position])
+        holder?.setData(dataSet[position], dataSetExtra)
         holder?.setOnDeleteListener {
             onDelete?.invoke(it)
         }

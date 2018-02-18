@@ -143,7 +143,7 @@ class ProfileFragment : BaseFragment() {
     private fun addWallet() {
         context?.let { context ->
             val walletNumber = walletEt.text.toString().trim()
-            if (walletNumber.isNotEmpty() && walletNumber.toLowerCase().matches(Regex("^(0x)?[0-9a-f]{40}$"))) {
+            if (walletNumber.isNotEmpty() && walletNumber.toLowerCase().matches(Regex("^(0x)?[0-9a-fA-F]{40}$"))) {
 
                 val wallet = Wallet()
                 wallet.number = walletNumber
@@ -177,6 +177,12 @@ class ProfileFragment : BaseFragment() {
                 walletsAdapter.addWallets(wallets)
             }
         })
+
+        gamesVM.getParticipate().observe(this, Observer { participates ->
+            participates?.let {
+                walletsAdapter.addParticipates(participates)
+            }
+        })
     }
 
 
@@ -186,8 +192,8 @@ class ProfileFragment : BaseFragment() {
             when (requestCode) {
                 ZxingReader.RESULT_CODE -> {
                     var result = data?.getStringExtra("result")
-                    val p = Pattern.compile("(0x)?[0-9a-f]{40}")
-                    val m = p.matcher(result?.toLowerCase())
+                    val p = Pattern.compile("(0x)?[0-9a-fA-F]{40}")
+                    val m = p.matcher(result)
                     if (m.find()) {
                         result = m.group()
                     }
@@ -213,6 +219,7 @@ class ProfileFragment : BaseFragment() {
 
 
     override fun onBackPressed() {
+        gamesVM.updateGamesList()
         lockDrawerMode(false)
         AppFragmentManager.instance.popBackStack()
     }

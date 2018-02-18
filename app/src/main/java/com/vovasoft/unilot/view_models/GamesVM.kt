@@ -1,3 +1,5 @@
+@file:Suppress("PARAMETER_NAME_CHANGED_ON_OVERRIDE")
+
 package com.vovasoft.unilot.view_models
 
 import android.arch.lifecycle.LiveData
@@ -8,6 +10,7 @@ import com.vovasoft.unilot.repository.Reactive
 import com.vovasoft.unilot.repository.models.entities.Game
 import com.vovasoft.unilot.repository.models.entities.GameResult
 import com.vovasoft.unilot.repository.models.entities.Wallet
+import com.vovasoft.unilot.repository.models.pure.Participate
 import com.vovasoft.unilot.repository.models.pure.Player
 import com.vovasoft.unilot.repository.models.pure.Winner
 import java.util.*
@@ -22,6 +25,8 @@ class GamesVM : ViewModel() {
     private var walletsLiveData = MutableLiveData<List<Wallet>>()
 
     private var gamesLiveData = MutableLiveData<List<Game>>()
+
+    private var participateLiveData = MutableLiveData<List<Participate>>()
 
     private var gamesHistoryLiveData = MutableLiveData<List<Game>>()
 
@@ -72,6 +77,14 @@ class GamesVM : ViewModel() {
     }
 
 
+    fun getParticipate() : LiveData<List<Participate>> {
+        if (gamesLiveData.value == null) {
+            updateGamesList()
+        }
+        return participateLiveData
+    }
+
+
     fun getWinners(id: Long) : LiveData<List<Winner>> {
         val winners = MutableLiveData<List<Winner>>()
         appRepo.getRemoteWinners(id, object : Reactive<List<Winner>?> {
@@ -98,35 +111,60 @@ class GamesVM : ViewModel() {
         if (!isUpdating) {
             isUpdating = true
             appRepo.getRemoteGames(object : Reactive<List<Game>?> {
-                override fun done(data: List<Game>?) {
+                override fun done(games: List<Game>?) {
 
-                    gamesLiveData.value = data
+                    appRepo.getWallets(object : Reactive<List<Wallet>?> {
+                        override fun done(wallets: List<Wallet>?) {
 
-                    dailyGameLiveData.value = data?.firstOrNull { game ->
-                        (Game.Status.from(game.status) == Game.Status.PUBLISHED
-                                || Game.Status.from(game.status) == Game.Status.FINISHING)
-                                && Game.Type.from(game.type) == Game.Type.DAILY
-                    }
+                            wallets?.map { it.number }?.let { numbers ->
+                                appRepo.getRemoteParticipate(numbers, object : Reactive<List<Participate>?> {
+                                    override fun done(participates: List<Participate>?) {
 
-                    weeklyGameLiveData.value = data?.firstOrNull { game ->
-                        (Game.Status.from(game.status) == Game.Status.PUBLISHED
-                                || Game.Status.from(game.status) == Game.Status.FINISHING)
-                                && Game.Type.from(game.type) == Game.Type.WEEKLY
-                    }
+                                        val gamesMap = games?.map { it.id to it.type }?.toMap()
 
-                    monthlyGameLiveData.value = data?.firstOrNull { game ->
-                        (Game.Status.from(game.status) == Game.Status.PUBLISHED
-                                || Game.Status.from(game.status) == Game.Status.FINISHING)
-                                && Game.Type.from(game.type) == Game.Type.MONTHLY
-                    }
+                                        participates?.forEach { participate ->
+                                            participate.gamesIds.forEach {
+                                                val type = gamesMap?.get(it)
+                                                type?.let {
+                                                    participate.types.add(it)
+                                                }
+                                            }
+                                        }
 
-                    tokenGameLiveData.value = data?.firstOrNull { game ->
-                        (Game.Status.from(game.status) == Game.Status.PUBLISHED
-                                || Game.Status.from(game.status) == Game.Status.FINISHING)
-                                && Game.Type.from(game.type) == Game.Type.TOKEN
-                    }
+                                        participateLiveData.value = participates
 
-                    isUpdating = false
+                                        gamesLiveData.value = games
+
+                                        dailyGameLiveData.value = games?.firstOrNull { game ->
+                                            (Game.Status.from(game.status) == Game.Status.PUBLISHED
+                                                    || Game.Status.from(game.status) == Game.Status.FINISHING)
+                                                    && Game.Type.from(game.type) == Game.Type.DAILY
+                                        }
+
+                                        weeklyGameLiveData.value = games?.firstOrNull { game ->
+                                            (Game.Status.from(game.status) == Game.Status.PUBLISHED
+                                                    || Game.Status.from(game.status) == Game.Status.FINISHING)
+                                                    && Game.Type.from(game.type) == Game.Type.WEEKLY
+                                        }
+
+                                        monthlyGameLiveData.value = games?.firstOrNull { game ->
+                                            (Game.Status.from(game.status) == Game.Status.PUBLISHED
+                                                    || Game.Status.from(game.status) == Game.Status.FINISHING)
+                                                    && Game.Type.from(game.type) == Game.Type.MONTHLY
+                                        }
+
+                                        tokenGameLiveData.value = games?.firstOrNull { game ->
+                                            (Game.Status.from(game.status) == Game.Status.PUBLISHED
+                                                    || Game.Status.from(game.status) == Game.Status.FINISHING)
+                                                    && Game.Type.from(game.type) == Game.Type.TOKEN
+                                        }
+
+                                        isUpdating = false
+                                    }
+                                })
+                            }
+                        }
+                    })
                 }
             })
         }

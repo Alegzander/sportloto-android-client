@@ -9,7 +9,6 @@ import android.graphics.Typeface
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.support.v4.content.LocalBroadcastManager
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -71,7 +70,6 @@ class GamesWeeklyFragment : GameBaseFragment() {
         showLoading(true)
         gamesVM.getWeeklyGame().observe(this, Observer { game ->
             showLoading(false)
-            Log.e("observeData", game.toString())
             this.game = game
             setupViews()
         })
@@ -158,6 +156,8 @@ class GamesWeeklyFragment : GameBaseFragment() {
             finishingView.visibility = View.GONE
 
             game?.let { game ->
+                commitParticipation()
+
                 timeProgress?.setProgress(0)
 
                 countDown = object : CountDownTimer(game.endTime() - System.currentTimeMillis(), 60000) {
@@ -181,7 +181,7 @@ class GamesWeeklyFragment : GameBaseFragment() {
 
                 betTv.text = "%.3f ${game.bet?.currency}".format(game.bet?.amount)
 
-                participateBtn.setOnClickListener {
+                val participateAction = View.OnClickListener {
                     val dialog = SimpleParticipateDialog(context, game)
                     gamesVM.getWallets(object : Reactive<List<Wallet>?> {
                         override fun done(data: List<Wallet>?) {
@@ -211,7 +211,28 @@ class GamesWeeklyFragment : GameBaseFragment() {
                     Answers.getInstance().logCustom(CustomEvent("EVENT_WEEKLY_PARTICIPATE")
                             .putCustomAttribute("language", Preferences.instance.language))
                 }
+
+                participateBtn.setOnClickListener(participateAction)
+                participateMoreBtn.setOnClickListener(participateAction)
             }
+        }
+    }
+
+
+    private fun commitParticipation() {
+        var isParticipate = false
+        gamesVM.getParticipate().value?.forEach { participate ->
+            isParticipate = participate.gamesIds.contains(game?.id)
+        }
+
+        if (isParticipate) {
+            timeProgress.inversColor(true)
+            participateBtn.visibility = View.GONE
+            participateMoreBtn.visibility = View.VISIBLE
+        } else {
+            timeProgress.inversColor(false)
+            participateBtn.visibility = View.VISIBLE
+            participateMoreBtn.visibility = View.GONE
         }
     }
 

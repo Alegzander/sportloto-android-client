@@ -2,7 +2,10 @@ package com.vovasoft.unilot.components
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import com.vovasoft.unilot.App
+import com.vovasoft.unilot.repository.models.pure.Participate
 import java.util.*
 
 /***************************************************************************
@@ -71,5 +74,20 @@ class Preferences private constructor() {
     var language: String
         set(value) = sharedPreferences.edit().putString("language", value).apply()
         get() = sharedPreferences.getString("language", Locale.getDefault().language)
+
+
+    var participate: List<Participate>
+        set(value) {
+            sharedPreferences.edit().putString("participate", Gson().toJson(value)).apply()
+        }
+        get() {
+            val json = sharedPreferences.getString("participate", null)
+            return if (json.isNotBlank()) {
+                val type = object : TypeToken<List<Participate>>() {}.type
+                Gson().fromJson(json, type)
+            } else {
+                listOf()
+            }
+        }
 
 }

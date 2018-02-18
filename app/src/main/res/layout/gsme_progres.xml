@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:id="@+id/progressRoot"
     android:background="@drawable/view_progress_background"
-    android:padding="1dp">
+    android:padding="1.2dp">
 
     <View
         android:id="@+id/progressView"

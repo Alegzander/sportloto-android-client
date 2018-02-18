@@ -73,7 +73,7 @@ class NotificationMessagingService : FirebaseMessagingService() {
         try {
             remoteMessage?.also {
                 if (remoteMessage.data.isNotEmpty()) {
-                    Log.e("Notification", remoteMessage.data.toString())
+                    Log.w("Notification", remoteMessage.data.toString())
                     val action = remoteMessage.data["action"]?.let { Action.from(it) }
                     when (action) {
                         Action.MESSAGE -> messageAction(remoteMessage.data)

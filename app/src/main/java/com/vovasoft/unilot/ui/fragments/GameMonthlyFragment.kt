@@ -9,7 +9,6 @@ import android.graphics.Typeface
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.support.v4.content.LocalBroadcastManager
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -69,7 +68,6 @@ class GameMonthlyFragment : GameBaseFragment() {
         showLoading(true)
         gamesVM.getMonthlyGame().observe(this, Observer { game ->
             showLoading(false)
-            Log.e("observeData", game.toString())
             this.game = game
             setupViews()
         })

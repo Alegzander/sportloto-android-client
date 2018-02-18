@@ -218,7 +218,7 @@ abstract class GameBaseFragment : BaseFragment() {
             when (requestCode) {
                 ZxingReader.RESULT_CODE -> {
                     var result = data?.getStringExtra("result")
-                    val p = Pattern.compile("(0x)?[0-9a-f]{40}")
+                    val p = Pattern.compile("(0x)?[0-9a-fA-F]{40}")
                     val m = p.matcher(result?.toLowerCase())
                     if (m.find()) {
                         result = m.group()

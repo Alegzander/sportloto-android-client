@@ -3,9 +3,11 @@ package com.vovasoft.unilot.repository
 import android.content.Intent
 import android.support.v4.content.LocalBroadcastManager
 import com.vovasoft.unilot.App
+import com.vovasoft.unilot.components.Preferences
 import com.vovasoft.unilot.repository.models.entities.Game
 import com.vovasoft.unilot.repository.models.entities.GameResult
 import com.vovasoft.unilot.repository.models.entities.Wallet
+import com.vovasoft.unilot.repository.models.pure.Participate
 import com.vovasoft.unilot.repository.models.pure.Player
 import com.vovasoft.unilot.repository.models.pure.Winner
 import com.vovasoft.unilot.repository.retrofit.WebClient
@@ -70,6 +72,32 @@ class AppRepository {
                 callback.done(games)
             }
         }
+    }
+
+
+    fun getRemoteParticipate(wallets: List<String?>, callback: Reactive<List<Participate>?>) {
+        webClient.webservice.participate(wallets).enqueue(object : Callback<List<Participate>> {
+            override fun onResponse(call: Call<List<Participate>>?, response: Response<List<Participate>>?) {
+                response?.let {
+                    when {
+                        response.isSuccessful -> {
+                            callback.done(response.body())
+                            Preferences.instance.participate = response.body() ?: listOf()
+                        }
+                        response.code() == 417 -> {
+                            callback.done(null)
+                            showUpdateScreen()
+                        }
+                        else -> callback.done(Preferences.instance.participate)
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<List<Participate>>?, t: Throwable?) {
+                t?.printStackTrace()
+                callback.done(Preferences.instance.participate)
+            }
+        })
     }
 
 
@@ -165,7 +193,7 @@ class AppRepository {
     }
 
 
-    fun getWallets(callback: Reactive<List<Wallet>?>) {
+    fun getWallets(callback: Reactive<List<Wallet>>) {
         doAsync {
             val wallets = App.database.walletsDao().getWallets()
             uiThread {
