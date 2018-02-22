@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginLeft="16dp">
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginStart="12dp"
+            android:paddingEnd="4dp"
+            android:paddingRight="4dp"
+            app:srcCompat="@drawable/ic_token_orange" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/titleTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorBlack"
+            android:textSize="18sp"
+            app:fontFamily="@font/roboto_bold"
+            tools:layout_editor_absoluteX="54dp" />
+
+    </LinearLayout>
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/rulesTv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/colorBlack"
+        app:fontFamily="@font/roboto_light" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <android.support.v7.widget.SearchView
+            android:id="@+id/searchBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="0dp"
+            android:layout_weight="1"
+            android:background="@drawable/view_rounded_background_gray"
+            app:iconifiedByDefault="false"
+            app:queryBackground="@android:color/transparent"
+            app:queryHint="@string/your_wallet_number" />
+
+        <android.support.v7.widget.AppCompatImageButton
+            android:id="@+id/scanBtn"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginLeft="12dp"
+            android:background="@android:color/transparent"
+            android:padding="4dp"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/ic_qr_code_black" />
+
+    </LinearLayout>
+
+    <android.support.v7.widget.AppCompatTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="2dp"
+        android:text="@string/list_of_participants"
+        android:textColor="@color/colorBlack"
+        android:textSize="18sp"
+        app:fontFamily="@font/roboto_medium" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:overScrollMode="never"
+            android:scrollbars="horizontal"
+            tools:listitem="@layout/view_holder_players_white" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="invisible" />
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/closeBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/view_rounded_semi_white_stroke"
+        android:paddingBottom="12dp"
+        android:paddingTop="12dp">
+
+        <android.support.v7.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:includeFontPadding="false"
+            android:text="@string/close"
+            android:textColor="@color/colorBlack"
+            android:textSize="16sp"
+            app:fontFamily="@font/roboto" />
+    </FrameLayout>
+
+</LinearLayout>

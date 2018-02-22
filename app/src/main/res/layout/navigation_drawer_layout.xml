@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/view_dark_background">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingEnd="24dp"
+        android:paddingStart="24dp"
+        android:paddingTop="52dp">
+
+        <android.support.v7.widget.AppCompatImageView
+            android:layout_width="wrap_content"
+            android:layout_height="18dp"
+            android:scaleType="fitStart"
+            app:srcCompat="@drawable/ic_logo_menu" />
+
+        <View
+            android:layout_width="48dp"
+            android:layout_height="0.5dp"
+            android:layout_marginTop="18dp"
+            android:background="@color/colorDarkGray" />
+
+        <LinearLayout
+            android:id="@+id/profileBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal"
+            android:paddingBottom="4dp"
+            android:paddingTop="4dp">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                app:srcCompat="@drawable/ic_profile_gray" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="18dp"
+                android:layout_marginStart="18dp"
+                android:text="@string/profile"
+                android:textColor="@color/colorWhite"
+                android:textSize="18sp"
+                app:fontFamily="@font/roboto_light" />
+        </LinearLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/historyBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="4dp"
+            android:paddingTop="4dp">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/appCompatImageView2"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_history" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/drawerMarkerLabel"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/view_oval_red"
+                android:fontFamily="@font/roboto"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:textColor="@color/colorWhite"
+                android:textSize="12sp"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toStartOf="@+id/appCompatTextView"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginRight="8dp" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/appCompatTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="18dp"
+                android:text="@string/games_history"
+                android:textColor="@color/colorWhite"
+                android:textSize="18sp"
+                app:fontFamily="@font/roboto_light"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/appCompatImageView2"
+                android:layout_marginLeft="18dp" />
+        </android.support.constraint.ConstraintLayout>
+
+        <LinearLayout
+            android:id="@+id/settingsBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal"
+            android:paddingBottom="4dp"
+            android:paddingTop="4dp">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                app:srcCompat="@drawable/ic_settings" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="18dp"
+                android:layout_marginStart="18dp"
+                android:text="@string/settings"
+                android:textColor="@color/colorWhite"
+                android:textSize="18sp"
+                app:fontFamily="@font/roboto_light" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="48dp"
+            android:layout_height="0.5dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/colorDarkGray" />
+
+        <LinearLayout
+            android:id="@+id/whitepaperBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal"
+            android:paddingBottom="4dp"
+            android:paddingTop="4dp">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                app:srcCompat="@drawable/ic_whitepaper" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="18dp"
+                android:layout_marginStart="18dp"
+                android:text="@string/white_paper"
+                android:textColor="@color/colorWhite"
+                android:textSize="18sp"
+                app:fontFamily="@font/roboto_light" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/infoBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal"
+            android:paddingBottom="4dp"
+            android:paddingTop="4dp">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                app:srcCompat="@drawable/ic_info_gray" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="18dp"
+                android:layout_marginStart="18dp"
+                android:text="@string/how_it_works"
+                android:textColor="@color/colorWhite"
+                android:textSize="18sp"
+                app:fontFamily="@font/roboto_light" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/faqBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal"
+            android:paddingBottom="4dp"
+            android:paddingTop="4dp">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                app:srcCompat="@drawable/ic_faq" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="18dp"
+                android:layout_marginStart="18dp"
+                android:text="@string/faq"
+                android:textColor="@color/colorWhite"
+                android:textSize="18sp"
+                app:fontFamily="@font/roboto_light" />
+        </LinearLayout>
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/soonBtn"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:layout_marginTop="16dp"
+            android:scaleType="fitStart"
+            app:srcCompat="@drawable/gotoio" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal">
+
+            <android.support.v7.widget.AppCompatImageButton
+                android:id="@+id/facebookBtn"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:padding="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/view_square_rounded_gray"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/ic_facebook" />
+
+            <android.support.v7.widget.AppCompatImageButton
+                android:id="@+id/telecgramBtn"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:padding="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/view_square_rounded_gray"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/ic_telegram" />
+
+            <android.support.v7.widget.AppCompatImageButton
+                android:id="@+id/redditBtn"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:padding="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/view_square_rounded_gray"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/ic_reddit" />
+
+            <android.support.v7.widget.AppCompatImageButton
+                android:id="@+id/twitterBtn"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:padding="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/view_square_rounded_gray"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/ic_twitter" />
+
+            <android.support.v7.widget.AppCompatImageButton
+                android:id="@+id/mediumBtn"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:padding="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/view_square_rounded_gray"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/ic_medium" />
+
+        </LinearLayout>
+
+        <android.support.v7.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_gravity="center_vertical"
+            android:text="@string/unilot_app"
+            android:textColor="@color/colorWhite"
+            android:textSize="16sp"
+            app:fontFamily="@font/roboto_light" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/versionTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:textColor="@color/colorGray"
+            android:textSize="16sp"
+            app:fontFamily="@font/roboto_light" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/sendFeedbackBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp"
+            android:text="@string/send_feedback"
+            android:textColor="@color/colorWhite"
+            android:textSize="16sp"
+            app:fontFamily="@font/roboto_light" />
+
+    </LinearLayout>
+
+</ScrollView>

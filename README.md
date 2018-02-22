@@ -1,1 +1,1 @@
-# sportloto-android-client
+# unilot-android-client

@@ -1,0 +1,521 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/noContentFrame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="invisible"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
+
+        <android.support.v7.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="8dp"
+            android:text="@string/no_games_for_today"
+            android:textColor="@color/colorYellow"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </android.support.constraint.ConstraintLayout>
+
+    <LinearLayout
+        android:id="@+id/contentFrame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingEnd="16dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingStart="16dp"
+        android:visibility="invisible"
+        android:weightSum="100">
+
+
+        <android.support.v7.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="7"
+            android:gravity="center_vertical"
+            android:includeFontPadding="false"
+            android:text="@string/daily_lottery"
+            android:textColor="@color/colorWhite"
+            android:textSize="30sp"
+            app:fontFamily="@font/roboto_medium" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="5"
+            android:gravity="center_vertical"
+            android:includeFontPadding="false"
+            android:text="@string/prize_fund"
+            android:textColor="@color/colorOrange"
+            android:textSize="18sp"
+            app:fontFamily="@font/roboto_light" />
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/scoreboardLayout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="18"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingTop="6dp">
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/constraintLayout2"
+                android:layout_width="52dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:id="@+id/ethereumImg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_ethereum_orange" />
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/eth"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:includeFontPadding="false"
+                    android:text="@string/eth"
+                    android:textColor="@color/colorOrange"
+                    android:textSize="15sp"
+                    app:fontFamily="@font/roboto"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </android.support.constraint.ConstraintLayout>
+
+            <com.robinhood.ticker.TickerView
+                android:id="@+id/prizeBoard"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginStart="16dp"
+                android:background="@drawable/view_rounded_background_semi_black"
+                android:gravity="end"
+                android:paddingEnd="8dp"
+                android:paddingStart="8dp"
+                android:textColor="@color/colorOrange"
+                android:textSize="60sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/constraintLayout2"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </android.support.constraint.ConstraintLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/constraintLayout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="10"
+            android:paddingBottom="8dp"
+            android:paddingTop="4dp">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/peopleImg"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_man" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/peopleTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:layout_marginStart="12dp"
+                android:includeFontPadding="false"
+                android:textColor="@color/colorOrange"
+                android:textSize="22sp"
+                app:fontFamily="@font/roboto_light"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/peopleImg"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.robinhood.ticker.TickerView
+                android:id="@+id/prizeFiatTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:gravity="center"
+                android:textColor="@color/colorOrange"
+                android:textSize="22sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </android.support.constraint.ConstraintLayout>
+
+        <LinearLayout
+            android:id="@+id/publishedView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="48"
+            android:background="@drawable/view_rounded_background_semi_black"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingBottom="12dp"
+            android:paddingTop="12dp"
+            android:weightSum="100">
+
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="15"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:text="@string/till_the_end_of_registration"
+                android:textColor="@color/colorWhite"
+                android:textSize="18sp"
+                app:fontFamily="@font/roboto_light" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="50"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/timeTv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:includeFontPadding="false"
+                    android:text="00 : 00 : 00"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="56sp"
+                    app:fontFamily="@font/roboto_thin" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <android.support.v7.widget.AppCompatTextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:includeFontPadding="false"
+                        android:text="@string/hours"
+                        android:textColor="@color/colorLightGray"
+                        android:textSize="12sp"
+                        app:fontFamily="@font/roboto_light" />
+
+                    <android.support.v7.widget.AppCompatTextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:gravity="center"
+                        android:includeFontPadding="false"
+                        android:text="@string/minutes"
+                        android:textColor="@color/colorLightGray"
+                        android:textSize="12sp"
+                        app:fontFamily="@font/roboto_light" />
+
+                    <android.support.v7.widget.AppCompatTextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:includeFontPadding="false"
+                        android:text="@string/sec"
+                        android:textColor="@color/colorLightGray"
+                        android:textSize="12sp"
+                        app:fontFamily="@font/roboto_light" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <com.vovasoft.unilot.ui.widgets.GameProgress
+                android:id="@+id/timeProgress"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_weight="5" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_weight="25">
+
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/participateBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/view_rounded_background_gradient"
+                    android:visibility="visible">
+
+                    <android.support.v7.widget.AppCompatImageView
+                        android:id="@+id/appCompatImageView3"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="4dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ic_ticket" />
+
+                    <android.support.v7.widget.AppCompatTextView
+                        android:id="@+id/participateTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:includeFontPadding="false"
+                        android:text="@string/participate"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="16sp"
+                        app:fontFamily="@font/roboto"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/view"
+                        app:layout_constraintStart_toEndOf="@+id/appCompatImageView3"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <View
+                        android:id="@+id/view"
+                        android:layout_width="0.5dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginTop="8dp"
+                        android:background="@color/colorWhite"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/betTv"
+                        app:layout_constraintStart_toEndOf="@+id/participateTv"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <android.support.v7.widget.AppCompatTextView
+                        android:id="@+id/betTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="8dp"
+                        android:includeFontPadding="false"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="14sp"
+                        app:fontFamily="@font/roboto_light"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/view"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </android.support.constraint.ConstraintLayout>
+
+
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/participateMoreBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="gone">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/appCompatImageView4"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <android.support.v7.widget.AppCompatTextView
+                            android:id="@+id/alreadyParticipateTv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:includeFontPadding="false"
+                            android:text="@string/already_participate"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="16sp"
+                            app:fontFamily="@font/roboto"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <android.support.v7.widget.AppCompatImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="6dp"
+                            android:layout_marginStart="6dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/alreadyParticipateTv"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.444"
+                            app:srcCompat="@drawable/ic_check" />
+                    </LinearLayout>
+
+                    <android.support.v7.widget.AppCompatImageView
+                        android:id="@+id/appCompatImageView4"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginRight="16dp"
+                        android:adjustViewBounds="true"
+                        android:background="@drawable/view_oval_background_gradient"
+                        android:paddingTop="6dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintDimensionRatio="1:1"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.444"
+                        app:srcCompat="@drawable/ic_ticket" />
+
+                </android.support.constraint.ConstraintLayout>
+
+            </FrameLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/finishingView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="48"
+            android:background="@drawable/view_rounded_background_semi_black"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="12dp"
+            android:visibility="gone"
+            android:weightSum="100">
+
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="35"
+                android:gravity="center"
+                android:text="@string/system_selecting_winner"
+                android:textColor="@color/colorWhite"
+                android:textSize="24sp" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/calculateTimeTv"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="30"
+                android:fontFamily="@font/roboto_light"
+                android:gravity="center"
+                android:textColor="@color/colorWhite"
+                android:textSize="34sp" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/walletTv"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="10"
+                android:fontFamily="@font/roboto"
+                android:gravity="center"
+                android:textColor="@color/colorWhite"
+                android:textSize="12sp" />
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/copyBtn"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_weight="20"
+                android:background="@drawable/view_square_rounded_gray_stroke">
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:id="@+id/copyImg"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginStart="16dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_copy_orange" />
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:includeFontPadding="false"
+                    android:text="@string/copy_transaction_number"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="14sp"
+                    app:fontFamily="@font/roboto"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/copyImg"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </android.support.constraint.ConstraintLayout>
+
+        </LinearLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/topPlacesBtn"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_weight="10"
+            android:background="@drawable/view_rounded_semi_white_stroke">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/trophyImg"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginStart="16dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_trophy_semi_white" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:includeFontPadding="false"
+                android:text="@string/top_places"
+                android:textColor="@color/colorWhite"
+                android:textSize="16sp"
+                app:fontFamily="@font/roboto"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </android.support.constraint.ConstraintLayout>
+    </LinearLayout>
+
+</FrameLayout>

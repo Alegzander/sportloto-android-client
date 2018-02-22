@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/view_dark_background">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:paddingTop="16dp"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
+
+        <android.support.v7.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fontFamily="@font/roboto"
+            android:text="@string/settings"
+            android:textColor="@color/colorWhite"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <android.support.v7.widget.AppCompatImageButton
+            android:id="@+id/backBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:padding="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_arrow_back_white" />
+
+    </android.support.constraint.ConstraintLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:fontFamily="@font/roboto"
+                android:paddingBottom="8dp"
+                android:paddingEnd="16dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:paddingStart="16dp"
+                android:paddingTop="16dp"
+                android:text="@string/notify_about"
+                android:textColor="@color/colorOrange"
+                android:textSize="22sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/colorDarkGray" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="16dp"
+                android:paddingEnd="16dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:paddingStart="16dp">
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    app:srcCompat="@drawable/ic_day_gray" />
+
+                <android.support.v7.widget.SwitchCompat
+                    android:id="@+id/dailySwitch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginStart="16dp"
+                    android:checked="true"
+                    app:fontFamily="@font/roboto_light"
+                    android:text="@string/about_daily_lottery"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="18sp"
+                    app:thumbTint="@color/colorWhite"
+                    app:trackTint="@color/switch_color" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/colorDarkGray" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="16dp"
+                android:paddingEnd="16dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:paddingStart="16dp">
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    app:srcCompat="@drawable/ic_week_gray" />
+
+                <android.support.v7.widget.SwitchCompat
+                    android:id="@+id/weeklySwitch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginStart="16dp"
+                    android:checked="true"
+                    app:fontFamily="@font/roboto_light"
+                    android:text="@string/about_weekly_lottery"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="18sp"
+                    app:thumbTint="@color/colorWhite"
+                    app:trackTint="@color/switch_color" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/colorDarkGray" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="16dp"
+                android:paddingEnd="16dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:paddingStart="16dp">
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    app:srcCompat="@drawable/ic_month_gray" />
+
+                <android.support.v7.widget.SwitchCompat
+                    android:id="@+id/monthlySwitch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginStart="16dp"
+                    android:checked="true"
+                    app:fontFamily="@font/roboto_light"
+                    android:text="@string/about_bonus_draw"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="18sp"
+                    app:thumbTint="@color/colorWhite"
+                    app:trackTint="@color/switch_color" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/colorDarkGray" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="16dp"
+                android:paddingEnd="16dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:paddingStart="16dp">
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    app:srcCompat="@drawable/ic_token_gray" />
+
+                <android.support.v7.widget.SwitchCompat
+                    android:id="@+id/tokenSwitch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginStart="16dp"
+                    android:checked="true"
+                    app:fontFamily="@font/roboto_light"
+                    android:text="@string/about_token_draw"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="18sp"
+                    app:thumbTint="@color/colorWhite"
+                    app:trackTint="@color/switch_color" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/colorDarkGray" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:fontFamily="@font/roboto"
+                android:paddingBottom="8dp"
+                android:paddingEnd="16dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:paddingStart="16dp"
+                android:paddingTop="16dp"
+                android:text="@string/language_selection"
+                android:textColor="@color/colorOrange"
+                android:textSize="22sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/colorDarkGray" />
+
+            <com.vovasoft.unilot.ui.widgets.CheckButton
+                android:id="@+id/enSwitch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:btnText="@string/english"
+                android:padding="16dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/colorDarkGray" />
+
+            <com.vovasoft.unilot.ui.widgets.CheckButton
+                android:id="@+id/ruSwitch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:btnText="@string/russian"
+                android:padding="16dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/colorDarkGray" />
+
+            <!--<com.vovasoft.unilot.ui.widgets.CheckButton-->
+                <!--android:id="@+id/deSwitch"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--app:btnText="@string/deutsch"-->
+                <!--android:padding="16dp" />-->
+
+            <!--<View-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="0.5dp"-->
+                <!--android:background="@color/colorDarkGray" />-->
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
