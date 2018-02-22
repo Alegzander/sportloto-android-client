@@ -18,7 +18,7 @@ class WinnersViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
 
     fun setData(data: Winner, game: Game) {
         placeTv?.text = data.position?.toString()
-        prizeTv?.text = if (game.type == Game.Type.TOKEN.value) "%.0f".format(game.prize?.amount) else "%.4f".format(game.prize?.amount)
+        prizeTv?.text = if (game.type == Game.Type.TOKEN.value) "%.0f".format(data.prize?.amount) else "%.4f".format(data.prize?.amount)
         prizeFiatTv?.text = "%.2f".format(data.prizeFiat)
     }
 }
